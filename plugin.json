@@ -1,0 +1,13 @@
+{
+  "name": "sapphire-themes",
+  "version": "1.0.0",
+  "description": "Theme manager — bundled themes plus auto-detection of external theme plugins (e.g. Lattice). Select and preview themes from one place.",
+  "short_name": "Themes",
+  "author": "Sapphire Community",
+  "icon": "🎨",
+  "url": "",
+  "priority": 5,
+  "default_enabled": true,
+  "settingsUI": "plugin",
+  "capabilities": {}
+}

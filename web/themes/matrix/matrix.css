@@ -1,0 +1,703 @@
+/* Matrix Theme - matrix.css
+ * "Follow the white rabbit."
+ *
+ * Licensed under AGPL-3.0
+ */
+[data-theme="matrix"] {
+    /* Trim - Core Matrix green */
+    --trim: #00ff46;
+    --trim-glow: rgba(0, 255, 70, 0.35);
+    --trim-light: rgba(0, 255, 70, 0.12);
+    --trim-border: rgba(0, 255, 70, 0.4);
+    --trim-50: rgba(0, 255, 70, 0.55);
+
+    /* Emotion-reactive color — updated by matrix-rain.js each frame */
+    --emotion-color: rgb(0, 255, 70);
+    --emotion-glow: rgba(0, 255, 70, 0.35);
+    --emotion-light: rgba(0, 255, 70, 0.12);
+    --emotion-border: rgba(0, 255, 70, 0.4);
+    --emotion-50: rgba(0, 255, 70, 0.55);
+
+    /* Colors - Core - Deep black with green undertone */
+    --bg: #000000;
+    --bg-secondary: #010a02;
+    --bg-dark: #000800;
+    --bg-tertiary: #021208;
+    --bg-hover: #041a0a;
+    --bg-inset: rgba(0, 0, 0, 0.9);
+    --text: #00ff46;
+    --text-bright: #88ffaa;
+    --text-light: #00cc38;
+    --text-secondary: #009928;
+    --text-tertiary: #006618;
+    --text-muted: #003a0e;
+    --text-dim: #001a06;
+    --border: #003a0e;
+    --border-light: #004d14;
+    --border-hover: #00661a;
+    --border-subtle: rgba(0, 255, 70, 0.08);
+
+    /* Overlays & Shadows - void black */
+    --overlay-bg: rgba(0, 0, 0, 0.96);
+    --overlay-medium: rgba(0, 0, 0, 0.92);
+    --shadow-medium: rgba(0, 0, 0, 0.7);
+    --shadow-heavy: rgba(0, 0, 0, 0.9);
+    --highlight-subtle: rgba(0, 255, 70, 0.06);
+
+    /* Scrollbar */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: rgba(0, 255, 70, 0.2);
+    --scrollbar-thumb-hover: rgba(0, 255, 70, 0.4);
+
+    /* Inputs */
+    --input-bg: #010a02;
+    --input-border: #003a0e;
+    --input-focus-border: #00ff46;
+    --input-focus-bg: #000800;
+    --placeholder-color: #002a0a;
+
+    /* Code/Mono */
+    --code-bg: rgba(0, 8, 2, 0.7);
+
+    /* Focus ring */
+    --focus-ring: rgba(0, 255, 70, 0.5);
+
+    /* Selection */
+    --selection-bg: rgba(0, 255, 70, 0.35);
+    --selection-text: #fff;
+
+    /* Select dropdown arrow */
+    --select-arrow: url('data:image/svg+xml;utf8,<svg fill="%2300ff46" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+
+    /* Primary - Matrix green */
+    --primary: #00ff46;
+    --primary-hover: #00cc38;
+
+    /* Success - bright green */
+    --success: #00ff80;
+    --success-text: #00ff80;
+    --success-bg: rgba(0, 255, 128, 0.9);
+    --success-light: rgba(0, 255, 128, 0.12);
+    --success-border: rgba(0, 255, 128, 0.35);
+    --success-border-hover: rgba(0, 255, 128, 0.55);
+
+    /* Warning - amber */
+    --warning: #ff8800;
+    --warning-text: #ffa030;
+    --warning-bg: rgba(255, 136, 0, 0.9);
+    --warning-light: rgba(255, 160, 48, 0.12);
+    --warning-border: rgba(255, 160, 48, 0.35);
+
+    /* Error/Danger - red */
+    --error: #ff2200;
+    --error-text: #ff4433;
+    --error-bg: rgba(255, 34, 0, 0.9);
+    --error-light: rgba(255, 68, 51, 0.12);
+    --error-border: rgba(255, 68, 51, 0.35);
+    --error-border-hover: rgba(255, 68, 51, 0.55);
+    --error-subtle: rgba(255, 68, 51, 0.08);
+    --danger: #cc1a00;
+    --danger-hover: #aa1500;
+    --danger-red: #ff3311;
+    --danger-glow: rgba(255, 34, 0, 0.6);
+
+    /* Info */
+    --info-bg: rgba(0, 255, 70, 0.9);
+
+    /* Accent colors - Matrix green spectrum */
+    --accent-blue: #00ff46;
+    --accent-blue-hover: #00cc38;
+    --accent-blue-light: rgba(0, 255, 70, 0.15);
+    --accent-blue-border: rgba(0, 255, 70, 0.35);
+    --accent-cyan: #00ff80;
+    --accent-cyan-light: rgba(0, 255, 128, 0.15);
+    --accent-orange: #ff6600;
+
+    /* Chat message backgrounds */
+    --user-bg: #010e04;
+    --assistant-bg: #010802;
+
+    /* Plugin-specific accents */
+    --plugin-spice-bg: rgba(0, 255, 70, 0.12);
+    --plugin-spice-bg-hover: rgba(0, 255, 70, 0.22);
+    --plugin-ability-bg: rgba(0, 255, 128, 0.08);
+    --plugin-ability-bg-hover: rgba(0, 255, 128, 0.15);
+    --plugin-prompt-bg: rgba(0, 255, 70, 0.1);
+    --plugin-prompt-bg-focus: rgba(0, 255, 70, 0.2);
+
+    /* Tool result accent */
+    --tool-result-bg: rgba(0, 255, 128, 0.08);
+
+    /* Kill all border-radius — sharp edges for the Matrix */
+    --radius-sm: 0;
+    --radius-md: 0;
+    --radius-lg: 0;
+    --radius-xl: 0;
+
+    /* Typeface — monospace everything */
+    font-family: 'Consolas', 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Monospace contexts */
+[data-theme="matrix"] code,
+[data-theme="matrix"] pre,
+[data-theme="matrix"] kbd,
+[data-theme="matrix"] .monospace,
+[data-theme="matrix"] textarea,
+[data-theme="matrix"] #prompt-input {
+    font-family: 'Consolas', 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* === MATRIX ENHANCEMENTS === */
+
+/* === Z-INDEX STACKING ORDER === */
+[data-theme="matrix"] {
+    --z-canvas: 0;
+    --z-content: 1;
+    --z-panels: 10;
+    --z-sidebars: 100;
+    --z-hud: 998;
+    --z-nav: 999;
+    --z-modal: 1050;
+    --z-toast: 1100;
+}
+
+/* EVERYTHING sits on top of the canvas */
+[data-theme="matrix"] #nav-rail {
+    z-index: var(--z-nav);
+    position: fixed;
+}
+[data-theme="matrix"] #app-content {
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat area — semi-transparent so rain is subtly visible */
+[data-theme="matrix"] #chatbg {
+    position: relative;
+    background-color: rgba(0, 2, 0, 0.85) !important;
+    border: 1px solid rgba(0, 255, 70, 0.08);
+}
+
+[data-theme="matrix"] #chatbg-overlay {
+    background: rgba(0, 0, 0, 0.4) !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Body background */
+[data-theme="matrix"] body {
+    background-image: none;
+    background-color: #000;
+}
+
+/* Disable body scan lines — rain canvas is the background */
+[data-theme="matrix"] body::before {
+    display: none;
+}
+
+/* ALL views — semi-transparent base so content is visible over canvas */
+[data-theme="matrix"] .view {
+    background: rgba(0, 4, 1, 0.85) !important;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* View body / content areas — slightly transparent */
+[data-theme="matrix"] .view-body,
+[data-theme="matrix"] .view-scroll {
+    background: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* View headers */
+[data-theme="matrix"] .view-header {
+    background: rgba(0, 8, 2, 0.9);
+    border-bottom: 1px solid rgba(0, 255, 70, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Sidebar sections / accordion headers */
+[data-theme="matrix"] .sidebar-section {
+    background: rgba(0, 8, 2, 0.5);
+    border-bottom: 1px solid rgba(0, 255, 70, 0.06);
+}
+[data-theme="matrix"] .sidebar-accordion-header {
+    background: rgba(0, 8, 2, 0.6);
+}
+[data-theme="matrix"] .sidebar-accordion-header:hover {
+    background: rgba(0, 20, 5, 0.7);
+}
+
+/* Module backdrop */
+[data-theme="matrix"] #module-backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Scan lines on UI panels — green tinted */
+[data-theme="matrix"] #nav-rail::before,
+[data-theme="matrix"] .chat-sidebar::before,
+[data-theme="matrix"] .view.floating-module::before,
+[data-theme="matrix"] .modal-content::before,
+[data-theme="matrix"] .nav-flyout::before,
+[data-theme="matrix"] .kebab-dropdown::before,
+[data-theme="matrix"] .nav-overflow-menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 70, 0.03) 2px,
+        rgba(0, 255, 70, 0.03) 4px
+    );
+    mix-blend-mode: screen;
+}
+
+/* Projector glow — green bottom glow */
+[data-theme="matrix"] body::after {
+    content: '';
+    position: fixed;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50vw;
+    height: 140px;
+    pointer-events: none;
+    z-index: var(--z-canvas);
+    background:
+        radial-gradient(ellipse at center, transparent 55%, rgba(0, 255, 70, 0.04) 58%, transparent 62%),
+        radial-gradient(ellipse at center, transparent 35%, rgba(0, 255, 70, 0.06) 38%, transparent 42%),
+        radial-gradient(ellipse at center, transparent 15%, rgba(0, 255, 70, 0.08) 18%, transparent 22%),
+        radial-gradient(ellipse at center, rgba(0, 255, 70, 0.1) 0%, rgba(0, 200, 50, 0.03) 30%, transparent 60%);
+    filter: blur(8px);
+}
+
+/* Send button - emotion-reactive */
+[data-theme="matrix"] #send-btn,
+[data-theme="matrix"] #send-btn.llm-local,
+[data-theme="matrix"] #send-btn.llm-cloud,
+[data-theme="matrix"] #send-btn.llm-auto,
+[data-theme="matrix"] #send-btn.use-trim,
+[data-theme="matrix"] #send-btn.use-trim.llm-local,
+[data-theme="matrix"] #send-btn.use-trim.llm-cloud,
+[data-theme="matrix"] #send-btn.use-trim.llm-auto {
+    background: var(--emotion-color) !important;
+    box-shadow: 0 0 12px var(--emotion-glow), inset 0 0 8px var(--emotion-light) !important;
+    border: 1px solid var(--emotion-border) !important;
+    color: #000 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+[data-theme="matrix"] #send-btn:hover,
+[data-theme="matrix"] #send-btn.llm-local:hover,
+[data-theme="matrix"] #send-btn.llm-cloud:hover,
+[data-theme="matrix"] #send-btn.llm-auto:hover,
+[data-theme="matrix"] #send-btn.use-trim:hover {
+    background: var(--emotion-50) !important;
+    box-shadow: 0 0 20px var(--emotion-glow), inset 0 0 12px var(--emotion-light) !important;
+}
+
+/* Nav rail — semi-transparent so rain shows through */
+[data-theme="matrix"] #nav-rail {
+    background: rgba(0, 0, 0, 0.85) !important;
+    border-right: 1px solid rgba(0, 255, 70, 0.15);
+}
+
+/* Nav icons — Matrix green */
+[data-theme="matrix"] .nav-icon.themes-icon svg {
+    color: #00ff46;
+    filter: drop-shadow(0 0 4px rgba(0, 255, 70, 0.3));
+    transition: all 0.3s ease;
+}
+
+[data-theme="matrix"] .nav-item:hover .nav-icon.themes-icon svg {
+    color: #aaffaa;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 70, 0.7));
+}
+
+[data-theme="matrix"] .nav-item.active .nav-icon.themes-icon svg {
+    color: var(--emotion-color);
+    filter: drop-shadow(0 0 10px rgba(0, 255, 70, 0.8));
+}
+
+/* Nav label text */
+[data-theme="matrix"] .nav-label {
+    color: #00ff46;
+    text-shadow: 0 0 6px rgba(0, 255, 70, 0.3);
+}
+
+[data-theme="matrix"] .nav-item:hover .nav-label {
+    color: #aaffaa;
+    text-shadow: 0 0 8px rgba(0, 255, 70, 0.5);
+}
+
+[data-theme="matrix"] .nav-item.active .nav-label {
+    color: #88ffaa;
+    text-shadow: 0 0 10px rgba(0, 255, 70, 0.6);
+}
+
+/* Chat area — semi-transparent */
+[data-theme="matrix"] .chat-messages,
+[data-theme="matrix"] .chat-container,
+[data-theme="matrix"] .view-content {
+    background: rgba(0, 0, 0, 0.75);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat sidebar */
+[data-theme="matrix"] .chat-sidebar {
+    background: rgba(0, 0, 0, 0.92) !important;
+    border-right: 1px solid rgba(0, 255, 70, 0.12);
+    position: relative;
+    z-index: var(--z-sidebars);
+}
+
+/* Ensure all setting rows, lists, and panels are visible */
+[data-theme="matrix"] .setting-row,
+[data-theme="matrix"] .setting-group,
+[data-theme="matrix"] .settings-panel,
+[data-theme="matrix"] .settings-content,
+[data-theme="matrix"] .tab-content,
+[data-theme="matrix"] .tab-pane,
+[data-theme="matrix"] .persona-list,
+[data-theme="matrix"] .persona-card,
+[data-theme="matrix"] .prompt-list,
+[data-theme="matrix"] .toolset-list,
+[data-theme="matrix"] .spice-list,
+[data-theme="matrix"] .schedule-list,
+[data-theme="matrix"] .memory-list,
+[data-theme="matrix"] .knowledge-list,
+[data-theme="matrix"] .help-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Message bubbles */
+[data-theme="matrix"] .message.user .message-content {
+    background: rgba(0, 20, 5, 0.8);
+    border: 1px solid rgba(0, 255, 70, 0.1);
+}
+
+[data-theme="matrix"] .message.assistant .message-content {
+    background: rgba(0, 10, 3, 0.8);
+    border: 1px solid rgba(0, 255, 70, 0.06);
+}
+
+/* Input area */
+[data-theme="matrix"] .prompt-container,
+[data-theme="matrix"] .chat-input-container {
+    background: rgba(0, 0, 0, 0.9);
+    border-top: 1px solid rgba(0, 255, 70, 0.12);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+[data-theme="matrix"] #prompt-input {
+    background: rgba(0, 8, 2, 0.8) !important;
+    border: 1px solid rgba(0, 255, 70, 0.2) !important;
+    color: #00ff46 !important;
+    caret-color: #00ff46;
+}
+
+[data-theme="matrix"] #prompt-input:focus {
+    border-color: rgba(0, 255, 70, 0.5) !important;
+    box-shadow: 0 0 10px rgba(0, 255, 70, 0.15) !important;
+}
+
+[data-theme="matrix"] #prompt-input::placeholder {
+    color: #003a0e;
+}
+
+/* Modals */
+[data-theme="matrix"] .modal-content {
+    background: rgba(0, 4, 1, 0.96) !important;
+    border: 1px solid rgba(0, 255, 70, 0.2);
+    box-shadow: 0 0 30px rgba(0, 255, 70, 0.1), 0 0 60px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: var(--z-modal);
+}
+
+/* Modal overlay */
+[data-theme="matrix"] .modal-overlay,
+[data-theme="matrix"] .modal-backdrop {
+    z-index: var(--z-modal);
+}
+
+/* Buttons — only target .btn class, not all <button> elements */
+[data-theme="matrix"] .btn {
+    border: 1px solid rgba(0, 255, 70, 0.3);
+    color: #00ff46;
+    background: rgba(0, 255, 70, 0.06);
+}
+
+[data-theme="matrix"] .btn:hover {
+    background: rgba(0, 255, 70, 0.15);
+    border-color: rgba(0, 255, 70, 0.5);
+    box-shadow: 0 0 8px rgba(0, 255, 70, 0.2);
+}
+
+/* Generic button reset — don't override sizing/layout on non-.btn buttons */
+[data-theme="matrix"] button:not(.btn):not(.sb-icon-btn):not(.kebab-btn):not(.sb-mode-tab):not(.sb-chat-picker-btn):not(.sb-collapse-btn):not(#send-btn) {
+    color: inherit;
+}
+
+/* Flyout menus — color only, don't touch position (kebab-dropdown must stay absolute) */
+[data-theme="matrix"] .nav-flyout,
+[data-theme="matrix"] .kebab-dropdown,
+[data-theme="matrix"] .nav-overflow-menu {
+    background: rgba(0, 4, 1, 0.95) !important;
+    border: 1px solid rgba(0, 255, 70, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 255, 70, 0.05);
+}
+
+[data-theme="matrix"] .nav-flyout,
+[data-theme="matrix"] .nav-overflow-menu {
+    position: relative;
+    z-index: var(--z-nav);
+}
+
+/* Settings panels — floating module style */
+[data-theme="matrix"] .view.floating-module {
+    background: rgba(0, 4, 1, 0.95) !important;
+    border: 1px solid rgba(0, 255, 70, 0.12);
+    position: relative;
+    z-index: var(--z-panels);
+}
+
+/* Select dropdowns */
+[data-theme="matrix"] select,
+[data-theme="matrix"] .setting-select {
+    background: rgba(0, 8, 2, 0.8);
+    border: 1px solid rgba(0, 255, 70, 0.2);
+    color: #00ff46;
+}
+
+[data-theme="matrix"] select:focus,
+[data-theme="matrix"] .setting-select:focus {
+    border-color: rgba(0, 255, 70, 0.5);
+    box-shadow: 0 0 8px rgba(0, 255, 70, 0.15);
+}
+
+/* Scrollbar */
+[data-theme="matrix"] ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+[data-theme="matrix"] ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[data-theme="matrix"] ::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 70, 0.2);
+    border-radius: 0;
+}
+
+[data-theme="matrix"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 70, 0.4);
+}
+
+/* Links */
+[data-theme="matrix"] a {
+    color: #00ff46;
+}
+
+[data-theme="matrix"] a:hover {
+    color: #88ffaa;
+    text-shadow: 0 0 6px rgba(0, 255, 70, 0.4);
+}
+
+/* Code blocks */
+[data-theme="matrix"] pre {
+    background: rgba(0, 8, 2, 0.6) !important;
+    border: 1px solid rgba(0, 255, 70, 0.1);
+}
+
+[data-theme="matrix"] code {
+    color: #00cc38;
+}
+
+/* Selection highlight */
+[data-theme="matrix"] ::selection {
+    background: rgba(0, 255, 70, 0.35);
+    color: #fff;
+}
+
+/* Toast notifications */
+[data-theme="matrix"] .toast {
+    background: rgba(0, 4, 1, 0.95) !important;
+    border: 1px solid rgba(0, 255, 70, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 70, 0.1);
+    z-index: var(--z-toast);
+}
+
+/* Text glow on headings */
+[data-theme="matrix"] h1,
+[data-theme="matrix"] h2,
+[data-theme="matrix"] h3 {
+    color: #00ff46;
+    text-shadow: 0 0 8px rgba(0, 255, 70, 0.2);
+}
+
+/* Typing cursor blink — green */
+[data-theme="matrix"] .typing-indicator {
+    color: #00ff46;
+}
+
+/* Loading/thinking states */
+[data-theme="matrix"] .thinking-indicator {
+    color: #00ff46;
+    text-shadow: 0 0 10px rgba(0, 255, 70, 0.5);
+}
+
+/* Toggle switches — Matrix green */
+[data-theme="matrix"] .toggle-switch input:checked + .toggle-slider,
+[data-theme="matrix"] .switch input:checked + .slider,
+[data-theme="matrix"] input[type="checkbox"]:checked + label::before,
+[data-theme="matrix"] .toggle.active {
+    background-color: #00ff46 !important;
+    border-color: #00ff46 !important;
+    box-shadow: 0 0 8px rgba(0, 255, 70, 0.3);
+}
+
+/* Labels and text in settings/views */
+[data-theme="matrix"] .setting-label label,
+[data-theme="matrix"] .setting-help,
+[data-theme="matrix"] .text-muted {
+    color: #009928;
+}
+
+[data-theme="matrix"] .setting-label label {
+    color: #00ff46;
+}
+
+/* Tab navigation in views */
+[data-theme="matrix"] .nav-tabs .nav-link,
+[data-theme="matrix"] .tab-bar .tab {
+    color: #009928;
+    border-color: transparent;
+}
+
+[data-theme="matrix"] .nav-tabs .nav-link.active,
+[data-theme="matrix"] .tab-bar .tab.active {
+    color: #00ff46;
+    border-bottom-color: #00ff46;
+    text-shadow: 0 0 6px rgba(0, 255, 70, 0.3);
+}
+
+[data-theme="matrix"] .nav-tabs .nav-link:hover,
+[data-theme="matrix"] .tab-bar .tab:hover {
+    color: #88ffaa;
+}
+
+/* Cards in persona/prompt/spice/toolset lists */
+[data-theme="matrix"] .card,
+[data-theme="matrix"] .list-item,
+[data-theme="matrix"] .persona-card,
+[data-theme="matrix"] .item-card {
+    background: rgba(0, 8, 2, 0.6);
+    border: 1px solid rgba(0, 255, 70, 0.1);
+    color: #00ff46;
+}
+
+[data-theme="matrix"] .card:hover,
+[data-theme="matrix"] .list-item:hover,
+[data-theme="matrix"] .persona-card:hover,
+[data-theme="matrix"] .item-card:hover {
+    background: rgba(0, 15, 4, 0.7);
+    border-color: rgba(0, 255, 70, 0.25);
+    box-shadow: 0 0 10px rgba(0, 255, 70, 0.08);
+}
+
+/* Version panel / about */
+[data-theme="matrix"] .version-info,
+[data-theme="matrix"] .about-panel {
+    position: relative;
+    z-index: 2;
+    color: #00ff46;
+}
+
+/* Ensure all text content is visible */
+[data-theme="matrix"] p,
+[data-theme="matrix"] span,
+[data-theme="matrix"] div,
+[data-theme="matrix"] label,
+[data-theme="matrix"] li {
+    color: inherit;
+}
+
+/* === CHAT SIDEBAR === */
+
+/* Chat action buttons — only restyle colors, don't touch layout/sizing */
+[data-theme="matrix"] .sb-chat-actions {
+    border-bottom-color: rgba(0, 255, 70, 0.1);
+}
+
+[data-theme="matrix"] .sb-icon-btn {
+    color: #009928;
+}
+
+[data-theme="matrix"] .sb-icon-btn:hover {
+    background: rgba(0, 255, 70, 0.12);
+    color: #00ff46;
+}
+
+[data-theme="matrix"] .sb-icon-danger:hover {
+    color: var(--error) !important;
+}
+
+/* Kebab dropdown — import/export buttons */
+[data-theme="matrix"] .sb-kebab .kebab-dropdown {
+    background: rgba(0, 4, 1, 0.95);
+    border: 1px solid rgba(0, 255, 70, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="matrix"] .sb-kebab .kebab-dropdown button {
+    color: #009928;
+    background: transparent;
+    border: none;
+}
+
+[data-theme="matrix"] .sb-kebab .kebab-dropdown button:hover {
+    background: rgba(0, 255, 70, 0.12);
+    color: #00ff46;
+}
+
+/* Chat header */
+[data-theme="matrix"] .sb-chat-picker-btn {
+    color: #00ff46;
+}
+
+[data-theme="matrix"] .sb-chat-picker-btn:hover {
+    color: #88ffaa;
+}
+
+/* Sidebar mode tabs */
+[data-theme="matrix"] .sb-mode-tab {
+    color: #009928;
+    border-bottom-color: transparent;
+}
+
+[data-theme="matrix"] .sb-mode-tab.active {
+    color: #00ff46;
+    border-bottom-color: #00ff46;
+}
+
+[data-theme="matrix"] .sb-mode-tab:hover {
+    color: #88ffaa;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    [data-theme="matrix"] .view {
+        transition: none;
+    }
+}
