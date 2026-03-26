@@ -439,6 +439,97 @@ const THEME_SETTINGS = {
         _applyCosmosChatStyle(currentChatStyle);
     },
 
+    prism: (panel) => {
+        const currentPerf = localStorage.getItem('prism-perf-tier') || 'auto';
+        const currentChatStyle = localStorage.getItem('prism-chat-style') || 'transparent';
+        const currentAccent = localStorage.getItem('prism-accent') || 'rainbow';
+
+        const accentOptions = [
+            { value: 'rainbow', label: '🌈 Rainbow' },
+            { value: 'red', label: '🔴 Red' },
+            { value: 'orange', label: '🟠 Orange' },
+            { value: 'gold', label: '🟡 Gold' },
+            { value: 'green', label: '🟢 Green' },
+            { value: 'blue', label: '🔵 Blue' },
+            { value: 'purple', label: '🟣 Purple' },
+            { value: 'pink', label: '🩷 Pink' },
+            { value: 'cyan', label: '🩵 Cyan' },
+        ];
+
+        panel.innerHTML = `
+            <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:8px;">
+                <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">
+                    Prism Settings
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center;">
+                    <div class="setting-label">
+                        <label for="pr-accent">Accent Color</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">UI and rain color scheme</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="pr-accent" class="setting-select" style="min-width:120px;">
+                            ${accentOptions.map(o => `<option value="${o.value}" ${currentAccent === o.value ? 'selected' : ''}>${o.label}</option>`).join('')}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="pr-chat-style">Chat Style</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">How messages appear over the rain</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="pr-chat-style" class="setting-select" style="min-width:100px;">
+                            <option value="transparent" ${currentChatStyle === 'transparent' ? 'selected' : ''}>Transparent</option>
+                            <option value="glass" ${currentChatStyle === 'glass' ? 'selected' : ''}>Frosted Glass</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="pr-perf">Performance Tier</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Lower tiers reduce GPU usage</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="pr-perf" class="setting-select" style="min-width:100px;">
+                            <option value="auto" ${currentPerf === 'auto' ? 'selected' : ''}>Auto-detect</option>
+                            <option value="low" ${currentPerf === 'low' ? 'selected' : ''}>Low</option>
+                            <option value="medium" ${currentPerf === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="high" ${currentPerf === 'high' ? 'selected' : ''}>High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        panel.querySelector('#pr-accent')?.addEventListener('change', (e) => {
+            localStorage.setItem('prism-accent', e.target.value);
+            document.documentElement.setAttribute('data-prism-accent', e.target.value);
+            window.dispatchEvent(new CustomEvent('prism-accent-change', { detail: e.target.value }));
+        });
+
+        panel.querySelector('#pr-chat-style')?.addEventListener('change', (e) => {
+            localStorage.setItem('prism-chat-style', e.target.value);
+            _applyPrismChatStyle(e.target.value);
+        });
+
+        panel.querySelector('#pr-perf')?.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === 'auto') {
+                localStorage.removeItem('prism-perf-tier');
+            } else {
+                localStorage.setItem('prism-perf-tier', val);
+            }
+            window.dispatchEvent(new CustomEvent('prism-perf-change', { detail: val }));
+        });
+
+        // Apply current accent and chat style
+        document.documentElement.setAttribute('data-prism-accent', currentAccent);
+        _applyPrismChatStyle(currentChatStyle);
+    },
+
     // Add settings for future themes here:
 };
 
@@ -463,6 +554,10 @@ function _applyCosmosChatStyle(style) {
     document.documentElement.setAttribute('data-cosmos-chat', style);
 }
 
+function _applyPrismChatStyle(style) {
+    document.documentElement.setAttribute('data-prism-chat', style);
+}
+
 // Apply saved chat styles on load and theme change
 (function() {
     function applyForTheme(theme) {
@@ -472,6 +567,8 @@ function _applyCosmosChatStyle(style) {
         document.documentElement.removeAttribute('data-ironman-chat');
         document.documentElement.removeAttribute('data-nexus-chat');
         document.documentElement.removeAttribute('data-cosmos-chat');
+        document.documentElement.removeAttribute('data-prism-chat');
+        document.documentElement.removeAttribute('data-prism-accent');
 
         if (theme === 'matrix') {
             const style = localStorage.getItem('matrix-chat-style') || 'transparent';
@@ -488,6 +585,11 @@ function _applyCosmosChatStyle(style) {
         } else if (theme === 'cosmos') {
             const style = localStorage.getItem('cosmos-chat-style') || 'transparent';
             document.documentElement.setAttribute('data-cosmos-chat', style);
+        } else if (theme === 'prism') {
+            const style = localStorage.getItem('prism-chat-style') || 'transparent';
+            document.documentElement.setAttribute('data-prism-chat', style);
+            const accent = localStorage.getItem('prism-accent') || 'rainbow';
+            document.documentElement.setAttribute('data-prism-accent', accent);
         }
     }
 

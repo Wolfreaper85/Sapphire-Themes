@@ -1,0 +1,805 @@
+/* Prism Theme - prism.css
+ * "Every color of the spectrum."
+ *
+ * Licensed under AGPL-3.0
+ */
+
+/* Register --trim as an animatable color property */
+@property --trim {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: hsl(0, 80%, 60%);
+}
+
+/* Rainbow hue-shift keyframes */
+@keyframes prism-hue-shift {
+    0%   { --trim: hsl(0, 80%, 60%); }
+    16%  { --trim: hsl(60, 80%, 60%); }
+    33%  { --trim: hsl(120, 80%, 60%); }
+    50%  { --trim: hsl(180, 80%, 60%); }
+    66%  { --trim: hsl(240, 80%, 60%); }
+    83%  { --trim: hsl(300, 80%, 60%); }
+    100% { --trim: hsl(360, 80%, 60%); }
+}
+
+[data-theme="prism"] {
+    /* Rainbow animation (default) */
+    animation: prism-hue-shift 15s linear infinite;
+
+    /* Colors - Core - Very dark with slight blue */
+    --bg: #080810;
+    --bg-secondary: #0e0e1a;
+    --bg-dark: #060610;
+    --bg-tertiary: #12121e;
+    --bg-hover: #18182a;
+    --bg-inset: rgba(8, 8, 16, 0.9);
+    --text: #e0dce8;
+    --text-bright: #f0ecf8;
+    --text-light: #b8b4c4;
+    --text-secondary: #8880a0;
+    --text-tertiary: #58506e;
+    --text-muted: #38304a;
+    --text-dim: #1c1828;
+    --border: #1a1a2e;
+    --border-light: #24243a;
+    --border-hover: #303050;
+    --border-subtle: rgba(180, 180, 220, 0.08);
+
+    /* Overlays & Shadows */
+    --overlay-bg: rgba(6, 6, 12, 0.96);
+    --overlay-medium: rgba(6, 6, 12, 0.92);
+    --shadow-medium: rgba(0, 0, 0, 0.7);
+    --shadow-heavy: rgba(0, 0, 0, 0.9);
+    --highlight-subtle: color-mix(in srgb, var(--trim) 6%, transparent);
+
+    /* Scrollbar */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: color-mix(in srgb, var(--trim) 20%, transparent);
+    --scrollbar-thumb-hover: color-mix(in srgb, var(--trim) 40%, transparent);
+
+    /* Inputs */
+    --input-bg: #0e0e1a;
+    --input-border: #1a1a2e;
+    --input-focus-border: var(--trim);
+    --input-focus-bg: #060610;
+    --placeholder-color: #252030;
+
+    /* Code/Mono */
+    --code-bg: rgba(8, 8, 20, 0.7);
+
+    /* Focus ring */
+    --focus-ring: color-mix(in srgb, var(--trim) 50%, transparent);
+
+    /* Selection */
+    --selection-bg: color-mix(in srgb, var(--trim) 35%, transparent);
+    --selection-text: #fff;
+
+    /* Select dropdown arrow - neutral white since accent shifts */
+    --select-arrow: url('data:image/svg+xml;utf8,<svg fill="%23b8b4c4" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+
+    /* Primary - uses trim */
+    --primary: var(--trim);
+    --primary-hover: color-mix(in srgb, var(--trim) 80%, black);
+
+    /* Success - uses trim to match accent */
+    --success: var(--trim);
+    --success-text: var(--trim);
+    --success-bg: color-mix(in srgb, var(--trim) 90%, transparent);
+    --success-light: color-mix(in srgb, var(--trim) 12%, transparent);
+    --success-border: color-mix(in srgb, var(--trim) 35%, transparent);
+    --success-border-hover: color-mix(in srgb, var(--trim) 55%, transparent);
+
+    /* Warning - Warm amber */
+    --warning: #ffaa00;
+    --warning-text: #ffbb30;
+    --warning-bg: rgba(255, 170, 0, 0.9);
+    --warning-light: rgba(255, 187, 48, 0.12);
+    --warning-border: rgba(255, 187, 48, 0.35);
+
+    /* Error/Danger - Alert red */
+    --error: #ff3030;
+    --error-text: #ff5050;
+    --error-bg: rgba(255, 48, 48, 0.9);
+    --error-light: rgba(255, 80, 80, 0.12);
+    --error-border: rgba(255, 80, 80, 0.35);
+    --error-border-hover: rgba(255, 80, 80, 0.55);
+    --error-subtle: rgba(255, 80, 80, 0.08);
+    --danger: #cc2020;
+    --danger-hover: #aa1818;
+    --danger-red: #ff4040;
+    --danger-glow: rgba(255, 48, 48, 0.6);
+
+    /* Info */
+    --info-bg: color-mix(in srgb, var(--trim) 90%, transparent);
+
+    /* Accent colors - all driven by --trim */
+    --accent-blue: var(--trim);
+    --accent-blue-hover: color-mix(in srgb, var(--trim) 80%, black);
+    --accent-blue-light: color-mix(in srgb, var(--trim) 15%, transparent);
+    --accent-blue-border: color-mix(in srgb, var(--trim) 35%, transparent);
+    --accent-cyan: var(--trim);
+    --accent-cyan-light: color-mix(in srgb, var(--trim) 15%, transparent);
+    --accent-orange: #ffaa00;
+
+    /* Chat message backgrounds */
+    --user-bg: #0a0a16;
+    --assistant-bg: #070712;
+
+    /* Plugin-specific accents */
+    --plugin-spice-bg: color-mix(in srgb, var(--trim) 12%, transparent);
+    --plugin-spice-bg-hover: color-mix(in srgb, var(--trim) 22%, transparent);
+    --plugin-ability-bg: color-mix(in srgb, var(--trim) 8%, transparent);
+    --plugin-ability-bg-hover: color-mix(in srgb, var(--trim) 15%, transparent);
+    --plugin-prompt-bg: color-mix(in srgb, var(--trim) 10%, transparent);
+    --plugin-prompt-bg-focus: color-mix(in srgb, var(--trim) 20%, transparent);
+
+    /* Tool result accent */
+    --tool-result-bg: color-mix(in srgb, var(--trim) 8%, transparent);
+
+    /* Rounded edges */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+
+    /* Typeface — clean modern */
+    font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+}
+
+/* === FIXED COLOR MODES === */
+[data-theme="prism"][data-prism-accent="rainbow"] {
+    animation: prism-hue-shift 15s linear infinite;
+}
+
+[data-theme="prism"][data-prism-accent="red"] {
+    --trim: #ff4444;
+    animation: none;
+}
+
+[data-theme="prism"][data-prism-accent="orange"] {
+    --trim: #ff8844;
+    animation: none;
+}
+
+[data-theme="prism"][data-prism-accent="gold"] {
+    --trim: #ffaa33;
+    animation: none;
+}
+
+[data-theme="prism"][data-prism-accent="green"] {
+    --trim: #44ff66;
+    animation: none;
+}
+
+[data-theme="prism"][data-prism-accent="blue"] {
+    --trim: #4488ff;
+    animation: none;
+}
+
+[data-theme="prism"][data-prism-accent="purple"] {
+    --trim: #7b68ee;
+    animation: none;
+}
+
+[data-theme="prism"][data-prism-accent="pink"] {
+    --trim: #ff69b4;
+    animation: none;
+}
+
+[data-theme="prism"][data-prism-accent="cyan"] {
+    --trim: #00e5ff;
+    animation: none;
+}
+
+/* Monospace contexts */
+[data-theme="prism"] code,
+[data-theme="prism"] pre,
+[data-theme="prism"] kbd,
+[data-theme="prism"] .monospace,
+[data-theme="prism"] textarea,
+[data-theme="prism"] #prompt-input {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+/* === PRISM ENHANCEMENTS === */
+
+/* Z-INDEX STACKING ORDER */
+[data-theme="prism"] {
+    --z-canvas: 0;
+    --z-content: 1;
+    --z-panels: 10;
+    --z-sidebars: 100;
+    --z-hud: 998;
+    --z-nav: 999;
+    --z-modal: 1050;
+    --z-toast: 1100;
+}
+
+/* EVERYTHING sits on top of the canvas */
+[data-theme="prism"] #nav-rail {
+    z-index: var(--z-nav);
+    position: fixed;
+}
+[data-theme="prism"] #app-content {
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat area — fully transparent so effects show through */
+[data-theme="prism"] #chatbg {
+    position: relative;
+    background-color: transparent !important;
+}
+
+[data-theme="prism"] #chatbg-overlay {
+    background: transparent !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Body background */
+[data-theme="prism"] body {
+    background-image: none;
+    background-color: #080810;
+}
+
+[data-theme="prism"] body::before {
+    display: none;
+}
+
+/* ALL views — semi-transparent */
+[data-theme="prism"] .view {
+    background: rgba(8, 8, 16, 0.88) !important;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view — fully transparent */
+[data-theme="prism"] #view-chat {
+    background: transparent !important;
+}
+
+[data-theme="prism"] #view-chat .view-body,
+[data-theme="prism"] #view-chat .view-scroll,
+[data-theme="prism"] #view-chat .chat-body {
+    background: transparent !important;
+}
+
+/* Non-chat view body */
+[data-theme="prism"] .view-body,
+[data-theme="prism"] .view-scroll {
+    background: rgba(8, 8, 16, 0.6) !important;
+}
+
+/* View headers */
+[data-theme="prism"] .view-header {
+    background: rgba(10, 10, 22, 0.9);
+    border-bottom: 1px solid color-mix(in srgb, var(--trim) 10%, transparent);
+    position: relative;
+    z-index: 2;
+}
+
+/* Sidebar sections */
+[data-theme="prism"] .sidebar-section {
+    background: rgba(10, 10, 22, 0.5);
+    border-bottom: 1px solid color-mix(in srgb, var(--trim) 6%, transparent);
+}
+[data-theme="prism"] .sidebar-accordion-header {
+    background: rgba(10, 10, 22, 0.6);
+}
+[data-theme="prism"] .sidebar-accordion-header:hover {
+    background: rgba(18, 18, 40, 0.7);
+}
+
+/* Module backdrop */
+[data-theme="prism"] #module-backdrop {
+    background: rgba(6, 6, 12, 0.6);
+}
+
+/* Subtle scan lines on UI panels */
+[data-theme="prism"] #nav-rail::before,
+[data-theme="prism"] .chat-sidebar::before,
+[data-theme="prism"] .view.floating-module::before,
+[data-theme="prism"] .modal-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        color-mix(in srgb, var(--trim) 1.5%, transparent) 3px,
+        color-mix(in srgb, var(--trim) 1.5%, transparent) 6px
+    );
+    mix-blend-mode: screen;
+}
+
+/* Accent glow — bottom center */
+[data-theme="prism"] body::after {
+    content: '';
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40vw;
+    height: 180px;
+    pointer-events: none;
+    z-index: var(--z-canvas);
+    background:
+        radial-gradient(ellipse at center, color-mix(in srgb, var(--trim) 15%, transparent) 0%, color-mix(in srgb, var(--trim) 5%, transparent) 30%, transparent 60%);
+    filter: blur(12px);
+}
+
+/* Send button — dark text on bright accent */
+[data-theme="prism"] #send-btn,
+[data-theme="prism"] #send-btn.llm-local,
+[data-theme="prism"] #send-btn.llm-cloud,
+[data-theme="prism"] #send-btn.llm-auto,
+[data-theme="prism"] #send-btn.use-trim,
+[data-theme="prism"] #send-btn.use-trim.llm-local,
+[data-theme="prism"] #send-btn.use-trim.llm-cloud,
+[data-theme="prism"] #send-btn.use-trim.llm-auto {
+    background: var(--trim) !important;
+    box-shadow: 0 0 12px color-mix(in srgb, var(--trim) 35%, transparent), inset 0 0 8px color-mix(in srgb, var(--trim) 12%, transparent) !important;
+    border: 1px solid color-mix(in srgb, var(--trim) 40%, transparent) !important;
+    color: #080810 !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+[data-theme="prism"] #send-btn:hover {
+    background: color-mix(in srgb, var(--trim) 55%, transparent) !important;
+    box-shadow: 0 0 20px color-mix(in srgb, var(--trim) 35%, transparent), inset 0 0 12px color-mix(in srgb, var(--trim) 12%, transparent) !important;
+}
+
+/* Nav rail */
+[data-theme="prism"] #nav-rail {
+    background: rgba(8, 8, 16, 0.9) !important;
+    border-right: 1px solid color-mix(in srgb, var(--trim) 12%, transparent);
+}
+
+/* Nav icons */
+[data-theme="prism"] .nav-icon.themes-icon svg {
+    color: var(--trim);
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--trim) 30%, transparent));
+    transition: all 0.3s ease;
+}
+
+[data-theme="prism"] .nav-item:hover .nav-icon.themes-icon svg {
+    color: color-mix(in srgb, var(--trim) 70%, white);
+    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--trim) 60%, transparent));
+}
+
+[data-theme="prism"] .nav-item.active .nav-icon.themes-icon svg {
+    color: var(--trim);
+    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--trim) 80%, transparent));
+}
+
+/* Nav label text */
+[data-theme="prism"] .nav-label {
+    color: #b8b4c4;
+    text-shadow: 0 0 6px color-mix(in srgb, var(--trim) 20%, transparent);
+}
+
+[data-theme="prism"] .nav-item:hover .nav-label {
+    color: #e0dce8;
+    text-shadow: 0 0 8px color-mix(in srgb, var(--trim) 40%, transparent);
+}
+
+[data-theme="prism"] .nav-item.active .nav-label {
+    color: #f0ecf8;
+    text-shadow: 0 0 10px color-mix(in srgb, var(--trim) 50%, transparent);
+}
+
+/* Chat area — transparent */
+[data-theme="prism"] .chat-messages,
+[data-theme="prism"] .chat-container {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view-content — transparent */
+[data-theme="prism"] #view-chat .view-content {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Other view-content */
+[data-theme="prism"] .view-content {
+    background: rgba(8, 8, 16, 0.6);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* === MESSAGE PANES === */
+
+/* Message row — transparent */
+[data-theme="prism"] .message {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin-bottom: 26px;
+    filter: none;
+    --msg-max-width: 70%;
+}
+
+/* === TRANSPARENT MODE (default) === */
+[data-theme="prism"] .message-content {
+    background: rgba(10, 10, 22, 0.3) !important;
+    border: 1px solid color-mix(in srgb, var(--trim) 10%, transparent) !important;
+    border-radius: 8px !important;
+    position: relative;
+    max-width: 600px;
+}
+
+/* === FROSTED GLASS MODE === */
+[data-prism-chat="glass"] .message-content {
+    background: rgba(10, 10, 22, 0.35) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid color-mix(in srgb, var(--trim) 12%, transparent) !important;
+    border-top: 1px solid color-mix(in srgb, var(--trim) 28%, transparent) !important;
+    box-shadow: 0 0 20px color-mix(in srgb, var(--trim) 5%, transparent);
+    isolation: isolate;
+}
+
+/* Glass mode — shimmer on top edge */
+[data-prism-chat="glass"] .message-content::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--trim) 45%, transparent), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Glass mode — input area */
+[data-prism-chat="glass"] .prompt-container,
+[data-prism-chat="glass"] .chat-input-container {
+    background: rgba(10, 10, 22, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Chat container width */
+[data-theme="prism"] #chat-container {
+    max-width: 900px;
+}
+
+/* Avatar — accent glowing ring */
+[data-theme="prism"] .msg-avatar {
+    box-shadow: 0 0 8px color-mix(in srgb, var(--trim) 20%, transparent), 0 0 2px color-mix(in srgb, var(--trim) 35%, transparent);
+    border: 1px solid color-mix(in srgb, var(--trim) 20%, transparent);
+}
+
+/* Chat sidebar */
+[data-theme="prism"] .chat-sidebar {
+    background: rgba(8, 8, 16, 0.92) !important;
+    border-right: 1px solid color-mix(in srgb, var(--trim) 10%, transparent);
+    position: relative;
+    z-index: var(--z-sidebars);
+}
+
+/* Input area */
+[data-theme="prism"] .prompt-container,
+[data-theme="prism"] .chat-input-container {
+    background: rgba(8, 8, 16, 0.35);
+    border-top: 1px solid color-mix(in srgb, var(--trim) 10%, transparent);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+[data-theme="prism"] #prompt-input {
+    background: rgba(10, 10, 22, 0.6) !important;
+    border: 1px solid color-mix(in srgb, var(--trim) 15%, transparent) !important;
+    color: #e0dce8 !important;
+    caret-color: var(--trim);
+}
+
+[data-theme="prism"] #prompt-input:focus {
+    border-color: color-mix(in srgb, var(--trim) 45%, transparent) !important;
+    box-shadow: 0 0 12px color-mix(in srgb, var(--trim) 12%, transparent) !important;
+}
+
+[data-theme="prism"] #prompt-input::placeholder {
+    color: #252030;
+}
+
+/* Modals */
+[data-theme="prism"] .modal-content {
+    background: rgba(8, 8, 16, 0.96) !important;
+    border: 1px solid color-mix(in srgb, var(--trim) 18%, transparent);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--trim) 8%, transparent), 0 0 60px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: var(--z-modal);
+}
+
+[data-theme="prism"] .modal-overlay,
+[data-theme="prism"] .modal-backdrop {
+    z-index: var(--z-modal);
+}
+
+/* Buttons */
+[data-theme="prism"] .btn {
+    border: 1px solid color-mix(in srgb, var(--trim) 25%, transparent);
+    color: #b8b4c4;
+    background: color-mix(in srgb, var(--trim) 6%, transparent);
+}
+
+[data-theme="prism"] .btn:hover {
+    background: color-mix(in srgb, var(--trim) 14%, transparent);
+    border-color: color-mix(in srgb, var(--trim) 40%, transparent);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--trim) 15%, transparent);
+    color: #e0dce8;
+}
+
+/* Generic button reset */
+[data-theme="prism"] button:not(.btn):not(.sb-icon-btn):not(.kebab-btn):not(.sb-mode-tab):not(.sb-chat-picker-btn):not(.sb-collapse-btn):not(#send-btn) {
+    color: inherit;
+}
+
+/* Flyout menus */
+[data-theme="prism"] .nav-flyout,
+[data-theme="prism"] .kebab-dropdown,
+[data-theme="prism"] .nav-overflow-menu {
+    background: rgba(8, 8, 16, 0.95) !important;
+    border: 1px solid color-mix(in srgb, var(--trim) 12%, transparent);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px color-mix(in srgb, var(--trim) 4%, transparent);
+}
+
+[data-theme="prism"] .nav-flyout,
+[data-theme="prism"] .nav-overflow-menu {
+    position: relative;
+    z-index: var(--z-nav);
+}
+
+/* Settings panels — floating module */
+[data-theme="prism"] .view.floating-module {
+    background: rgba(8, 8, 16, 0.95) !important;
+    border: 1px solid color-mix(in srgb, var(--trim) 10%, transparent);
+    position: relative;
+    z-index: var(--z-panels);
+}
+
+/* Select dropdowns */
+[data-theme="prism"] select,
+[data-theme="prism"] .setting-select {
+    background: rgba(10, 10, 22, 0.7);
+    border: 1px solid color-mix(in srgb, var(--trim) 15%, transparent);
+    color: #e0dce8;
+}
+
+[data-theme="prism"] select:focus,
+[data-theme="prism"] .setting-select:focus {
+    border-color: color-mix(in srgb, var(--trim) 45%, transparent);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--trim) 12%, transparent);
+}
+
+/* Ensure settings/views content visible */
+[data-theme="prism"] .setting-row,
+[data-theme="prism"] .setting-group,
+[data-theme="prism"] .settings-panel,
+[data-theme="prism"] .settings-content,
+[data-theme="prism"] .tab-content,
+[data-theme="prism"] .tab-pane,
+[data-theme="prism"] .persona-list,
+[data-theme="prism"] .persona-card,
+[data-theme="prism"] .prompt-list,
+[data-theme="prism"] .toolset-list,
+[data-theme="prism"] .spice-list,
+[data-theme="prism"] .schedule-list,
+[data-theme="prism"] .memory-list,
+[data-theme="prism"] .knowledge-list,
+[data-theme="prism"] .help-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Scrollbar */
+[data-theme="prism"] ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+[data-theme="prism"] ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[data-theme="prism"] ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--trim) 20%, transparent);
+}
+
+[data-theme="prism"] ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--trim) 40%, transparent);
+}
+
+/* Links */
+[data-theme="prism"] a {
+    color: var(--trim);
+}
+
+[data-theme="prism"] a:hover {
+    color: color-mix(in srgb, var(--trim) 70%, white);
+    text-shadow: 0 0 6px color-mix(in srgb, var(--trim) 30%, transparent);
+}
+
+/* Code blocks */
+[data-theme="prism"] pre {
+    background: rgba(10, 10, 22, 0.5) !important;
+    border: 1px solid rgba(180, 180, 220, 0.08);
+}
+
+[data-theme="prism"] code {
+    color: #b8b4c4;
+}
+
+/* Selection highlight */
+[data-theme="prism"] ::selection {
+    background: color-mix(in srgb, var(--trim) 35%, transparent);
+    color: #fff;
+}
+
+/* Toast */
+[data-theme="prism"] .toast {
+    background: rgba(8, 8, 16, 0.95) !important;
+    border: 1px solid color-mix(in srgb, var(--trim) 15%, transparent);
+    box-shadow: 0 0 15px color-mix(in srgb, var(--trim) 8%, transparent);
+    z-index: var(--z-toast);
+}
+
+/* Headings */
+[data-theme="prism"] h1,
+[data-theme="prism"] h2,
+[data-theme="prism"] h3 {
+    color: #f0ecf8;
+    text-shadow: 0 0 8px color-mix(in srgb, var(--trim) 15%, transparent);
+}
+
+/* Thinking/typing */
+[data-theme="prism"] .typing-indicator,
+[data-theme="prism"] .thinking-indicator {
+    color: var(--trim);
+    text-shadow: 0 0 10px color-mix(in srgb, var(--trim) 40%, transparent);
+}
+
+/* Toggle switches */
+[data-theme="prism"] .toggle-switch input:checked + .toggle-slider,
+[data-theme="prism"] .switch input:checked + .slider,
+[data-theme="prism"] input[type="checkbox"]:checked + label::before,
+[data-theme="prism"] .toggle.active {
+    background-color: var(--trim) !important;
+    border-color: var(--trim) !important;
+    box-shadow: 0 0 8px color-mix(in srgb, var(--trim) 30%, transparent);
+}
+
+/* Labels */
+[data-theme="prism"] .setting-label label {
+    color: #e0dce8;
+}
+
+[data-theme="prism"] .setting-help,
+[data-theme="prism"] .text-muted {
+    color: #8880a0;
+}
+
+/* Tabs */
+[data-theme="prism"] .nav-tabs .nav-link,
+[data-theme="prism"] .tab-bar .tab {
+    color: #8880a0;
+}
+
+[data-theme="prism"] .nav-tabs .nav-link.active,
+[data-theme="prism"] .tab-bar .tab.active {
+    color: var(--trim);
+    border-bottom-color: var(--trim);
+}
+
+[data-theme="prism"] .nav-tabs .nav-link:hover,
+[data-theme="prism"] .tab-bar .tab:hover {
+    color: #b8b4c4;
+}
+
+/* Cards */
+[data-theme="prism"] .card,
+[data-theme="prism"] .list-item,
+[data-theme="prism"] .persona-card,
+[data-theme="prism"] .item-card {
+    background: rgba(10, 10, 22, 0.5);
+    border: 1px solid rgba(180, 180, 220, 0.08);
+    color: #e0dce8;
+}
+
+[data-theme="prism"] .card:hover,
+[data-theme="prism"] .list-item:hover,
+[data-theme="prism"] .persona-card:hover,
+[data-theme="prism"] .item-card:hover {
+    background: rgba(16, 16, 32, 0.6);
+    border-color: color-mix(in srgb, var(--trim) 20%, transparent);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--trim) 6%, transparent);
+}
+
+/* Version/about */
+[data-theme="prism"] .version-info,
+[data-theme="prism"] .about-panel {
+    position: relative;
+    z-index: 2;
+}
+
+/* Chat sidebar buttons */
+[data-theme="prism"] .sb-chat-actions {
+    border-bottom-color: rgba(180, 180, 220, 0.08);
+}
+
+[data-theme="prism"] .sb-icon-btn {
+    color: #8880a0;
+}
+
+[data-theme="prism"] .sb-icon-btn:hover {
+    background: color-mix(in srgb, var(--trim) 10%, transparent);
+    color: #b8b4c4;
+}
+
+[data-theme="prism"] .sb-icon-danger:hover {
+    color: var(--error) !important;
+}
+
+[data-theme="prism"] .sb-kebab .kebab-dropdown {
+    background: rgba(8, 8, 16, 0.95);
+    border: 1px solid color-mix(in srgb, var(--trim) 12%, transparent);
+}
+
+[data-theme="prism"] .sb-kebab .kebab-dropdown button {
+    color: #8880a0;
+    background: transparent;
+    border: none;
+}
+
+[data-theme="prism"] .sb-kebab .kebab-dropdown button:hover {
+    background: color-mix(in srgb, var(--trim) 10%, transparent);
+    color: #b8b4c4;
+}
+
+[data-theme="prism"] .sb-chat-picker-btn {
+    color: #e0dce8;
+}
+
+[data-theme="prism"] .sb-mode-tab {
+    color: #8880a0;
+    border-bottom-color: transparent;
+}
+
+[data-theme="prism"] .sb-mode-tab.active {
+    color: var(--trim);
+    border-bottom-color: var(--trim);
+}
+
+[data-theme="prism"] .sb-mode-tab:hover {
+    color: #b8b4c4;
+}
+
+/* Inherit text color */
+[data-theme="prism"] p,
+[data-theme="prism"] span,
+[data-theme="prism"] div,
+[data-theme="prism"] label,
+[data-theme="prism"] li {
+    color: inherit;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    [data-theme="prism"] {
+        animation: none;
+    }
+    [data-theme="prism"] .view {
+        transition: none;
+    }
+}

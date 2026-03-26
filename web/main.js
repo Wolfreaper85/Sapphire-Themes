@@ -81,6 +81,19 @@
                 text: '#d4d0e8',
             },
         },
+        prism: {
+            name: 'Prism',
+            id: 'prism',
+            icon: '🌈',
+            description: 'Rainbow light refraction',
+            css: `${BASE}/themes/prism/prism.css`,
+            scripts: [`${BASE}/themes/prism/prism-rain.js`],
+            preview: {
+                bg: '#080810',
+                accent: '#7b68ee',
+                text: '#e0dce8',
+            },
+        },
         // Add more bundled themes here:
     };
 
