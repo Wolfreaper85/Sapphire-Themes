@@ -207,8 +207,65 @@ const THEME_SETTINGS = {
         _applyChatStyle(currentChatStyle);
     },
 
+    jarvis: (panel) => {
+        const currentPerf = localStorage.getItem('jarvis-perf-tier') || 'auto';
+        const currentChatStyle = localStorage.getItem('jarvis-chat-style') || 'transparent';
+
+        panel.innerHTML = `
+            <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:8px;">
+                <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">
+                    JARVIS Settings
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center;">
+                    <div class="setting-label">
+                        <label for="jv-chat-style">Chat Style</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">How messages appear over the HUD</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="jv-chat-style" class="setting-select" style="min-width:100px;">
+                            <option value="transparent" ${currentChatStyle === 'transparent' ? 'selected' : ''}>Transparent</option>
+                            <option value="glass" ${currentChatStyle === 'glass' ? 'selected' : ''}>Frosted Glass</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="jv-perf">Performance Tier</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Lower tiers reduce GPU usage</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="jv-perf" class="setting-select" style="min-width:100px;">
+                            <option value="auto" ${currentPerf === 'auto' ? 'selected' : ''}>Auto-detect</option>
+                            <option value="low" ${currentPerf === 'low' ? 'selected' : ''}>Low</option>
+                            <option value="medium" ${currentPerf === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="high" ${currentPerf === 'high' ? 'selected' : ''}>High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        panel.querySelector('#jv-chat-style')?.addEventListener('change', (e) => {
+            localStorage.setItem('jarvis-chat-style', e.target.value);
+            _applyJarvisChatStyle(e.target.value);
+        });
+
+        panel.querySelector('#jv-perf')?.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === 'auto') {
+                localStorage.removeItem('jarvis-perf-tier');
+            } else {
+                localStorage.setItem('jarvis-perf-tier', val);
+            }
+            window.dispatchEvent(new CustomEvent('jarvis-perf-change', { detail: val }));
+        });
+
+        _applyJarvisChatStyle(currentChatStyle);
+    },
+
     // Add settings for future themes here:
-    // cyberpunk: (panel) => { ... },
 };
 
 
@@ -216,21 +273,30 @@ function _applyChatStyle(style) {
     document.documentElement.setAttribute('data-matrix-chat', style);
 }
 
-// Apply saved chat style on load
+function _applyJarvisChatStyle(style) {
+    document.documentElement.setAttribute('data-jarvis-chat', style);
+}
+
+// Apply saved chat styles on load and theme change
 (function() {
-    const saved = localStorage.getItem('matrix-chat-style') || 'transparent';
-    if (document.documentElement.getAttribute('data-theme') === 'matrix') {
-        document.documentElement.setAttribute('data-matrix-chat', saved);
-    }
-    // Watch for theme changes
-    new MutationObserver(function() {
-        const theme = document.documentElement.getAttribute('data-theme');
+    function applyForTheme(theme) {
+        // Clear all chat style attributes
+        document.documentElement.removeAttribute('data-matrix-chat');
+        document.documentElement.removeAttribute('data-jarvis-chat');
+
         if (theme === 'matrix') {
             const style = localStorage.getItem('matrix-chat-style') || 'transparent';
             document.documentElement.setAttribute('data-matrix-chat', style);
-        } else {
-            document.documentElement.removeAttribute('data-matrix-chat');
+        } else if (theme === 'jarvis') {
+            const style = localStorage.getItem('jarvis-chat-style') || 'transparent';
+            document.documentElement.setAttribute('data-jarvis-chat', style);
         }
+    }
+
+    applyForTheme(document.documentElement.getAttribute('data-theme'));
+
+    new MutationObserver(function() {
+        applyForTheme(document.documentElement.getAttribute('data-theme'));
     }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 })();
 

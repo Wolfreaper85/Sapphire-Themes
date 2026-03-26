@@ -1,0 +1,749 @@
+/* JARVIS Theme - jarvis.css
+ * "At your service, sir."
+ *
+ * Licensed under AGPL-3.0
+ */
+[data-theme="jarvis"] {
+    /* Trim - Core JARVIS blue */
+    --trim: #00a8ff;
+    --trim-glow: rgba(0, 168, 255, 0.35);
+    --trim-light: rgba(0, 168, 255, 0.12);
+    --trim-border: rgba(0, 168, 255, 0.4);
+    --trim-50: rgba(0, 168, 255, 0.55);
+
+    /* Emotion-reactive color — updated by jarvis-hud.js */
+    --emotion-color: rgb(0, 168, 255);
+    --emotion-glow: rgba(0, 168, 255, 0.35);
+    --emotion-light: rgba(0, 168, 255, 0.12);
+    --emotion-border: rgba(0, 168, 255, 0.4);
+    --emotion-50: rgba(0, 168, 255, 0.55);
+
+    /* Colors - Core - Deep navy with blue undertone */
+    --bg: #04080e;
+    --bg-secondary: #060c16;
+    --bg-dark: #030610;
+    --bg-tertiary: #0a1424;
+    --bg-hover: #0e1a30;
+    --bg-inset: rgba(4, 8, 14, 0.9);
+    --text: #b0d4f1;
+    --text-bright: #e0f0ff;
+    --text-light: #80b8e0;
+    --text-secondary: #5090c0;
+    --text-tertiary: #305878;
+    --text-muted: #203848;
+    --text-dim: #101c28;
+    --border: #0c2040;
+    --border-light: #103058;
+    --border-hover: #1a4070;
+    --border-subtle: rgba(0, 168, 255, 0.08);
+
+    /* Overlays & Shadows */
+    --overlay-bg: rgba(2, 4, 10, 0.96);
+    --overlay-medium: rgba(2, 4, 10, 0.92);
+    --shadow-medium: rgba(0, 0, 0, 0.7);
+    --shadow-heavy: rgba(0, 0, 0, 0.9);
+    --highlight-subtle: rgba(0, 168, 255, 0.06);
+
+    /* Scrollbar */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: rgba(0, 168, 255, 0.2);
+    --scrollbar-thumb-hover: rgba(0, 168, 255, 0.4);
+
+    /* Inputs */
+    --input-bg: #060c16;
+    --input-border: #0c2040;
+    --input-focus-border: #00a8ff;
+    --input-focus-bg: #030610;
+    --placeholder-color: #152030;
+
+    /* Code/Mono */
+    --code-bg: rgba(4, 10, 20, 0.7);
+
+    /* Focus ring */
+    --focus-ring: rgba(0, 168, 255, 0.5);
+
+    /* Selection */
+    --selection-bg: rgba(0, 168, 255, 0.35);
+    --selection-text: #fff;
+
+    /* Select dropdown arrow */
+    --select-arrow: url('data:image/svg+xml;utf8,<svg fill="%2300a8ff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+
+    /* Primary - JARVIS blue */
+    --primary: #00a8ff;
+    --primary-hover: #0088d0;
+
+    /* Success - arc reactor cyan */
+    --success: #00e0ff;
+    --success-text: #00e0ff;
+    --success-bg: rgba(0, 224, 255, 0.9);
+    --success-light: rgba(0, 224, 255, 0.12);
+    --success-border: rgba(0, 224, 255, 0.35);
+    --success-border-hover: rgba(0, 224, 255, 0.55);
+
+    /* Warning - Stark gold */
+    --warning: #ffaa00;
+    --warning-text: #ffbb30;
+    --warning-bg: rgba(255, 170, 0, 0.9);
+    --warning-light: rgba(255, 187, 48, 0.12);
+    --warning-border: rgba(255, 187, 48, 0.35);
+
+    /* Error/Danger - Alert red */
+    --error: #ff3030;
+    --error-text: #ff5050;
+    --error-bg: rgba(255, 48, 48, 0.9);
+    --error-light: rgba(255, 80, 80, 0.12);
+    --error-border: rgba(255, 80, 80, 0.35);
+    --error-border-hover: rgba(255, 80, 80, 0.55);
+    --error-subtle: rgba(255, 80, 80, 0.08);
+    --danger: #cc2020;
+    --danger-hover: #aa1818;
+    --danger-red: #ff4040;
+    --danger-glow: rgba(255, 48, 48, 0.6);
+
+    /* Info */
+    --info-bg: rgba(0, 168, 255, 0.9);
+
+    /* Accent colors */
+    --accent-blue: #00a8ff;
+    --accent-blue-hover: #0088d0;
+    --accent-blue-light: rgba(0, 168, 255, 0.15);
+    --accent-blue-border: rgba(0, 168, 255, 0.35);
+    --accent-cyan: #00e0ff;
+    --accent-cyan-light: rgba(0, 224, 255, 0.15);
+    --accent-orange: #ffaa00;
+
+    /* Chat message backgrounds */
+    --user-bg: #060e1c;
+    --assistant-bg: #040a14;
+
+    /* Plugin-specific accents */
+    --plugin-spice-bg: rgba(0, 168, 255, 0.12);
+    --plugin-spice-bg-hover: rgba(0, 168, 255, 0.22);
+    --plugin-ability-bg: rgba(0, 224, 255, 0.08);
+    --plugin-ability-bg-hover: rgba(0, 224, 255, 0.15);
+    --plugin-prompt-bg: rgba(0, 168, 255, 0.1);
+    --plugin-prompt-bg-focus: rgba(0, 168, 255, 0.2);
+
+    /* Tool result accent */
+    --tool-result-bg: rgba(0, 224, 255, 0.08);
+
+    /* Rounded edges — HUD aesthetic */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+
+    /* Typeface — clean technical */
+    font-family: 'Segoe UI', 'Roboto', 'Exo 2', system-ui, sans-serif;
+}
+
+/* Monospace contexts */
+[data-theme="jarvis"] code,
+[data-theme="jarvis"] pre,
+[data-theme="jarvis"] kbd,
+[data-theme="jarvis"] .monospace,
+[data-theme="jarvis"] textarea,
+[data-theme="jarvis"] #prompt-input {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+/* === JARVIS ENHANCEMENTS === */
+
+/* Z-INDEX STACKING ORDER */
+[data-theme="jarvis"] {
+    --z-canvas: 0;
+    --z-content: 1;
+    --z-panels: 10;
+    --z-sidebars: 100;
+    --z-hud: 998;
+    --z-nav: 999;
+    --z-modal: 1050;
+    --z-toast: 1100;
+}
+
+/* EVERYTHING sits on top of the canvas */
+[data-theme="jarvis"] #nav-rail {
+    z-index: var(--z-nav);
+    position: fixed;
+}
+[data-theme="jarvis"] #app-content {
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat area — fully transparent so HUD shows through */
+[data-theme="jarvis"] #chatbg {
+    position: relative;
+    background-color: transparent !important;
+}
+
+[data-theme="jarvis"] #chatbg-overlay {
+    background: transparent !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Body background */
+[data-theme="jarvis"] body {
+    background-image: none;
+    background-color: #04080e;
+}
+
+[data-theme="jarvis"] body::before {
+    display: none;
+}
+
+/* ALL views — semi-transparent */
+[data-theme="jarvis"] .view {
+    background: rgba(4, 8, 14, 0.88) !important;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view — fully transparent so HUD shows through */
+[data-theme="jarvis"] #view-chat {
+    background: transparent !important;
+}
+
+[data-theme="jarvis"] #view-chat .view-body,
+[data-theme="jarvis"] #view-chat .view-scroll,
+[data-theme="jarvis"] #view-chat .chat-body {
+    background: transparent !important;
+}
+
+/* Non-chat view body */
+[data-theme="jarvis"] .view-body,
+[data-theme="jarvis"] .view-scroll {
+    background: rgba(4, 8, 14, 0.6) !important;
+}
+
+/* View headers */
+[data-theme="jarvis"] .view-header {
+    background: rgba(4, 10, 20, 0.9);
+    border-bottom: 1px solid rgba(0, 168, 255, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Sidebar sections */
+[data-theme="jarvis"] .sidebar-section {
+    background: rgba(4, 10, 20, 0.5);
+    border-bottom: 1px solid rgba(0, 168, 255, 0.06);
+}
+[data-theme="jarvis"] .sidebar-accordion-header {
+    background: rgba(4, 10, 20, 0.6);
+}
+[data-theme="jarvis"] .sidebar-accordion-header:hover {
+    background: rgba(10, 25, 50, 0.7);
+}
+
+/* Module backdrop */
+[data-theme="jarvis"] #module-backdrop {
+    background: rgba(2, 4, 10, 0.6);
+}
+
+/* Scan lines on UI panels — subtle blue */
+[data-theme="jarvis"] #nav-rail::before,
+[data-theme="jarvis"] .chat-sidebar::before,
+[data-theme="jarvis"] .view.floating-module::before,
+[data-theme="jarvis"] .modal-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 168, 255, 0.015) 3px,
+        rgba(0, 168, 255, 0.015) 6px
+    );
+    mix-blend-mode: screen;
+}
+
+/* Arc reactor glow — bottom center */
+[data-theme="jarvis"] body::after {
+    content: '';
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40vw;
+    height: 180px;
+    pointer-events: none;
+    z-index: var(--z-canvas);
+    background:
+        radial-gradient(ellipse at center, rgba(0, 168, 255, 0.15) 0%, rgba(0, 140, 220, 0.05) 30%, transparent 60%);
+    filter: blur(12px);
+}
+
+/* Send button */
+[data-theme="jarvis"] #send-btn,
+[data-theme="jarvis"] #send-btn.llm-local,
+[data-theme="jarvis"] #send-btn.llm-cloud,
+[data-theme="jarvis"] #send-btn.llm-auto,
+[data-theme="jarvis"] #send-btn.use-trim,
+[data-theme="jarvis"] #send-btn.use-trim.llm-local,
+[data-theme="jarvis"] #send-btn.use-trim.llm-cloud,
+[data-theme="jarvis"] #send-btn.use-trim.llm-auto {
+    background: var(--emotion-color) !important;
+    box-shadow: 0 0 12px var(--emotion-glow), inset 0 0 8px var(--emotion-light) !important;
+    border: 1px solid var(--emotion-border) !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+[data-theme="jarvis"] #send-btn:hover {
+    background: var(--emotion-50) !important;
+    box-shadow: 0 0 20px var(--emotion-glow), inset 0 0 12px var(--emotion-light) !important;
+}
+
+/* Nav rail */
+[data-theme="jarvis"] #nav-rail {
+    background: rgba(4, 8, 14, 0.9) !important;
+    border-right: 1px solid rgba(0, 168, 255, 0.12);
+}
+
+/* Nav icons — JARVIS blue */
+[data-theme="jarvis"] .nav-icon.themes-icon svg {
+    color: #00a8ff;
+    filter: drop-shadow(0 0 4px rgba(0, 168, 255, 0.3));
+    transition: all 0.3s ease;
+}
+
+[data-theme="jarvis"] .nav-item:hover .nav-icon.themes-icon svg {
+    color: #60d0ff;
+    filter: drop-shadow(0 0 10px rgba(0, 168, 255, 0.6));
+}
+
+[data-theme="jarvis"] .nav-item.active .nav-icon.themes-icon svg {
+    color: var(--emotion-color);
+    filter: drop-shadow(0 0 10px rgba(0, 168, 255, 0.8));
+}
+
+/* Nav label text */
+[data-theme="jarvis"] .nav-label {
+    color: #80b8e0;
+    text-shadow: 0 0 6px rgba(0, 168, 255, 0.2);
+}
+
+[data-theme="jarvis"] .nav-item:hover .nav-label {
+    color: #c0e0ff;
+    text-shadow: 0 0 8px rgba(0, 168, 255, 0.4);
+}
+
+[data-theme="jarvis"] .nav-item.active .nav-label {
+    color: #e0f0ff;
+    text-shadow: 0 0 10px rgba(0, 168, 255, 0.5);
+}
+
+/* Chat area — transparent */
+[data-theme="jarvis"] .chat-messages,
+[data-theme="jarvis"] .chat-container {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view-content — transparent */
+[data-theme="jarvis"] #view-chat .view-content {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Other view-content */
+[data-theme="jarvis"] .view-content {
+    background: rgba(4, 8, 14, 0.6);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* === MESSAGE PANES === */
+
+/* Message row — transparent */
+[data-theme="jarvis"] .message {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin-bottom: 26px;
+    filter: none;
+    --msg-max-width: 70%;
+}
+
+/* === TRANSPARENT MODE (default) === */
+[data-theme="jarvis"] .message-content {
+    background: rgba(4, 10, 20, 0.3) !important;
+    border: 1px solid rgba(0, 168, 255, 0.1) !important;
+    border-radius: 8px !important;
+    position: relative;
+    max-width: 600px;
+}
+
+/* === FROSTED GLASS MODE === */
+[data-jarvis-chat="glass"] .message-content {
+    background: rgba(4, 10, 20, 0.35) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(0, 168, 255, 0.12) !important;
+    border-top: 1px solid rgba(0, 168, 255, 0.28) !important;
+    box-shadow: 0 0 20px rgba(0, 168, 255, 0.05);
+    isolation: isolate;
+}
+
+/* Glass mode — shimmer on top edge */
+[data-jarvis-chat="glass"] .message-content::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 168, 255, 0.45), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Glass mode — input area */
+[data-jarvis-chat="glass"] .prompt-container,
+[data-jarvis-chat="glass"] .chat-input-container {
+    background: rgba(4, 10, 20, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Chat container width */
+[data-theme="jarvis"] #chat-container {
+    max-width: 900px;
+}
+
+/* Avatar — blue glowing ring */
+[data-theme="jarvis"] .msg-avatar {
+    box-shadow: 0 0 8px rgba(0, 168, 255, 0.2), 0 0 2px rgba(0, 200, 255, 0.35);
+    border: 1px solid rgba(0, 168, 255, 0.2);
+}
+
+/* Chat sidebar */
+[data-theme="jarvis"] .chat-sidebar {
+    background: rgba(4, 8, 14, 0.92) !important;
+    border-right: 1px solid rgba(0, 168, 255, 0.1);
+    position: relative;
+    z-index: var(--z-sidebars);
+}
+
+/* Input area */
+[data-theme="jarvis"] .prompt-container,
+[data-theme="jarvis"] .chat-input-container {
+    background: rgba(4, 8, 14, 0.35);
+    border-top: 1px solid rgba(0, 168, 255, 0.1);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+[data-theme="jarvis"] #prompt-input {
+    background: rgba(4, 10, 20, 0.6) !important;
+    border: 1px solid rgba(0, 168, 255, 0.15) !important;
+    color: #b0d4f1 !important;
+    caret-color: #00a8ff;
+}
+
+[data-theme="jarvis"] #prompt-input:focus {
+    border-color: rgba(0, 168, 255, 0.45) !important;
+    box-shadow: 0 0 12px rgba(0, 168, 255, 0.12) !important;
+}
+
+[data-theme="jarvis"] #prompt-input::placeholder {
+    color: #1a2838;
+}
+
+/* Modals */
+[data-theme="jarvis"] .modal-content {
+    background: rgba(4, 8, 14, 0.96) !important;
+    border: 1px solid rgba(0, 168, 255, 0.18);
+    box-shadow: 0 0 30px rgba(0, 168, 255, 0.08), 0 0 60px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: var(--z-modal);
+}
+
+[data-theme="jarvis"] .modal-overlay,
+[data-theme="jarvis"] .modal-backdrop {
+    z-index: var(--z-modal);
+}
+
+/* Buttons */
+[data-theme="jarvis"] .btn {
+    border: 1px solid rgba(0, 168, 255, 0.25);
+    color: #80b8e0;
+    background: rgba(0, 168, 255, 0.06);
+}
+
+[data-theme="jarvis"] .btn:hover {
+    background: rgba(0, 168, 255, 0.14);
+    border-color: rgba(0, 168, 255, 0.4);
+    box-shadow: 0 0 8px rgba(0, 168, 255, 0.15);
+    color: #c0e0ff;
+}
+
+/* Generic button reset */
+[data-theme="jarvis"] button:not(.btn):not(.sb-icon-btn):not(.kebab-btn):not(.sb-mode-tab):not(.sb-chat-picker-btn):not(.sb-collapse-btn):not(#send-btn) {
+    color: inherit;
+}
+
+/* Flyout menus */
+[data-theme="jarvis"] .nav-flyout,
+[data-theme="jarvis"] .kebab-dropdown,
+[data-theme="jarvis"] .nav-overflow-menu {
+    background: rgba(4, 8, 14, 0.95) !important;
+    border: 1px solid rgba(0, 168, 255, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 168, 255, 0.04);
+}
+
+[data-theme="jarvis"] .nav-flyout,
+[data-theme="jarvis"] .nav-overflow-menu {
+    position: relative;
+    z-index: var(--z-nav);
+}
+
+/* Settings panels — floating module */
+[data-theme="jarvis"] .view.floating-module {
+    background: rgba(4, 8, 14, 0.95) !important;
+    border: 1px solid rgba(0, 168, 255, 0.1);
+    position: relative;
+    z-index: var(--z-panels);
+}
+
+/* Select dropdowns */
+[data-theme="jarvis"] select,
+[data-theme="jarvis"] .setting-select {
+    background: rgba(4, 10, 20, 0.7);
+    border: 1px solid rgba(0, 168, 255, 0.15);
+    color: #b0d4f1;
+}
+
+[data-theme="jarvis"] select:focus,
+[data-theme="jarvis"] .setting-select:focus {
+    border-color: rgba(0, 168, 255, 0.45);
+    box-shadow: 0 0 8px rgba(0, 168, 255, 0.12);
+}
+
+/* Ensure settings/views content visible */
+[data-theme="jarvis"] .setting-row,
+[data-theme="jarvis"] .setting-group,
+[data-theme="jarvis"] .settings-panel,
+[data-theme="jarvis"] .settings-content,
+[data-theme="jarvis"] .tab-content,
+[data-theme="jarvis"] .tab-pane,
+[data-theme="jarvis"] .persona-list,
+[data-theme="jarvis"] .persona-card,
+[data-theme="jarvis"] .prompt-list,
+[data-theme="jarvis"] .toolset-list,
+[data-theme="jarvis"] .spice-list,
+[data-theme="jarvis"] .schedule-list,
+[data-theme="jarvis"] .memory-list,
+[data-theme="jarvis"] .knowledge-list,
+[data-theme="jarvis"] .help-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Scrollbar */
+[data-theme="jarvis"] ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+[data-theme="jarvis"] ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[data-theme="jarvis"] ::-webkit-scrollbar-thumb {
+    background: rgba(0, 168, 255, 0.2);
+}
+
+[data-theme="jarvis"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 168, 255, 0.4);
+}
+
+/* Links */
+[data-theme="jarvis"] a {
+    color: #00a8ff;
+}
+
+[data-theme="jarvis"] a:hover {
+    color: #60d0ff;
+    text-shadow: 0 0 6px rgba(0, 168, 255, 0.3);
+}
+
+/* Code blocks */
+[data-theme="jarvis"] pre {
+    background: rgba(4, 10, 20, 0.5) !important;
+    border: 1px solid rgba(0, 168, 255, 0.08);
+}
+
+[data-theme="jarvis"] code {
+    color: #80b8e0;
+}
+
+/* Selection highlight */
+[data-theme="jarvis"] ::selection {
+    background: rgba(0, 168, 255, 0.35);
+    color: #fff;
+}
+
+/* Toast */
+[data-theme="jarvis"] .toast {
+    background: rgba(4, 8, 14, 0.95) !important;
+    border: 1px solid rgba(0, 168, 255, 0.15);
+    box-shadow: 0 0 15px rgba(0, 168, 255, 0.08);
+    z-index: var(--z-toast);
+}
+
+/* Headings */
+[data-theme="jarvis"] h1,
+[data-theme="jarvis"] h2,
+[data-theme="jarvis"] h3 {
+    color: #c0e0ff;
+    text-shadow: 0 0 8px rgba(0, 168, 255, 0.15);
+}
+
+/* Thinking/typing */
+[data-theme="jarvis"] .typing-indicator,
+[data-theme="jarvis"] .thinking-indicator {
+    color: #00a8ff;
+    text-shadow: 0 0 10px rgba(0, 168, 255, 0.4);
+}
+
+/* Toggle switches — JARVIS blue */
+[data-theme="jarvis"] .toggle-switch input:checked + .toggle-slider,
+[data-theme="jarvis"] .switch input:checked + .slider,
+[data-theme="jarvis"] input[type="checkbox"]:checked + label::before,
+[data-theme="jarvis"] .toggle.active {
+    background-color: #00a8ff !important;
+    border-color: #00a8ff !important;
+    box-shadow: 0 0 8px rgba(0, 168, 255, 0.3);
+}
+
+/* Labels */
+[data-theme="jarvis"] .setting-label label {
+    color: #b0d4f1;
+}
+
+[data-theme="jarvis"] .setting-help,
+[data-theme="jarvis"] .text-muted {
+    color: #5090c0;
+}
+
+/* Tabs */
+[data-theme="jarvis"] .nav-tabs .nav-link,
+[data-theme="jarvis"] .tab-bar .tab {
+    color: #5090c0;
+}
+
+[data-theme="jarvis"] .nav-tabs .nav-link.active,
+[data-theme="jarvis"] .tab-bar .tab.active {
+    color: #00a8ff;
+    border-bottom-color: #00a8ff;
+}
+
+[data-theme="jarvis"] .nav-tabs .nav-link:hover,
+[data-theme="jarvis"] .tab-bar .tab:hover {
+    color: #80c8f0;
+}
+
+/* Cards */
+[data-theme="jarvis"] .card,
+[data-theme="jarvis"] .list-item,
+[data-theme="jarvis"] .persona-card,
+[data-theme="jarvis"] .item-card {
+    background: rgba(4, 10, 20, 0.5);
+    border: 1px solid rgba(0, 168, 255, 0.08);
+    color: #b0d4f1;
+}
+
+[data-theme="jarvis"] .card:hover,
+[data-theme="jarvis"] .list-item:hover,
+[data-theme="jarvis"] .persona-card:hover,
+[data-theme="jarvis"] .item-card:hover {
+    background: rgba(8, 18, 35, 0.6);
+    border-color: rgba(0, 168, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 168, 255, 0.06);
+}
+
+/* Version/about */
+[data-theme="jarvis"] .version-info,
+[data-theme="jarvis"] .about-panel {
+    position: relative;
+    z-index: 2;
+}
+
+/* Chat sidebar buttons */
+[data-theme="jarvis"] .sb-chat-actions {
+    border-bottom-color: rgba(0, 168, 255, 0.08);
+}
+
+[data-theme="jarvis"] .sb-icon-btn {
+    color: #5090c0;
+}
+
+[data-theme="jarvis"] .sb-icon-btn:hover {
+    background: rgba(0, 168, 255, 0.1);
+    color: #80c8f0;
+}
+
+[data-theme="jarvis"] .sb-icon-danger:hover {
+    color: var(--error) !important;
+}
+
+[data-theme="jarvis"] .sb-kebab .kebab-dropdown {
+    background: rgba(4, 8, 14, 0.95);
+    border: 1px solid rgba(0, 168, 255, 0.12);
+}
+
+[data-theme="jarvis"] .sb-kebab .kebab-dropdown button {
+    color: #5090c0;
+    background: transparent;
+    border: none;
+}
+
+[data-theme="jarvis"] .sb-kebab .kebab-dropdown button:hover {
+    background: rgba(0, 168, 255, 0.1);
+    color: #80c8f0;
+}
+
+[data-theme="jarvis"] .sb-chat-picker-btn {
+    color: #b0d4f1;
+}
+
+[data-theme="jarvis"] .sb-mode-tab {
+    color: #5090c0;
+    border-bottom-color: transparent;
+}
+
+[data-theme="jarvis"] .sb-mode-tab.active {
+    color: #00a8ff;
+    border-bottom-color: #00a8ff;
+}
+
+[data-theme="jarvis"] .sb-mode-tab:hover {
+    color: #80c8f0;
+}
+
+/* Inherit text color */
+[data-theme="jarvis"] p,
+[data-theme="jarvis"] span,
+[data-theme="jarvis"] div,
+[data-theme="jarvis"] label,
+[data-theme="jarvis"] li {
+    color: inherit;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    [data-theme="jarvis"] .view {
+        transition: none;
+    }
+}

@@ -29,9 +29,20 @@
                 text: '#00ff46',
             },
         },
+        jarvis: {
+            name: 'JARVIS',
+            id: 'jarvis',
+            icon: '🔵',
+            description: 'Iron Man HUD holographics',
+            css: `${BASE}/themes/jarvis/jarvis.css`,
+            scripts: [`${BASE}/themes/jarvis/jarvis-hud.js`],
+            preview: {
+                bg: '#04080e',
+                accent: '#00a8ff',
+                text: '#b0d4f1',
+            },
+        },
         // Add more bundled themes here:
-        // cyberpunk: { ... },
-        // synthwave: { ... },
     };
 
     // External themes discovered at runtime
