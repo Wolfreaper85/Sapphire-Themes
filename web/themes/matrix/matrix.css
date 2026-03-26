@@ -172,15 +172,14 @@
     z-index: var(--z-content);
 }
 
-/* Chat area — semi-transparent so rain is subtly visible */
+/* Chat area — fully transparent so rain shows through */
 [data-theme="matrix"] #chatbg {
     position: relative;
-    background-color: rgba(0, 2, 0, 0.85) !important;
-    border: 1px solid rgba(0, 255, 70, 0.08);
+    background-color: transparent !important;
 }
 
 [data-theme="matrix"] #chatbg-overlay {
-    background: rgba(0, 0, 0, 0.4) !important;
+    background: transparent !important;
     position: relative;
     z-index: 1;
 }
@@ -203,7 +202,18 @@
     z-index: var(--z-content);
 }
 
-/* View body / content areas — slightly transparent */
+/* Chat view — fully transparent so rain falls through */
+[data-theme="matrix"] #view-chat {
+    background: transparent !important;
+}
+
+[data-theme="matrix"] #view-chat .view-body,
+[data-theme="matrix"] #view-chat .view-scroll,
+[data-theme="matrix"] #view-chat .chat-body {
+    background: transparent !important;
+}
+
+/* Non-chat view body / content areas — slightly transparent */
 [data-theme="matrix"] .view-body,
 [data-theme="matrix"] .view-scroll {
     background: rgba(0, 0, 0, 0.6) !important;
@@ -342,11 +352,24 @@
     text-shadow: 0 0 10px rgba(0, 255, 70, 0.6);
 }
 
-/* Chat area — semi-transparent */
+/* Chat area — transparent, rain shows behind messages */
 [data-theme="matrix"] .chat-messages,
-[data-theme="matrix"] .chat-container,
+[data-theme="matrix"] .chat-container {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view-content — transparent */
+[data-theme="matrix"] #view-chat .view-content {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Other view-content — semi-opaque */
 [data-theme="matrix"] .view-content {
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.6);
     position: relative;
     z-index: var(--z-content);
 }
@@ -379,22 +402,77 @@
     z-index: 2;
 }
 
-/* Message bubbles */
-[data-theme="matrix"] .message.user .message-content {
-    background: rgba(0, 20, 5, 0.8);
-    border: 1px solid rgba(0, 255, 70, 0.1);
+/* === FLOATING GLASS MESSAGE PANES ===
+   Messages are frosted glass panels floating over the rain.
+   Rain is visible through the blur — that's the hero effect. */
+
+/* Message row — fully transparent */
+[data-theme="matrix"] .message {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin-bottom: 26px;
+    filter: none;
+    --msg-max-width: 70%;
 }
 
-[data-theme="matrix"] .message.assistant .message-content {
-    background: rgba(0, 10, 3, 0.8);
-    border: 1px solid rgba(0, 255, 70, 0.06);
+/* === TRANSPARENT MODE (default) — rain fully visible behind text === */
+[data-theme="matrix"] .message-content {
+    background: rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid rgba(0, 255, 70, 0.08) !important;
+    border-radius: 8px !important;
+    position: relative;
+    max-width: 600px;
 }
 
-/* Input area */
+/* === FROSTED GLASS MODE — blur effect like Lattice === */
+[data-matrix-chat="glass"] .message-content {
+    background: rgba(0, 8, 2, 0.35) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(0, 255, 70, 0.1) !important;
+    border-top: 1px solid rgba(0, 255, 70, 0.25) !important;
+    box-shadow: 0 0 20px rgba(0, 255, 70, 0.04);
+    isolation: isolate;
+}
+
+/* Glass mode — shimmer on top edge */
+[data-matrix-chat="glass"] .message-content::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 70, 0.4), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Glass mode — input area also frosted */
+[data-matrix-chat="glass"] .prompt-container,
+[data-matrix-chat="glass"] .chat-input-container {
+    background: rgba(0, 4, 1, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Narrower chat container */
+[data-theme="matrix"] #chat-container {
+    max-width: 900px;
+}
+
+/* Avatar — green glowing ring */
+[data-theme="matrix"] .msg-avatar {
+    box-shadow: 0 0 8px rgba(0, 255, 70, 0.2), 0 0 2px rgba(0, 255, 70, 0.35);
+    border: 1px solid rgba(0, 255, 70, 0.2);
+}
+
+/* Input area — transparent */
 [data-theme="matrix"] .prompt-container,
 [data-theme="matrix"] .chat-input-container {
-    background: rgba(0, 0, 0, 0.9);
-    border-top: 1px solid rgba(0, 255, 70, 0.12);
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(0, 255, 70, 0.1);
     position: relative;
     z-index: var(--z-content);
 }

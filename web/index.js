@@ -110,6 +110,7 @@ const THEME_SETTINGS = {
         const currentDensity = localStorage.getItem('matrix-rain-density') || 'medium';
         const currentSpeed = localStorage.getItem('matrix-rain-speed') || 'normal';
         const currentPerf = localStorage.getItem('matrix-perf-tier') || 'auto';
+        const currentChatStyle = localStorage.getItem('matrix-chat-style') || 'transparent';
 
         panel.innerHTML = `
             <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:8px;">
@@ -118,6 +119,19 @@ const THEME_SETTINGS = {
                 </div>
 
                 <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center;">
+                    <div class="setting-label">
+                        <label for="mx-chat-style">Chat Style</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">How messages appear over the rain</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="mx-chat-style" class="setting-select" style="min-width:100px;">
+                            <option value="transparent" ${currentChatStyle === 'transparent' ? 'selected' : ''}>Transparent</option>
+                            <option value="glass" ${currentChatStyle === 'glass' ? 'selected' : ''}>Frosted Glass</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
                     <div class="setting-label">
                         <label for="mx-density">Rain Density</label>
                         <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Number of falling columns</div>
@@ -163,6 +177,12 @@ const THEME_SETTINGS = {
         `;
 
         // Bind events
+        panel.querySelector('#mx-chat-style')?.addEventListener('change', (e) => {
+            localStorage.setItem('matrix-chat-style', e.target.value);
+            window.dispatchEvent(new CustomEvent('matrix-chatstyle-change', { detail: e.target.value }));
+            _applyChatStyle(e.target.value);
+        });
+
         panel.querySelector('#mx-density')?.addEventListener('change', (e) => {
             localStorage.setItem('matrix-rain-density', e.target.value);
             window.dispatchEvent(new CustomEvent('matrix-density-change', { detail: e.target.value }));
@@ -182,11 +202,37 @@ const THEME_SETTINGS = {
             }
             window.dispatchEvent(new CustomEvent('matrix-perf-change', { detail: val }));
         });
+
+        // Apply current chat style on render
+        _applyChatStyle(currentChatStyle);
     },
 
     // Add settings for future themes here:
     // cyberpunk: (panel) => { ... },
 };
+
+
+function _applyChatStyle(style) {
+    document.documentElement.setAttribute('data-matrix-chat', style);
+}
+
+// Apply saved chat style on load
+(function() {
+    const saved = localStorage.getItem('matrix-chat-style') || 'transparent';
+    if (document.documentElement.getAttribute('data-theme') === 'matrix') {
+        document.documentElement.setAttribute('data-matrix-chat', saved);
+    }
+    // Watch for theme changes
+    new MutationObserver(function() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'matrix') {
+            const style = localStorage.getItem('matrix-chat-style') || 'transparent';
+            document.documentElement.setAttribute('data-matrix-chat', style);
+        } else {
+            document.documentElement.removeAttribute('data-matrix-chat');
+        }
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
 
 
 function _renderCard(theme, current) {
