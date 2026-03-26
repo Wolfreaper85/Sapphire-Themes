@@ -1,0 +1,749 @@
+/* Nexus Theme - nexus.css
+ * "Neural Network in Space"
+ *
+ * Licensed under AGPL-3.0
+ */
+[data-theme="nexus"] {
+    /* Trim - Core Nexus ice blue */
+    --trim: #9cd9f9;
+    --trim-glow: rgba(156, 217, 249, 0.35);
+    --trim-light: rgba(156, 217, 249, 0.12);
+    --trim-border: rgba(156, 217, 249, 0.4);
+    --trim-50: rgba(156, 217, 249, 0.55);
+
+    /* Emotion-reactive color — defaults to ice blue */
+    --emotion-color: rgb(156, 217, 249);
+    --emotion-glow: rgba(156, 217, 249, 0.35);
+    --emotion-light: rgba(156, 217, 249, 0.12);
+    --emotion-border: rgba(156, 217, 249, 0.4);
+    --emotion-50: rgba(156, 217, 249, 0.55);
+
+    /* Colors - Core - Deep space black with slight blue */
+    --bg: #050510;
+    --bg-secondary: #0a0e1a;
+    --bg-dark: #030308;
+    --bg-tertiary: #0e1228;
+    --bg-hover: #141830;
+    --bg-inset: rgba(5, 5, 16, 0.9);
+    --text: #d0dce8;
+    --text-bright: #eaf2fa;
+    --text-light: #a0c0da;
+    --text-secondary: #6898b8;
+    --text-tertiary: #3a5a78;
+    --text-muted: #222a3a;
+    --text-dim: #121828;
+    --border: #0e1a38;
+    --border-light: #142850;
+    --border-hover: #1e3868;
+    --border-subtle: rgba(156, 217, 249, 0.08);
+
+    /* Overlays & Shadows */
+    --overlay-bg: rgba(3, 3, 12, 0.96);
+    --overlay-medium: rgba(3, 3, 12, 0.92);
+    --shadow-medium: rgba(0, 0, 0, 0.7);
+    --shadow-heavy: rgba(0, 0, 0, 0.9);
+    --highlight-subtle: rgba(156, 217, 249, 0.06);
+
+    /* Scrollbar */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: rgba(156, 217, 249, 0.2);
+    --scrollbar-thumb-hover: rgba(156, 217, 249, 0.4);
+
+    /* Inputs */
+    --input-bg: #0a0e1a;
+    --input-border: #0e1a38;
+    --input-focus-border: #9cd9f9;
+    --input-focus-bg: #030308;
+    --placeholder-color: #182030;
+
+    /* Code/Mono */
+    --code-bg: rgba(5, 8, 20, 0.7);
+
+    /* Focus ring */
+    --focus-ring: rgba(156, 217, 249, 0.5);
+
+    /* Selection */
+    --selection-bg: rgba(156, 217, 249, 0.35);
+    --selection-text: #fff;
+
+    /* Select dropdown arrow */
+    --select-arrow: url('data:image/svg+xml;utf8,<svg fill="%239cd9f9" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+
+    /* Primary - Nexus ice blue */
+    --primary: #9cd9f9;
+    --primary-hover: #78c4ec;
+
+    /* Success - warm amber glow */
+    --success: #e8a84c;
+    --success-text: #e8a84c;
+    --success-bg: rgba(232, 168, 76, 0.9);
+    --success-light: rgba(232, 168, 76, 0.12);
+    --success-border: rgba(232, 168, 76, 0.35);
+    --success-border-hover: rgba(232, 168, 76, 0.55);
+
+    /* Warning - bright amber */
+    --warning: #f0b840;
+    --warning-text: #f0c060;
+    --warning-bg: rgba(240, 184, 64, 0.9);
+    --warning-light: rgba(240, 192, 96, 0.12);
+    --warning-border: rgba(240, 192, 96, 0.35);
+
+    /* Error/Danger - Alert red */
+    --error: #ff3030;
+    --error-text: #ff5050;
+    --error-bg: rgba(255, 48, 48, 0.9);
+    --error-light: rgba(255, 80, 80, 0.12);
+    --error-border: rgba(255, 80, 80, 0.35);
+    --error-border-hover: rgba(255, 80, 80, 0.55);
+    --error-subtle: rgba(255, 80, 80, 0.08);
+    --danger: #cc2020;
+    --danger-hover: #aa1818;
+    --danger-red: #ff4040;
+    --danger-glow: rgba(255, 48, 48, 0.6);
+
+    /* Info */
+    --info-bg: rgba(156, 217, 249, 0.9);
+
+    /* Accent colors */
+    --accent-blue: #9cd9f9;
+    --accent-blue-hover: #78c4ec;
+    --accent-blue-light: rgba(156, 217, 249, 0.15);
+    --accent-blue-border: rgba(156, 217, 249, 0.35);
+    --accent-cyan: #e8a84c;
+    --accent-cyan-light: rgba(232, 168, 76, 0.15);
+    --accent-orange: #e8a84c;
+
+    /* Chat message backgrounds */
+    --user-bg: #080c18;
+    --assistant-bg: #050810;
+
+    /* Plugin-specific accents */
+    --plugin-spice-bg: rgba(156, 217, 249, 0.12);
+    --plugin-spice-bg-hover: rgba(156, 217, 249, 0.22);
+    --plugin-ability-bg: rgba(232, 168, 76, 0.08);
+    --plugin-ability-bg-hover: rgba(232, 168, 76, 0.15);
+    --plugin-prompt-bg: rgba(156, 217, 249, 0.1);
+    --plugin-prompt-bg-focus: rgba(156, 217, 249, 0.2);
+
+    /* Tool result accent */
+    --tool-result-bg: rgba(232, 168, 76, 0.08);
+
+    /* Rounded edges */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+
+    /* Typeface — clean technical */
+    font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+}
+
+/* Monospace contexts */
+[data-theme="nexus"] code,
+[data-theme="nexus"] pre,
+[data-theme="nexus"] kbd,
+[data-theme="nexus"] .monospace,
+[data-theme="nexus"] textarea,
+[data-theme="nexus"] #prompt-input {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+/* === NEXUS ENHANCEMENTS === */
+
+/* Z-INDEX STACKING ORDER */
+[data-theme="nexus"] {
+    --z-canvas: 0;
+    --z-content: 1;
+    --z-panels: 10;
+    --z-sidebars: 100;
+    --z-hud: 998;
+    --z-nav: 999;
+    --z-modal: 1050;
+    --z-toast: 1100;
+}
+
+/* EVERYTHING sits on top of the canvas */
+[data-theme="nexus"] #nav-rail {
+    z-index: var(--z-nav);
+    position: fixed;
+}
+[data-theme="nexus"] #app-content {
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat area — fully transparent so canvas shows through */
+[data-theme="nexus"] #chatbg {
+    position: relative;
+    background-color: transparent !important;
+}
+
+[data-theme="nexus"] #chatbg-overlay {
+    background: transparent !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Body background */
+[data-theme="nexus"] body {
+    background-image: none;
+    background-color: #050510;
+}
+
+[data-theme="nexus"] body::before {
+    display: none;
+}
+
+/* ALL views — semi-transparent */
+[data-theme="nexus"] .view {
+    background: rgba(5, 5, 16, 0.88) !important;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view — fully transparent so canvas shows through */
+[data-theme="nexus"] #view-chat {
+    background: transparent !important;
+}
+
+[data-theme="nexus"] #view-chat .view-body,
+[data-theme="nexus"] #view-chat .view-scroll,
+[data-theme="nexus"] #view-chat .chat-body {
+    background: transparent !important;
+}
+
+/* Non-chat view body */
+[data-theme="nexus"] .view-body,
+[data-theme="nexus"] .view-scroll {
+    background: rgba(5, 5, 16, 0.6) !important;
+}
+
+/* View headers */
+[data-theme="nexus"] .view-header {
+    background: rgba(8, 10, 22, 0.9);
+    border-bottom: 1px solid rgba(156, 217, 249, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Sidebar sections */
+[data-theme="nexus"] .sidebar-section {
+    background: rgba(8, 10, 22, 0.5);
+    border-bottom: 1px solid rgba(156, 217, 249, 0.06);
+}
+[data-theme="nexus"] .sidebar-accordion-header {
+    background: rgba(8, 10, 22, 0.6);
+}
+[data-theme="nexus"] .sidebar-accordion-header:hover {
+    background: rgba(14, 20, 44, 0.7);
+}
+
+/* Module backdrop */
+[data-theme="nexus"] #module-backdrop {
+    background: rgba(3, 3, 12, 0.6);
+}
+
+/* Scan lines on UI panels — subtle ice blue */
+[data-theme="nexus"] #nav-rail::before,
+[data-theme="nexus"] .chat-sidebar::before,
+[data-theme="nexus"] .view.floating-module::before,
+[data-theme="nexus"] .modal-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(156, 217, 249, 0.015) 3px,
+        rgba(156, 217, 249, 0.015) 6px
+    );
+    mix-blend-mode: screen;
+}
+
+/* Neural glow — bottom center */
+[data-theme="nexus"] body::after {
+    content: '';
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40vw;
+    height: 180px;
+    pointer-events: none;
+    z-index: var(--z-canvas);
+    background:
+        radial-gradient(ellipse at center, rgba(156, 217, 249, 0.15) 0%, rgba(120, 196, 236, 0.05) 30%, transparent 60%);
+    filter: blur(12px);
+}
+
+/* Send button */
+[data-theme="nexus"] #send-btn,
+[data-theme="nexus"] #send-btn.llm-local,
+[data-theme="nexus"] #send-btn.llm-cloud,
+[data-theme="nexus"] #send-btn.llm-auto,
+[data-theme="nexus"] #send-btn.use-trim,
+[data-theme="nexus"] #send-btn.use-trim.llm-local,
+[data-theme="nexus"] #send-btn.use-trim.llm-cloud,
+[data-theme="nexus"] #send-btn.use-trim.llm-auto {
+    background: var(--emotion-color) !important;
+    box-shadow: 0 0 12px var(--emotion-glow), inset 0 0 8px var(--emotion-light) !important;
+    border: 1px solid var(--emotion-border) !important;
+    color: #050510 !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+[data-theme="nexus"] #send-btn:hover {
+    background: var(--emotion-50) !important;
+    box-shadow: 0 0 20px var(--emotion-glow), inset 0 0 12px var(--emotion-light) !important;
+}
+
+/* Nav rail */
+[data-theme="nexus"] #nav-rail {
+    background: rgba(5, 5, 16, 0.9) !important;
+    border-right: 1px solid rgba(156, 217, 249, 0.12);
+}
+
+/* Nav icons — Nexus ice blue */
+[data-theme="nexus"] .nav-icon.themes-icon svg {
+    color: #9cd9f9;
+    filter: drop-shadow(0 0 4px rgba(156, 217, 249, 0.3));
+    transition: all 0.3s ease;
+}
+
+[data-theme="nexus"] .nav-item:hover .nav-icon.themes-icon svg {
+    color: #c4e8fc;
+    filter: drop-shadow(0 0 10px rgba(156, 217, 249, 0.6));
+}
+
+[data-theme="nexus"] .nav-item.active .nav-icon.themes-icon svg {
+    color: var(--emotion-color);
+    filter: drop-shadow(0 0 10px rgba(156, 217, 249, 0.8));
+}
+
+/* Nav label text */
+[data-theme="nexus"] .nav-label {
+    color: #a0c0da;
+    text-shadow: 0 0 6px rgba(156, 217, 249, 0.2);
+}
+
+[data-theme="nexus"] .nav-item:hover .nav-label {
+    color: #d0e8f8;
+    text-shadow: 0 0 8px rgba(156, 217, 249, 0.4);
+}
+
+[data-theme="nexus"] .nav-item.active .nav-label {
+    color: #eaf2fa;
+    text-shadow: 0 0 10px rgba(156, 217, 249, 0.5);
+}
+
+/* Chat area — transparent */
+[data-theme="nexus"] .chat-messages,
+[data-theme="nexus"] .chat-container {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view-content — transparent */
+[data-theme="nexus"] #view-chat .view-content {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Other view-content */
+[data-theme="nexus"] .view-content {
+    background: rgba(5, 5, 16, 0.6);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* === MESSAGE PANES === */
+
+/* Message row — transparent */
+[data-theme="nexus"] .message {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin-bottom: 26px;
+    filter: none;
+    --msg-max-width: 70%;
+}
+
+/* === TRANSPARENT MODE (default) === */
+[data-theme="nexus"] .message-content {
+    background: rgba(8, 10, 22, 0.3) !important;
+    border: 1px solid rgba(156, 217, 249, 0.1) !important;
+    border-radius: 8px !important;
+    position: relative;
+    max-width: 600px;
+}
+
+/* === FROSTED GLASS MODE === */
+[data-nexus-chat="glass"] .message-content {
+    background: rgba(8, 10, 22, 0.35) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(156, 217, 249, 0.12) !important;
+    border-top: 1px solid rgba(156, 217, 249, 0.28) !important;
+    box-shadow: 0 0 20px rgba(156, 217, 249, 0.05);
+    isolation: isolate;
+}
+
+/* Glass mode — shimmer on top edge */
+[data-nexus-chat="glass"] .message-content::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(156, 217, 249, 0.45), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Glass mode — input area */
+[data-nexus-chat="glass"] .prompt-container,
+[data-nexus-chat="glass"] .chat-input-container {
+    background: rgba(8, 10, 22, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Chat container width */
+[data-theme="nexus"] #chat-container {
+    max-width: 900px;
+}
+
+/* Avatar — ice blue glowing ring */
+[data-theme="nexus"] .msg-avatar {
+    box-shadow: 0 0 8px rgba(156, 217, 249, 0.2), 0 0 2px rgba(156, 217, 249, 0.35);
+    border: 1px solid rgba(156, 217, 249, 0.2);
+}
+
+/* Chat sidebar */
+[data-theme="nexus"] .chat-sidebar {
+    background: rgba(5, 5, 16, 0.92) !important;
+    border-right: 1px solid rgba(156, 217, 249, 0.1);
+    position: relative;
+    z-index: var(--z-sidebars);
+}
+
+/* Input area */
+[data-theme="nexus"] .prompt-container,
+[data-theme="nexus"] .chat-input-container {
+    background: rgba(5, 5, 16, 0.35);
+    border-top: 1px solid rgba(156, 217, 249, 0.1);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+[data-theme="nexus"] #prompt-input {
+    background: rgba(8, 10, 22, 0.6) !important;
+    border: 1px solid rgba(156, 217, 249, 0.15) !important;
+    color: #d0dce8 !important;
+    caret-color: #9cd9f9;
+}
+
+[data-theme="nexus"] #prompt-input:focus {
+    border-color: rgba(156, 217, 249, 0.45) !important;
+    box-shadow: 0 0 12px rgba(156, 217, 249, 0.12) !important;
+}
+
+[data-theme="nexus"] #prompt-input::placeholder {
+    color: #1a2030;
+}
+
+/* Modals */
+[data-theme="nexus"] .modal-content {
+    background: rgba(5, 5, 16, 0.96) !important;
+    border: 1px solid rgba(156, 217, 249, 0.18);
+    box-shadow: 0 0 30px rgba(156, 217, 249, 0.08), 0 0 60px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: var(--z-modal);
+}
+
+[data-theme="nexus"] .modal-overlay,
+[data-theme="nexus"] .modal-backdrop {
+    z-index: var(--z-modal);
+}
+
+/* Buttons */
+[data-theme="nexus"] .btn {
+    border: 1px solid rgba(156, 217, 249, 0.25);
+    color: #a0c0da;
+    background: rgba(156, 217, 249, 0.06);
+}
+
+[data-theme="nexus"] .btn:hover {
+    background: rgba(156, 217, 249, 0.14);
+    border-color: rgba(156, 217, 249, 0.4);
+    box-shadow: 0 0 8px rgba(156, 217, 249, 0.15);
+    color: #d0e8f8;
+}
+
+/* Generic button reset */
+[data-theme="nexus"] button:not(.btn):not(.sb-icon-btn):not(.kebab-btn):not(.sb-mode-tab):not(.sb-chat-picker-btn):not(.sb-collapse-btn):not(#send-btn) {
+    color: inherit;
+}
+
+/* Flyout menus */
+[data-theme="nexus"] .nav-flyout,
+[data-theme="nexus"] .kebab-dropdown,
+[data-theme="nexus"] .nav-overflow-menu {
+    background: rgba(5, 5, 16, 0.95) !important;
+    border: 1px solid rgba(156, 217, 249, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(156, 217, 249, 0.04);
+}
+
+[data-theme="nexus"] .nav-flyout,
+[data-theme="nexus"] .nav-overflow-menu {
+    position: relative;
+    z-index: var(--z-nav);
+}
+
+/* Settings panels — floating module */
+[data-theme="nexus"] .view.floating-module {
+    background: rgba(5, 5, 16, 0.95) !important;
+    border: 1px solid rgba(156, 217, 249, 0.1);
+    position: relative;
+    z-index: var(--z-panels);
+}
+
+/* Select dropdowns */
+[data-theme="nexus"] select,
+[data-theme="nexus"] .setting-select {
+    background: rgba(8, 10, 22, 0.7);
+    border: 1px solid rgba(156, 217, 249, 0.15);
+    color: #d0dce8;
+}
+
+[data-theme="nexus"] select:focus,
+[data-theme="nexus"] .setting-select:focus {
+    border-color: rgba(156, 217, 249, 0.45);
+    box-shadow: 0 0 8px rgba(156, 217, 249, 0.12);
+}
+
+/* Ensure settings/views content visible */
+[data-theme="nexus"] .setting-row,
+[data-theme="nexus"] .setting-group,
+[data-theme="nexus"] .settings-panel,
+[data-theme="nexus"] .settings-content,
+[data-theme="nexus"] .tab-content,
+[data-theme="nexus"] .tab-pane,
+[data-theme="nexus"] .persona-list,
+[data-theme="nexus"] .persona-card,
+[data-theme="nexus"] .prompt-list,
+[data-theme="nexus"] .toolset-list,
+[data-theme="nexus"] .spice-list,
+[data-theme="nexus"] .schedule-list,
+[data-theme="nexus"] .memory-list,
+[data-theme="nexus"] .knowledge-list,
+[data-theme="nexus"] .help-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Scrollbar */
+[data-theme="nexus"] ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+[data-theme="nexus"] ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[data-theme="nexus"] ::-webkit-scrollbar-thumb {
+    background: rgba(156, 217, 249, 0.2);
+}
+
+[data-theme="nexus"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 217, 249, 0.4);
+}
+
+/* Links */
+[data-theme="nexus"] a {
+    color: #9cd9f9;
+}
+
+[data-theme="nexus"] a:hover {
+    color: #c4e8fc;
+    text-shadow: 0 0 6px rgba(156, 217, 249, 0.3);
+}
+
+/* Code blocks */
+[data-theme="nexus"] pre {
+    background: rgba(8, 10, 22, 0.5) !important;
+    border: 1px solid rgba(156, 217, 249, 0.08);
+}
+
+[data-theme="nexus"] code {
+    color: #a0c0da;
+}
+
+/* Selection highlight */
+[data-theme="nexus"] ::selection {
+    background: rgba(156, 217, 249, 0.35);
+    color: #fff;
+}
+
+/* Toast */
+[data-theme="nexus"] .toast {
+    background: rgba(5, 5, 16, 0.95) !important;
+    border: 1px solid rgba(156, 217, 249, 0.15);
+    box-shadow: 0 0 15px rgba(156, 217, 249, 0.08);
+    z-index: var(--z-toast);
+}
+
+/* Headings */
+[data-theme="nexus"] h1,
+[data-theme="nexus"] h2,
+[data-theme="nexus"] h3 {
+    color: #d0e8f8;
+    text-shadow: 0 0 8px rgba(156, 217, 249, 0.15);
+}
+
+/* Thinking/typing */
+[data-theme="nexus"] .typing-indicator,
+[data-theme="nexus"] .thinking-indicator {
+    color: #9cd9f9;
+    text-shadow: 0 0 10px rgba(156, 217, 249, 0.4);
+}
+
+/* Toggle switches — Nexus ice blue */
+[data-theme="nexus"] .toggle-switch input:checked + .toggle-slider,
+[data-theme="nexus"] .switch input:checked + .slider,
+[data-theme="nexus"] input[type="checkbox"]:checked + label::before,
+[data-theme="nexus"] .toggle.active {
+    background-color: #9cd9f9 !important;
+    border-color: #9cd9f9 !important;
+    box-shadow: 0 0 8px rgba(156, 217, 249, 0.3);
+}
+
+/* Labels */
+[data-theme="nexus"] .setting-label label {
+    color: #d0dce8;
+}
+
+[data-theme="nexus"] .setting-help,
+[data-theme="nexus"] .text-muted {
+    color: #6898b8;
+}
+
+/* Tabs */
+[data-theme="nexus"] .nav-tabs .nav-link,
+[data-theme="nexus"] .tab-bar .tab {
+    color: #6898b8;
+}
+
+[data-theme="nexus"] .nav-tabs .nav-link.active,
+[data-theme="nexus"] .tab-bar .tab.active {
+    color: #9cd9f9;
+    border-bottom-color: #9cd9f9;
+}
+
+[data-theme="nexus"] .nav-tabs .nav-link:hover,
+[data-theme="nexus"] .tab-bar .tab:hover {
+    color: #b0d8f0;
+}
+
+/* Cards */
+[data-theme="nexus"] .card,
+[data-theme="nexus"] .list-item,
+[data-theme="nexus"] .persona-card,
+[data-theme="nexus"] .item-card {
+    background: rgba(8, 10, 22, 0.5);
+    border: 1px solid rgba(156, 217, 249, 0.08);
+    color: #d0dce8;
+}
+
+[data-theme="nexus"] .card:hover,
+[data-theme="nexus"] .list-item:hover,
+[data-theme="nexus"] .persona-card:hover,
+[data-theme="nexus"] .item-card:hover {
+    background: rgba(14, 18, 36, 0.6);
+    border-color: rgba(156, 217, 249, 0.2);
+    box-shadow: 0 0 10px rgba(156, 217, 249, 0.06);
+}
+
+/* Version/about */
+[data-theme="nexus"] .version-info,
+[data-theme="nexus"] .about-panel {
+    position: relative;
+    z-index: 2;
+}
+
+/* Chat sidebar buttons */
+[data-theme="nexus"] .sb-chat-actions {
+    border-bottom-color: rgba(156, 217, 249, 0.08);
+}
+
+[data-theme="nexus"] .sb-icon-btn {
+    color: #6898b8;
+}
+
+[data-theme="nexus"] .sb-icon-btn:hover {
+    background: rgba(156, 217, 249, 0.1);
+    color: #b0d8f0;
+}
+
+[data-theme="nexus"] .sb-icon-danger:hover {
+    color: var(--error) !important;
+}
+
+[data-theme="nexus"] .sb-kebab .kebab-dropdown {
+    background: rgba(5, 5, 16, 0.95);
+    border: 1px solid rgba(156, 217, 249, 0.12);
+}
+
+[data-theme="nexus"] .sb-kebab .kebab-dropdown button {
+    color: #6898b8;
+    background: transparent;
+    border: none;
+}
+
+[data-theme="nexus"] .sb-kebab .kebab-dropdown button:hover {
+    background: rgba(156, 217, 249, 0.1);
+    color: #b0d8f0;
+}
+
+[data-theme="nexus"] .sb-chat-picker-btn {
+    color: #d0dce8;
+}
+
+[data-theme="nexus"] .sb-mode-tab {
+    color: #6898b8;
+    border-bottom-color: transparent;
+}
+
+[data-theme="nexus"] .sb-mode-tab.active {
+    color: #9cd9f9;
+    border-bottom-color: #9cd9f9;
+}
+
+[data-theme="nexus"] .sb-mode-tab:hover {
+    color: #b0d8f0;
+}
+
+/* Inherit text color */
+[data-theme="nexus"] p,
+[data-theme="nexus"] span,
+[data-theme="nexus"] div,
+[data-theme="nexus"] label,
+[data-theme="nexus"] li {
+    color: inherit;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    [data-theme="nexus"] .view {
+        transition: none;
+    }
+}

@@ -265,6 +265,122 @@ const THEME_SETTINGS = {
         _applyJarvisChatStyle(currentChatStyle);
     },
 
+    ironman: (panel) => {
+        const currentPerf = localStorage.getItem('ironman-perf-tier') || 'auto';
+        const currentChatStyle = localStorage.getItem('ironman-chat-style') || 'transparent';
+
+        panel.innerHTML = `
+            <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:8px;">
+                <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">
+                    Iron Man Settings
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center;">
+                    <div class="setting-label">
+                        <label for="im-chat-style">Chat Style</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">How messages appear over the HUD</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="im-chat-style" class="setting-select" style="min-width:100px;">
+                            <option value="transparent" ${currentChatStyle === 'transparent' ? 'selected' : ''}>Transparent</option>
+                            <option value="glass" ${currentChatStyle === 'glass' ? 'selected' : ''}>Frosted Glass</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="im-perf">Performance Tier</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Lower tiers reduce GPU usage</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="im-perf" class="setting-select" style="min-width:100px;">
+                            <option value="auto" ${currentPerf === 'auto' ? 'selected' : ''}>Auto-detect</option>
+                            <option value="low" ${currentPerf === 'low' ? 'selected' : ''}>Low</option>
+                            <option value="medium" ${currentPerf === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="high" ${currentPerf === 'high' ? 'selected' : ''}>High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        panel.querySelector('#im-chat-style')?.addEventListener('change', (e) => {
+            localStorage.setItem('ironman-chat-style', e.target.value);
+            _applyIronmanChatStyle(e.target.value);
+        });
+
+        panel.querySelector('#im-perf')?.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === 'auto') {
+                localStorage.removeItem('ironman-perf-tier');
+            } else {
+                localStorage.setItem('ironman-perf-tier', val);
+            }
+            window.dispatchEvent(new CustomEvent('ironman-perf-change', { detail: val }));
+        });
+
+        _applyIronmanChatStyle(currentChatStyle);
+    },
+
+    nexus: (panel) => {
+        const currentPerf = localStorage.getItem('nexus-perf-tier') || 'auto';
+        const currentChatStyle = localStorage.getItem('nexus-chat-style') || 'transparent';
+
+        panel.innerHTML = `
+            <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:8px;">
+                <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">
+                    Nexus Settings
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center;">
+                    <div class="setting-label">
+                        <label for="nx-chat-style">Chat Style</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">How messages appear over the network</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="nx-chat-style" class="setting-select" style="min-width:100px;">
+                            <option value="transparent" ${currentChatStyle === 'transparent' ? 'selected' : ''}>Transparent</option>
+                            <option value="glass" ${currentChatStyle === 'glass' ? 'selected' : ''}>Frosted Glass</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="nx-perf">Performance Tier</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Lower tiers reduce GPU usage</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="nx-perf" class="setting-select" style="min-width:100px;">
+                            <option value="auto" ${currentPerf === 'auto' ? 'selected' : ''}>Auto-detect</option>
+                            <option value="low" ${currentPerf === 'low' ? 'selected' : ''}>Low</option>
+                            <option value="medium" ${currentPerf === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="high" ${currentPerf === 'high' ? 'selected' : ''}>High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        panel.querySelector('#nx-chat-style')?.addEventListener('change', (e) => {
+            localStorage.setItem('nexus-chat-style', e.target.value);
+            _applyNexusChatStyle(e.target.value);
+        });
+
+        panel.querySelector('#nx-perf')?.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === 'auto') {
+                localStorage.removeItem('nexus-perf-tier');
+            } else {
+                localStorage.setItem('nexus-perf-tier', val);
+            }
+            window.dispatchEvent(new CustomEvent('nexus-perf-change', { detail: val }));
+        });
+
+        _applyNexusChatStyle(currentChatStyle);
+    },
+
     // Add settings for future themes here:
 };
 
@@ -277,12 +393,22 @@ function _applyJarvisChatStyle(style) {
     document.documentElement.setAttribute('data-jarvis-chat', style);
 }
 
+function _applyIronmanChatStyle(style) {
+    document.documentElement.setAttribute('data-ironman-chat', style);
+}
+
+function _applyNexusChatStyle(style) {
+    document.documentElement.setAttribute('data-nexus-chat', style);
+}
+
 // Apply saved chat styles on load and theme change
 (function() {
     function applyForTheme(theme) {
         // Clear all chat style attributes
         document.documentElement.removeAttribute('data-matrix-chat');
         document.documentElement.removeAttribute('data-jarvis-chat');
+        document.documentElement.removeAttribute('data-ironman-chat');
+        document.documentElement.removeAttribute('data-nexus-chat');
 
         if (theme === 'matrix') {
             const style = localStorage.getItem('matrix-chat-style') || 'transparent';
@@ -290,6 +416,12 @@ function _applyJarvisChatStyle(style) {
         } else if (theme === 'jarvis') {
             const style = localStorage.getItem('jarvis-chat-style') || 'transparent';
             document.documentElement.setAttribute('data-jarvis-chat', style);
+        } else if (theme === 'ironman') {
+            const style = localStorage.getItem('ironman-chat-style') || 'transparent';
+            document.documentElement.setAttribute('data-ironman-chat', style);
+        } else if (theme === 'nexus') {
+            const style = localStorage.getItem('nexus-chat-style') || 'transparent';
+            document.documentElement.setAttribute('data-nexus-chat', style);
         }
     }
 

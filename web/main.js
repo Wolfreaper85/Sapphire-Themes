@@ -42,6 +42,32 @@
                 text: '#b0d4f1',
             },
         },
+        ironman: {
+            name: 'Iron Man',
+            id: 'ironman',
+            icon: '🔴',
+            description: 'Helmet HUD combat system',
+            css: `${BASE}/themes/ironman/ironman.css`,
+            scripts: [`${BASE}/themes/ironman/ironman-hud.js`],
+            preview: {
+                bg: '#0a0404',
+                accent: '#cc0000',
+                text: '#e8d0c0',
+            },
+        },
+        nexus: {
+            name: 'Nexus',
+            id: 'nexus',
+            icon: '🔗',
+            description: 'Neural network constellation',
+            css: `${BASE}/themes/nexus/nexus.css`,
+            scripts: [`${BASE}/themes/nexus/nexus-network.js`],
+            preview: {
+                bg: '#050510',
+                accent: '#9cd9f9',
+                text: '#d0dce8',
+            },
+        },
         // Add more bundled themes here:
     };
 
