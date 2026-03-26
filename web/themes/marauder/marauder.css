@@ -1,0 +1,749 @@
+/* Marauder's Map Theme - marauder.css
+ * "I solemnly swear that I am up to no good."
+ *
+ * Licensed under AGPL-3.0
+ */
+[data-theme="marauder"] {
+    /* Trim - Saddle brown ink accent */
+    --trim: #8b4513;
+    --trim-glow: rgba(139, 69, 19, 0.35);
+    --trim-light: rgba(139, 69, 19, 0.12);
+    --trim-border: rgba(139, 69, 19, 0.4);
+    --trim-50: rgba(139, 69, 19, 0.55);
+
+    /* Emotion-reactive color — warm brown */
+    --emotion-color: rgb(139, 69, 19);
+    --emotion-glow: rgba(139, 69, 19, 0.35);
+    --emotion-light: rgba(139, 69, 19, 0.12);
+    --emotion-border: rgba(139, 69, 19, 0.4);
+    --emotion-50: rgba(139, 69, 19, 0.55);
+
+    /* Colors - Core - Dark aged parchment */
+    --bg: #2a1f14;
+    --bg-secondary: #1e160e;
+    --bg-dark: #160f08;
+    --bg-tertiary: #342818;
+    --bg-hover: #3d3020;
+    --bg-inset: rgba(42, 31, 20, 0.9);
+    --text: #d4c4a0;
+    --text-bright: #ede0c8;
+    --text-light: #c0a878;
+    --text-secondary: #9c8b6e;
+    --text-tertiary: #7a6a50;
+    --text-muted: #5a4a34;
+    --text-dim: #3a2c1c;
+    --border: rgba(139, 69, 19, 0.2);
+    --border-light: rgba(139, 69, 19, 0.3);
+    --border-hover: rgba(139, 69, 19, 0.45);
+    --border-subtle: rgba(139, 69, 19, 0.08);
+
+    /* Overlays & Shadows */
+    --overlay-bg: rgba(22, 15, 8, 0.96);
+    --overlay-medium: rgba(22, 15, 8, 0.92);
+    --shadow-medium: rgba(0, 0, 0, 0.7);
+    --shadow-heavy: rgba(0, 0, 0, 0.9);
+    --highlight-subtle: rgba(139, 69, 19, 0.06);
+
+    /* Scrollbar */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: rgba(139, 69, 19, 0.25);
+    --scrollbar-thumb-hover: rgba(139, 69, 19, 0.4);
+
+    /* Inputs */
+    --input-bg: #1e160e;
+    --input-border: rgba(139, 69, 19, 0.2);
+    --input-focus-border: #8b4513;
+    --input-focus-bg: #160f08;
+    --placeholder-color: #3a2c1c;
+
+    /* Code/Mono */
+    --code-bg: rgba(20, 14, 8, 0.8);
+
+    /* Focus ring */
+    --focus-ring: rgba(139, 69, 19, 0.5);
+
+    /* Selection */
+    --selection-bg: rgba(196, 148, 58, 0.3);
+    --selection-text: #ede0c8;
+
+    /* Select dropdown arrow */
+    --select-arrow: url('data:image/svg+xml;utf8,<svg fill="%238b4513" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+
+    /* Primary - Saddle brown */
+    --primary: #8b4513;
+    --primary-hover: #6e3610;
+
+    /* Success - Warm gold (magical highlight) */
+    --success: #c4943a;
+    --success-text: #c4943a;
+    --success-bg: rgba(196, 148, 58, 0.9);
+    --success-light: rgba(196, 148, 58, 0.12);
+    --success-border: rgba(196, 148, 58, 0.35);
+    --success-border-hover: rgba(196, 148, 58, 0.55);
+
+    /* Warning - Amber gold */
+    --warning: #d4a030;
+    --warning-text: #d4a840;
+    --warning-bg: rgba(212, 160, 48, 0.9);
+    --warning-light: rgba(212, 168, 64, 0.12);
+    --warning-border: rgba(212, 168, 64, 0.35);
+
+    /* Error/Danger - Deep crimson */
+    --error: #a03020;
+    --error-text: #c04030;
+    --error-bg: rgba(160, 48, 32, 0.9);
+    --error-light: rgba(192, 64, 48, 0.12);
+    --error-border: rgba(192, 64, 48, 0.35);
+    --error-border-hover: rgba(192, 64, 48, 0.55);
+    --error-subtle: rgba(192, 64, 48, 0.08);
+    --danger: #8c2018;
+    --danger-hover: #701810;
+    --danger-red: #c04030;
+    --danger-glow: rgba(160, 48, 32, 0.6);
+
+    /* Info */
+    --info-bg: rgba(139, 69, 19, 0.9);
+
+    /* Accent colors */
+    --accent-blue: #8b4513;
+    --accent-blue-hover: #6e3610;
+    --accent-blue-light: rgba(139, 69, 19, 0.15);
+    --accent-blue-border: rgba(139, 69, 19, 0.35);
+    --accent-cyan: #c4943a;
+    --accent-cyan-light: rgba(196, 148, 58, 0.15);
+    --accent-orange: #a0522d;
+
+    /* Chat message backgrounds */
+    --user-bg: #2e2218;
+    --assistant-bg: #241a10;
+
+    /* Plugin-specific accents */
+    --plugin-spice-bg: rgba(139, 69, 19, 0.12);
+    --plugin-spice-bg-hover: rgba(139, 69, 19, 0.22);
+    --plugin-ability-bg: rgba(196, 148, 58, 0.08);
+    --plugin-ability-bg-hover: rgba(196, 148, 58, 0.15);
+    --plugin-prompt-bg: rgba(139, 69, 19, 0.1);
+    --plugin-prompt-bg-focus: rgba(139, 69, 19, 0.2);
+
+    /* Tool result accent */
+    --tool-result-bg: rgba(196, 148, 58, 0.08);
+
+    /* Slightly rounded — parchment aesthetic */
+    --radius-sm: 3px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+
+    /* Typeface — magical parchment serif */
+    font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', 'Palatino', serif;
+}
+
+/* Monospace contexts */
+[data-theme="marauder"] code,
+[data-theme="marauder"] pre,
+[data-theme="marauder"] kbd,
+[data-theme="marauder"] .monospace,
+[data-theme="marauder"] textarea,
+[data-theme="marauder"] #prompt-input {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+/* === MARAUDER ENHANCEMENTS === */
+
+/* Z-INDEX STACKING ORDER */
+[data-theme="marauder"] {
+    --z-canvas: 0;
+    --z-content: 1;
+    --z-panels: 10;
+    --z-sidebars: 100;
+    --z-hud: 998;
+    --z-nav: 999;
+    --z-modal: 1050;
+    --z-toast: 1100;
+}
+
+/* EVERYTHING sits on top of the canvas */
+[data-theme="marauder"] #nav-rail {
+    z-index: var(--z-nav);
+    position: fixed;
+}
+[data-theme="marauder"] #app-content {
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat area — fully transparent so background shows through */
+[data-theme="marauder"] #chatbg {
+    position: relative;
+    background-color: transparent !important;
+}
+
+[data-theme="marauder"] #chatbg-overlay {
+    background: transparent !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Body background */
+[data-theme="marauder"] body {
+    background-image: none;
+    background-color: #2a1f14;
+}
+
+[data-theme="marauder"] body::before {
+    display: none;
+}
+
+/* ALL views — semi-transparent parchment */
+[data-theme="marauder"] .view {
+    background: rgba(42, 31, 20, 0.88) !important;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view — fully transparent */
+[data-theme="marauder"] #view-chat {
+    background: transparent !important;
+}
+
+[data-theme="marauder"] #view-chat .view-body,
+[data-theme="marauder"] #view-chat .view-scroll,
+[data-theme="marauder"] #view-chat .chat-body {
+    background: transparent !important;
+}
+
+/* Non-chat view body */
+[data-theme="marauder"] .view-body,
+[data-theme="marauder"] .view-scroll {
+    background: rgba(42, 31, 20, 0.6) !important;
+}
+
+/* View headers */
+[data-theme="marauder"] .view-header {
+    background: rgba(30, 22, 14, 0.9);
+    border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Sidebar sections */
+[data-theme="marauder"] .sidebar-section {
+    background: rgba(30, 22, 14, 0.5);
+    border-bottom: 1px solid rgba(139, 69, 19, 0.06);
+}
+[data-theme="marauder"] .sidebar-accordion-header {
+    background: rgba(30, 22, 14, 0.6);
+}
+[data-theme="marauder"] .sidebar-accordion-header:hover {
+    background: rgba(52, 40, 24, 0.7);
+}
+
+/* Module backdrop */
+[data-theme="marauder"] #module-backdrop {
+    background: rgba(22, 15, 8, 0.6);
+}
+
+/* Scan lines on UI panels — subtle warm parchment grain */
+[data-theme="marauder"] #nav-rail::before,
+[data-theme="marauder"] .chat-sidebar::before,
+[data-theme="marauder"] .view.floating-module::before,
+[data-theme="marauder"] .modal-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 4px,
+        rgba(139, 69, 19, 0.012) 4px,
+        rgba(139, 69, 19, 0.012) 8px
+    );
+    mix-blend-mode: multiply;
+}
+
+/* Warm glow — bottom center (magical footstep glow) */
+[data-theme="marauder"] body::after {
+    content: '';
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40vw;
+    height: 180px;
+    pointer-events: none;
+    z-index: var(--z-canvas);
+    background:
+        radial-gradient(ellipse at center, rgba(196, 148, 58, 0.12) 0%, rgba(139, 69, 19, 0.05) 30%, transparent 60%);
+    filter: blur(12px);
+}
+
+/* Send button */
+[data-theme="marauder"] #send-btn,
+[data-theme="marauder"] #send-btn.llm-local,
+[data-theme="marauder"] #send-btn.llm-cloud,
+[data-theme="marauder"] #send-btn.llm-auto,
+[data-theme="marauder"] #send-btn.use-trim,
+[data-theme="marauder"] #send-btn.use-trim.llm-local,
+[data-theme="marauder"] #send-btn.use-trim.llm-cloud,
+[data-theme="marauder"] #send-btn.use-trim.llm-auto {
+    background: #8b4513 !important;
+    box-shadow: 0 0 12px rgba(139, 69, 19, 0.35), inset 0 0 8px rgba(139, 69, 19, 0.12) !important;
+    border: 1px solid rgba(139, 69, 19, 0.4) !important;
+    color: #ede0c8 !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+[data-theme="marauder"] #send-btn:hover {
+    background: rgba(139, 69, 19, 0.55) !important;
+    box-shadow: 0 0 20px rgba(139, 69, 19, 0.35), inset 0 0 12px rgba(139, 69, 19, 0.12) !important;
+}
+
+/* Nav rail */
+[data-theme="marauder"] #nav-rail {
+    background: rgba(42, 31, 20, 0.9) !important;
+    border-right: 1px solid rgba(139, 69, 19, 0.12);
+}
+
+/* Nav icons — warm brown */
+[data-theme="marauder"] .nav-icon.themes-icon svg {
+    color: #8b4513;
+    filter: drop-shadow(0 0 4px rgba(139, 69, 19, 0.3));
+    transition: all 0.3s ease;
+}
+
+[data-theme="marauder"] .nav-item:hover .nav-icon.themes-icon svg {
+    color: #c4943a;
+    filter: drop-shadow(0 0 10px rgba(196, 148, 58, 0.6));
+}
+
+[data-theme="marauder"] .nav-item.active .nav-icon.themes-icon svg {
+    color: #c4943a;
+    filter: drop-shadow(0 0 10px rgba(196, 148, 58, 0.8));
+}
+
+/* Nav label text */
+[data-theme="marauder"] .nav-label {
+    color: #9c8b6e;
+    text-shadow: 0 0 6px rgba(139, 69, 19, 0.2);
+}
+
+[data-theme="marauder"] .nav-item:hover .nav-label {
+    color: #d4c4a0;
+    text-shadow: 0 0 8px rgba(196, 148, 58, 0.4);
+}
+
+[data-theme="marauder"] .nav-item.active .nav-label {
+    color: #ede0c8;
+    text-shadow: 0 0 10px rgba(196, 148, 58, 0.5);
+}
+
+/* Chat area — transparent */
+[data-theme="marauder"] .chat-messages,
+[data-theme="marauder"] .chat-container {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view-content — transparent */
+[data-theme="marauder"] #view-chat .view-content {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Other view-content */
+[data-theme="marauder"] .view-content {
+    background: rgba(42, 31, 20, 0.6);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* === MESSAGE PANES === */
+
+/* Message row — transparent */
+[data-theme="marauder"] .message {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin-bottom: 26px;
+    filter: none;
+    --msg-max-width: 70%;
+}
+
+/* === TRANSPARENT MODE (default) === */
+[data-theme="marauder"] .message-content {
+    background: rgba(30, 22, 14, 0.3) !important;
+    border: 1px solid rgba(139, 69, 19, 0.1) !important;
+    border-radius: 6px !important;
+    position: relative;
+    max-width: 600px;
+}
+
+/* === FROSTED GLASS MODE === */
+[data-marauder-chat="glass"] .message-content {
+    background: rgba(42, 31, 20, 0.35) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(139, 69, 19, 0.12) !important;
+    border-top: 1px solid rgba(139, 69, 19, 0.28) !important;
+    box-shadow: 0 0 20px rgba(139, 69, 19, 0.05);
+    isolation: isolate;
+}
+
+/* Glass mode — shimmer on top edge */
+[data-marauder-chat="glass"] .message-content::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(196, 148, 58, 0.45), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Glass mode — input area */
+[data-marauder-chat="glass"] .prompt-container,
+[data-marauder-chat="glass"] .chat-input-container {
+    background: rgba(42, 31, 20, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Chat container width */
+[data-theme="marauder"] #chat-container {
+    max-width: 900px;
+}
+
+/* Avatar — warm golden ring */
+[data-theme="marauder"] .msg-avatar {
+    box-shadow: 0 0 8px rgba(196, 148, 58, 0.2), 0 0 2px rgba(196, 148, 58, 0.35);
+    border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+/* Chat sidebar */
+[data-theme="marauder"] .chat-sidebar {
+    background: rgba(42, 31, 20, 0.92) !important;
+    border-right: 1px solid rgba(139, 69, 19, 0.1);
+    position: relative;
+    z-index: var(--z-sidebars);
+}
+
+/* Input area */
+[data-theme="marauder"] .prompt-container,
+[data-theme="marauder"] .chat-input-container {
+    background: rgba(42, 31, 20, 0.35);
+    border-top: 1px solid rgba(139, 69, 19, 0.1);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+[data-theme="marauder"] #prompt-input {
+    background: rgba(30, 22, 14, 0.6) !important;
+    border: 1px solid rgba(139, 69, 19, 0.15) !important;
+    color: #d4c4a0 !important;
+    caret-color: #c4943a;
+}
+
+[data-theme="marauder"] #prompt-input:focus {
+    border-color: rgba(139, 69, 19, 0.45) !important;
+    box-shadow: 0 0 12px rgba(139, 69, 19, 0.12) !important;
+}
+
+[data-theme="marauder"] #prompt-input::placeholder {
+    color: #3a2c1c;
+}
+
+/* Modals */
+[data-theme="marauder"] .modal-content {
+    background: rgba(42, 31, 20, 0.96) !important;
+    border: 1px solid rgba(139, 69, 19, 0.18);
+    box-shadow: 0 0 30px rgba(139, 69, 19, 0.08), 0 0 60px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: var(--z-modal);
+}
+
+[data-theme="marauder"] .modal-overlay,
+[data-theme="marauder"] .modal-backdrop {
+    z-index: var(--z-modal);
+}
+
+/* Buttons */
+[data-theme="marauder"] .btn {
+    border: 1px solid rgba(139, 69, 19, 0.25);
+    color: #9c8b6e;
+    background: rgba(139, 69, 19, 0.06);
+}
+
+[data-theme="marauder"] .btn:hover {
+    background: rgba(139, 69, 19, 0.14);
+    border-color: rgba(139, 69, 19, 0.4);
+    box-shadow: 0 0 8px rgba(139, 69, 19, 0.15);
+    color: #d4c4a0;
+}
+
+/* Generic button reset */
+[data-theme="marauder"] button:not(.btn):not(.sb-icon-btn):not(.kebab-btn):not(.sb-mode-tab):not(.sb-chat-picker-btn):not(.sb-collapse-btn):not(#send-btn) {
+    color: inherit;
+}
+
+/* Flyout menus */
+[data-theme="marauder"] .nav-flyout,
+[data-theme="marauder"] .kebab-dropdown,
+[data-theme="marauder"] .nav-overflow-menu {
+    background: rgba(42, 31, 20, 0.95) !important;
+    border: 1px solid rgba(139, 69, 19, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(139, 69, 19, 0.04);
+}
+
+[data-theme="marauder"] .nav-flyout,
+[data-theme="marauder"] .nav-overflow-menu {
+    position: relative;
+    z-index: var(--z-nav);
+}
+
+/* Settings panels — floating module */
+[data-theme="marauder"] .view.floating-module {
+    background: rgba(42, 31, 20, 0.95) !important;
+    border: 1px solid rgba(139, 69, 19, 0.1);
+    position: relative;
+    z-index: var(--z-panels);
+}
+
+/* Select dropdowns */
+[data-theme="marauder"] select,
+[data-theme="marauder"] .setting-select {
+    background: rgba(30, 22, 14, 0.7);
+    border: 1px solid rgba(139, 69, 19, 0.15);
+    color: #d4c4a0;
+}
+
+[data-theme="marauder"] select:focus,
+[data-theme="marauder"] .setting-select:focus {
+    border-color: rgba(139, 69, 19, 0.45);
+    box-shadow: 0 0 8px rgba(139, 69, 19, 0.12);
+}
+
+/* Ensure settings/views content visible */
+[data-theme="marauder"] .setting-row,
+[data-theme="marauder"] .setting-group,
+[data-theme="marauder"] .settings-panel,
+[data-theme="marauder"] .settings-content,
+[data-theme="marauder"] .tab-content,
+[data-theme="marauder"] .tab-pane,
+[data-theme="marauder"] .persona-list,
+[data-theme="marauder"] .persona-card,
+[data-theme="marauder"] .prompt-list,
+[data-theme="marauder"] .toolset-list,
+[data-theme="marauder"] .spice-list,
+[data-theme="marauder"] .schedule-list,
+[data-theme="marauder"] .memory-list,
+[data-theme="marauder"] .knowledge-list,
+[data-theme="marauder"] .help-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Scrollbar */
+[data-theme="marauder"] ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+[data-theme="marauder"] ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[data-theme="marauder"] ::-webkit-scrollbar-thumb {
+    background: rgba(139, 69, 19, 0.25);
+}
+
+[data-theme="marauder"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 69, 19, 0.4);
+}
+
+/* Links */
+[data-theme="marauder"] a {
+    color: #c4943a;
+}
+
+[data-theme="marauder"] a:hover {
+    color: #dab050;
+    text-shadow: 0 0 6px rgba(196, 148, 58, 0.3);
+}
+
+/* Code blocks */
+[data-theme="marauder"] pre {
+    background: rgba(20, 14, 8, 0.8) !important;
+    border: 1px solid rgba(139, 69, 19, 0.08);
+}
+
+[data-theme="marauder"] code {
+    color: #c0a878;
+}
+
+/* Selection highlight */
+[data-theme="marauder"] ::selection {
+    background: rgba(196, 148, 58, 0.3);
+    color: #ede0c8;
+}
+
+/* Toast */
+[data-theme="marauder"] .toast {
+    background: rgba(42, 31, 20, 0.95) !important;
+    border: 1px solid rgba(139, 69, 19, 0.15);
+    box-shadow: 0 0 15px rgba(139, 69, 19, 0.08);
+    z-index: var(--z-toast);
+}
+
+/* Headings */
+[data-theme="marauder"] h1,
+[data-theme="marauder"] h2,
+[data-theme="marauder"] h3 {
+    color: #ede0c8;
+    text-shadow: 0 0 8px rgba(196, 148, 58, 0.15);
+}
+
+/* Thinking/typing */
+[data-theme="marauder"] .typing-indicator,
+[data-theme="marauder"] .thinking-indicator {
+    color: #c4943a;
+    text-shadow: 0 0 10px rgba(196, 148, 58, 0.4);
+}
+
+/* Toggle switches — Warm gold */
+[data-theme="marauder"] .toggle-switch input:checked + .toggle-slider,
+[data-theme="marauder"] .switch input:checked + .slider,
+[data-theme="marauder"] input[type="checkbox"]:checked + label::before,
+[data-theme="marauder"] .toggle.active {
+    background-color: #c4943a !important;
+    border-color: #c4943a !important;
+    box-shadow: 0 0 8px rgba(196, 148, 58, 0.3);
+}
+
+/* Labels */
+[data-theme="marauder"] .setting-label label {
+    color: #d4c4a0;
+}
+
+[data-theme="marauder"] .setting-help,
+[data-theme="marauder"] .text-muted {
+    color: #9c8b6e;
+}
+
+/* Tabs */
+[data-theme="marauder"] .nav-tabs .nav-link,
+[data-theme="marauder"] .tab-bar .tab {
+    color: #9c8b6e;
+}
+
+[data-theme="marauder"] .nav-tabs .nav-link.active,
+[data-theme="marauder"] .tab-bar .tab.active {
+    color: #c4943a;
+    border-bottom-color: #c4943a;
+}
+
+[data-theme="marauder"] .nav-tabs .nav-link:hover,
+[data-theme="marauder"] .tab-bar .tab:hover {
+    color: #d4b060;
+}
+
+/* Cards */
+[data-theme="marauder"] .card,
+[data-theme="marauder"] .list-item,
+[data-theme="marauder"] .persona-card,
+[data-theme="marauder"] .item-card {
+    background: rgba(30, 22, 14, 0.5);
+    border: 1px solid rgba(139, 69, 19, 0.08);
+    color: #d4c4a0;
+}
+
+[data-theme="marauder"] .card:hover,
+[data-theme="marauder"] .list-item:hover,
+[data-theme="marauder"] .persona-card:hover,
+[data-theme="marauder"] .item-card:hover {
+    background: rgba(52, 40, 24, 0.6);
+    border-color: rgba(139, 69, 19, 0.2);
+    box-shadow: 0 0 10px rgba(139, 69, 19, 0.06);
+}
+
+/* Version/about */
+[data-theme="marauder"] .version-info,
+[data-theme="marauder"] .about-panel {
+    position: relative;
+    z-index: 2;
+}
+
+/* Chat sidebar buttons */
+[data-theme="marauder"] .sb-chat-actions {
+    border-bottom-color: rgba(139, 69, 19, 0.08);
+}
+
+[data-theme="marauder"] .sb-icon-btn {
+    color: #9c8b6e;
+}
+
+[data-theme="marauder"] .sb-icon-btn:hover {
+    background: rgba(139, 69, 19, 0.1);
+    color: #c0a878;
+}
+
+[data-theme="marauder"] .sb-icon-danger:hover {
+    color: var(--error) !important;
+}
+
+[data-theme="marauder"] .sb-kebab .kebab-dropdown {
+    background: rgba(42, 31, 20, 0.95);
+    border: 1px solid rgba(139, 69, 19, 0.12);
+}
+
+[data-theme="marauder"] .sb-kebab .kebab-dropdown button {
+    color: #9c8b6e;
+    background: transparent;
+    border: none;
+}
+
+[data-theme="marauder"] .sb-kebab .kebab-dropdown button:hover {
+    background: rgba(139, 69, 19, 0.1);
+    color: #c0a878;
+}
+
+[data-theme="marauder"] .sb-chat-picker-btn {
+    color: #d4c4a0;
+}
+
+[data-theme="marauder"] .sb-mode-tab {
+    color: #9c8b6e;
+    border-bottom-color: transparent;
+}
+
+[data-theme="marauder"] .sb-mode-tab.active {
+    color: #c4943a;
+    border-bottom-color: #c4943a;
+}
+
+[data-theme="marauder"] .sb-mode-tab:hover {
+    color: #d4b060;
+}
+
+/* Inherit text color */
+[data-theme="marauder"] p,
+[data-theme="marauder"] span,
+[data-theme="marauder"] div,
+[data-theme="marauder"] label,
+[data-theme="marauder"] li {
+    color: inherit;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    [data-theme="marauder"] .view {
+        transition: none;
+    }
+}

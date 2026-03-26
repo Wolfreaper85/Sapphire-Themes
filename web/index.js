@@ -530,6 +530,64 @@ const THEME_SETTINGS = {
         _applyPrismChatStyle(currentChatStyle);
     },
 
+    marauder: (panel) => {
+        const currentPerf = localStorage.getItem('marauder-perf-tier') || 'auto';
+        const currentChatStyle = localStorage.getItem('marauder-chat-style') || 'transparent';
+
+        panel.innerHTML = `
+            <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:8px;">
+                <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px; font-family: Georgia, 'Palatino Linotype', serif;">
+                    Marauder's Map Settings
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center;">
+                    <div class="setting-label">
+                        <label for="mm-chat-style">Chat Style</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">How messages appear over the map</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="mm-chat-style" class="setting-select" style="min-width:100px;">
+                            <option value="transparent" ${currentChatStyle === 'transparent' ? 'selected' : ''}>Transparent</option>
+                            <option value="glass" ${currentChatStyle === 'glass' ? 'selected' : ''}>Frosted Parchment</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="mm-perf">Performance Tier</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Lower tiers reduce GPU usage</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="mm-perf" class="setting-select" style="min-width:100px;">
+                            <option value="auto" ${currentPerf === 'auto' ? 'selected' : ''}>Auto-detect</option>
+                            <option value="low" ${currentPerf === 'low' ? 'selected' : ''}>Low</option>
+                            <option value="medium" ${currentPerf === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="high" ${currentPerf === 'high' ? 'selected' : ''}>High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        panel.querySelector('#mm-chat-style')?.addEventListener('change', (e) => {
+            localStorage.setItem('marauder-chat-style', e.target.value);
+            _applyMarauderChatStyle(e.target.value);
+        });
+
+        panel.querySelector('#mm-perf')?.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === 'auto') {
+                localStorage.removeItem('marauder-perf-tier');
+            } else {
+                localStorage.setItem('marauder-perf-tier', val);
+            }
+            window.dispatchEvent(new CustomEvent('marauder-perf-change', { detail: val }));
+        });
+
+        _applyMarauderChatStyle(currentChatStyle);
+    },
+
     // Add settings for future themes here:
 };
 
@@ -558,6 +616,10 @@ function _applyPrismChatStyle(style) {
     document.documentElement.setAttribute('data-prism-chat', style);
 }
 
+function _applyMarauderChatStyle(style) {
+    document.documentElement.setAttribute('data-marauder-chat', style);
+}
+
 // Apply saved chat styles on load and theme change
 (function() {
     function applyForTheme(theme) {
@@ -569,6 +631,7 @@ function _applyPrismChatStyle(style) {
         document.documentElement.removeAttribute('data-cosmos-chat');
         document.documentElement.removeAttribute('data-prism-chat');
         document.documentElement.removeAttribute('data-prism-accent');
+        document.documentElement.removeAttribute('data-marauder-chat');
 
         if (theme === 'matrix') {
             const style = localStorage.getItem('matrix-chat-style') || 'transparent';
@@ -590,6 +653,9 @@ function _applyPrismChatStyle(style) {
             document.documentElement.setAttribute('data-prism-chat', style);
             const accent = localStorage.getItem('prism-accent') || 'rainbow';
             document.documentElement.setAttribute('data-prism-accent', accent);
+        } else if (theme === 'marauder') {
+            const style = localStorage.getItem('marauder-chat-style') || 'transparent';
+            document.documentElement.setAttribute('data-marauder-chat', style);
         }
     }
 

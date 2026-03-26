@@ -94,6 +94,19 @@
                 text: '#e0dce8',
             },
         },
+        marauder: {
+            name: "Marauder's Map",
+            id: 'marauder',
+            icon: '🗺️',
+            description: 'Enchanted parchment with ink footprints',
+            css: `${BASE}/themes/marauder/marauder.css`,
+            scripts: [`${BASE}/themes/marauder/marauder-map.js`],
+            preview: {
+                bg: '#2a1f14',
+                accent: '#c4943a',
+                text: '#d4c4a0',
+            },
+        },
         // Add more bundled themes here:
     };
 
