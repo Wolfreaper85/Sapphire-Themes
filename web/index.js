@@ -381,6 +381,64 @@ const THEME_SETTINGS = {
         _applyNexusChatStyle(currentChatStyle);
     },
 
+    cosmos: (panel) => {
+        const currentPerf = localStorage.getItem('cosmos-perf-tier') || 'auto';
+        const currentChatStyle = localStorage.getItem('cosmos-chat-style') || 'transparent';
+
+        panel.innerHTML = `
+            <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:8px;">
+                <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">
+                    Cosmos Settings
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center;">
+                    <div class="setting-label">
+                        <label for="cs-chat-style">Chat Style</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">How messages appear over the solar system</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="cs-chat-style" class="setting-select" style="min-width:100px;">
+                            <option value="transparent" ${currentChatStyle === 'transparent' ? 'selected' : ''}>Transparent</option>
+                            <option value="glass" ${currentChatStyle === 'glass' ? 'selected' : ''}>Frosted Glass</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="cs-perf">Performance Tier</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Lower tiers reduce GPU usage</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="cs-perf" class="setting-select" style="min-width:100px;">
+                            <option value="auto" ${currentPerf === 'auto' ? 'selected' : ''}>Auto-detect</option>
+                            <option value="low" ${currentPerf === 'low' ? 'selected' : ''}>Low</option>
+                            <option value="medium" ${currentPerf === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="high" ${currentPerf === 'high' ? 'selected' : ''}>High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        panel.querySelector('#cs-chat-style')?.addEventListener('change', (e) => {
+            localStorage.setItem('cosmos-chat-style', e.target.value);
+            _applyCosmosChatStyle(e.target.value);
+        });
+
+        panel.querySelector('#cs-perf')?.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === 'auto') {
+                localStorage.removeItem('cosmos-perf-tier');
+            } else {
+                localStorage.setItem('cosmos-perf-tier', val);
+            }
+            window.dispatchEvent(new CustomEvent('cosmos-perf-change', { detail: val }));
+        });
+
+        _applyCosmosChatStyle(currentChatStyle);
+    },
+
     // Add settings for future themes here:
 };
 
@@ -401,6 +459,10 @@ function _applyNexusChatStyle(style) {
     document.documentElement.setAttribute('data-nexus-chat', style);
 }
 
+function _applyCosmosChatStyle(style) {
+    document.documentElement.setAttribute('data-cosmos-chat', style);
+}
+
 // Apply saved chat styles on load and theme change
 (function() {
     function applyForTheme(theme) {
@@ -409,6 +471,7 @@ function _applyNexusChatStyle(style) {
         document.documentElement.removeAttribute('data-jarvis-chat');
         document.documentElement.removeAttribute('data-ironman-chat');
         document.documentElement.removeAttribute('data-nexus-chat');
+        document.documentElement.removeAttribute('data-cosmos-chat');
 
         if (theme === 'matrix') {
             const style = localStorage.getItem('matrix-chat-style') || 'transparent';
@@ -422,6 +485,9 @@ function _applyNexusChatStyle(style) {
         } else if (theme === 'nexus') {
             const style = localStorage.getItem('nexus-chat-style') || 'transparent';
             document.documentElement.setAttribute('data-nexus-chat', style);
+        } else if (theme === 'cosmos') {
+            const style = localStorage.getItem('cosmos-chat-style') || 'transparent';
+            document.documentElement.setAttribute('data-cosmos-chat', style);
         }
     }
 

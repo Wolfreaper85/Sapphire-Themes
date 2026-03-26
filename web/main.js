@@ -68,6 +68,19 @@
                 text: '#d0dce8',
             },
         },
+        cosmos: {
+            name: 'Cosmos',
+            id: 'cosmos',
+            icon: '🪐',
+            description: 'Solar system with interactive stars',
+            css: `${BASE}/themes/cosmos/cosmos.css`,
+            scripts: [`${BASE}/themes/cosmos/cosmos-solar.js`],
+            preview: {
+                bg: '#020108',
+                accent: '#7b68ee',
+                text: '#d4d0e8',
+            },
+        },
         // Add more bundled themes here:
     };
 

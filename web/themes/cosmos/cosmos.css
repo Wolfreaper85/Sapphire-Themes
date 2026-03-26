@@ -1,0 +1,749 @@
+/* Cosmos Theme - cosmos.css
+ * "Through the stars, beyond the void."
+ *
+ * Licensed under AGPL-3.0
+ */
+[data-theme="cosmos"] {
+    /* Trim - Core cosmic purple */
+    --trim: #7b68ee;
+    --trim-glow: rgba(123, 104, 238, 0.35);
+    --trim-light: rgba(123, 104, 238, 0.12);
+    --trim-border: rgba(123, 104, 238, 0.4);
+    --trim-50: rgba(123, 104, 238, 0.55);
+
+    /* Emotion-reactive color — updated by theme JS */
+    --emotion-color: rgb(123, 104, 238);
+    --emotion-glow: rgba(123, 104, 238, 0.35);
+    --emotion-light: rgba(123, 104, 238, 0.12);
+    --emotion-border: rgba(123, 104, 238, 0.4);
+    --emotion-50: rgba(123, 104, 238, 0.55);
+
+    /* Colors - Core - Deep space with purple undertone */
+    --bg: #020108;
+    --bg-secondary: #0a0618;
+    --bg-dark: #010106;
+    --bg-tertiary: #120c28;
+    --bg-hover: #1a1238;
+    --bg-inset: rgba(2, 1, 8, 0.9);
+    --text: #d4d0e8;
+    --text-bright: #eee8ff;
+    --text-light: #b0a8d0;
+    --text-secondary: #8070b0;
+    --text-tertiary: #504070;
+    --text-muted: #302848;
+    --text-dim: #181020;
+    --border: #1a1040;
+    --border-light: #281858;
+    --border-hover: #382870;
+    --border-subtle: rgba(123, 104, 238, 0.08);
+
+    /* Overlays & Shadows */
+    --overlay-bg: rgba(2, 1, 8, 0.96);
+    --overlay-medium: rgba(2, 1, 8, 0.92);
+    --shadow-medium: rgba(0, 0, 0, 0.7);
+    --shadow-heavy: rgba(0, 0, 0, 0.9);
+    --highlight-subtle: rgba(123, 104, 238, 0.06);
+
+    /* Scrollbar */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: rgba(123, 104, 238, 0.2);
+    --scrollbar-thumb-hover: rgba(123, 104, 238, 0.4);
+
+    /* Inputs */
+    --input-bg: #0a0618;
+    --input-border: #1a1040;
+    --input-focus-border: #7b68ee;
+    --input-focus-bg: #010106;
+    --placeholder-color: #201830;
+
+    /* Code/Mono */
+    --code-bg: rgba(8, 4, 20, 0.7);
+
+    /* Focus ring */
+    --focus-ring: rgba(123, 104, 238, 0.5);
+
+    /* Selection */
+    --selection-bg: rgba(123, 104, 238, 0.35);
+    --selection-text: #fff;
+
+    /* Select dropdown arrow */
+    --select-arrow: url('data:image/svg+xml;utf8,<svg fill="%237b68ee" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+
+    /* Primary - Cosmic purple */
+    --primary: #7b68ee;
+    --primary-hover: #6050d0;
+
+    /* Success - Star gold */
+    --success: #e8a84c;
+    --success-text: #e8a84c;
+    --success-bg: rgba(232, 168, 76, 0.9);
+    --success-light: rgba(232, 168, 76, 0.12);
+    --success-border: rgba(232, 168, 76, 0.35);
+    --success-border-hover: rgba(232, 168, 76, 0.55);
+
+    /* Warning - Supernova amber */
+    --warning: #f0a030;
+    --warning-text: #f0b050;
+    --warning-bg: rgba(240, 160, 48, 0.9);
+    --warning-light: rgba(240, 176, 80, 0.12);
+    --warning-border: rgba(240, 176, 80, 0.35);
+
+    /* Error/Danger - Red dwarf */
+    --error: #e03040;
+    --error-text: #f05060;
+    --error-bg: rgba(224, 48, 64, 0.9);
+    --error-light: rgba(240, 80, 96, 0.12);
+    --error-border: rgba(240, 80, 96, 0.35);
+    --error-border-hover: rgba(240, 80, 96, 0.55);
+    --error-subtle: rgba(240, 80, 96, 0.08);
+    --danger: #c02030;
+    --danger-hover: #a01828;
+    --danger-red: #f04050;
+    --danger-glow: rgba(224, 48, 64, 0.6);
+
+    /* Info */
+    --info-bg: rgba(123, 104, 238, 0.9);
+
+    /* Accent colors */
+    --accent-blue: #7b68ee;
+    --accent-blue-hover: #6050d0;
+    --accent-blue-light: rgba(123, 104, 238, 0.15);
+    --accent-blue-border: rgba(123, 104, 238, 0.35);
+    --accent-cyan: #4ec9b0;
+    --accent-cyan-light: rgba(78, 201, 176, 0.15);
+    --accent-orange: #e8a84c;
+
+    /* Chat message backgrounds */
+    --user-bg: #0c0820;
+    --assistant-bg: #060414;
+
+    /* Plugin-specific accents */
+    --plugin-spice-bg: rgba(123, 104, 238, 0.12);
+    --plugin-spice-bg-hover: rgba(123, 104, 238, 0.22);
+    --plugin-ability-bg: rgba(78, 201, 176, 0.08);
+    --plugin-ability-bg-hover: rgba(78, 201, 176, 0.15);
+    --plugin-prompt-bg: rgba(123, 104, 238, 0.1);
+    --plugin-prompt-bg-focus: rgba(123, 104, 238, 0.2);
+
+    /* Tool result accent */
+    --tool-result-bg: rgba(78, 201, 176, 0.08);
+
+    /* Rounded edges */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+
+    /* Typeface — clean modern */
+    font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+}
+
+/* Monospace contexts */
+[data-theme="cosmos"] code,
+[data-theme="cosmos"] pre,
+[data-theme="cosmos"] kbd,
+[data-theme="cosmos"] .monospace,
+[data-theme="cosmos"] textarea,
+[data-theme="cosmos"] #prompt-input {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+/* === COSMOS ENHANCEMENTS === */
+
+/* Z-INDEX STACKING ORDER */
+[data-theme="cosmos"] {
+    --z-canvas: 0;
+    --z-content: 1;
+    --z-panels: 10;
+    --z-sidebars: 100;
+    --z-hud: 998;
+    --z-nav: 999;
+    --z-modal: 1050;
+    --z-toast: 1100;
+}
+
+/* EVERYTHING sits on top of the canvas */
+[data-theme="cosmos"] #nav-rail {
+    z-index: var(--z-nav);
+    position: fixed;
+}
+[data-theme="cosmos"] #app-content {
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat area — fully transparent so background shows through */
+[data-theme="cosmos"] #chatbg {
+    position: relative;
+    background-color: transparent !important;
+}
+
+[data-theme="cosmos"] #chatbg-overlay {
+    background: transparent !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Body background */
+[data-theme="cosmos"] body {
+    background-image: none;
+    background-color: #020108;
+}
+
+[data-theme="cosmos"] body::before {
+    display: none;
+}
+
+/* ALL views — semi-transparent */
+[data-theme="cosmos"] .view {
+    background: rgba(2, 1, 8, 0.88) !important;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view — fully transparent so background shows through */
+[data-theme="cosmos"] #view-chat {
+    background: transparent !important;
+}
+
+[data-theme="cosmos"] #view-chat .view-body,
+[data-theme="cosmos"] #view-chat .view-scroll,
+[data-theme="cosmos"] #view-chat .chat-body {
+    background: transparent !important;
+}
+
+/* Non-chat view body */
+[data-theme="cosmos"] .view-body,
+[data-theme="cosmos"] .view-scroll {
+    background: rgba(2, 1, 8, 0.6) !important;
+}
+
+/* View headers */
+[data-theme="cosmos"] .view-header {
+    background: rgba(8, 4, 20, 0.9);
+    border-bottom: 1px solid rgba(123, 104, 238, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Sidebar sections */
+[data-theme="cosmos"] .sidebar-section {
+    background: rgba(8, 4, 20, 0.5);
+    border-bottom: 1px solid rgba(123, 104, 238, 0.06);
+}
+[data-theme="cosmos"] .sidebar-accordion-header {
+    background: rgba(8, 4, 20, 0.6);
+}
+[data-theme="cosmos"] .sidebar-accordion-header:hover {
+    background: rgba(18, 12, 40, 0.7);
+}
+
+/* Module backdrop */
+[data-theme="cosmos"] #module-backdrop {
+    background: rgba(2, 1, 8, 0.6);
+}
+
+/* Scan lines on UI panels — subtle purple */
+[data-theme="cosmos"] #nav-rail::before,
+[data-theme="cosmos"] .chat-sidebar::before,
+[data-theme="cosmos"] .view.floating-module::before,
+[data-theme="cosmos"] .modal-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(123, 104, 238, 0.015) 3px,
+        rgba(123, 104, 238, 0.015) 6px
+    );
+    mix-blend-mode: screen;
+}
+
+/* Cosmic glow — bottom center */
+[data-theme="cosmos"] body::after {
+    content: '';
+    position: fixed;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40vw;
+    height: 180px;
+    pointer-events: none;
+    z-index: var(--z-canvas);
+    background:
+        radial-gradient(ellipse at center, rgba(123, 104, 238, 0.15) 0%, rgba(100, 80, 200, 0.05) 30%, transparent 60%);
+    filter: blur(12px);
+}
+
+/* Send button */
+[data-theme="cosmos"] #send-btn,
+[data-theme="cosmos"] #send-btn.llm-local,
+[data-theme="cosmos"] #send-btn.llm-cloud,
+[data-theme="cosmos"] #send-btn.llm-auto,
+[data-theme="cosmos"] #send-btn.use-trim,
+[data-theme="cosmos"] #send-btn.use-trim.llm-local,
+[data-theme="cosmos"] #send-btn.use-trim.llm-cloud,
+[data-theme="cosmos"] #send-btn.use-trim.llm-auto {
+    background: var(--emotion-color) !important;
+    box-shadow: 0 0 12px var(--emotion-glow), inset 0 0 8px var(--emotion-light) !important;
+    border: 1px solid var(--emotion-border) !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+[data-theme="cosmos"] #send-btn:hover {
+    background: var(--emotion-50) !important;
+    box-shadow: 0 0 20px var(--emotion-glow), inset 0 0 12px var(--emotion-light) !important;
+}
+
+/* Nav rail */
+[data-theme="cosmos"] #nav-rail {
+    background: rgba(2, 1, 8, 0.9) !important;
+    border-right: 1px solid rgba(123, 104, 238, 0.12);
+}
+
+/* Nav icons — Cosmic purple */
+[data-theme="cosmos"] .nav-icon.themes-icon svg {
+    color: #7b68ee;
+    filter: drop-shadow(0 0 4px rgba(123, 104, 238, 0.3));
+    transition: all 0.3s ease;
+}
+
+[data-theme="cosmos"] .nav-item:hover .nav-icon.themes-icon svg {
+    color: #a090ff;
+    filter: drop-shadow(0 0 10px rgba(123, 104, 238, 0.6));
+}
+
+[data-theme="cosmos"] .nav-item.active .nav-icon.themes-icon svg {
+    color: var(--emotion-color);
+    filter: drop-shadow(0 0 10px rgba(123, 104, 238, 0.8));
+}
+
+/* Nav label text */
+[data-theme="cosmos"] .nav-label {
+    color: #b0a8d0;
+    text-shadow: 0 0 6px rgba(123, 104, 238, 0.2);
+}
+
+[data-theme="cosmos"] .nav-item:hover .nav-label {
+    color: #d8d0f0;
+    text-shadow: 0 0 8px rgba(123, 104, 238, 0.4);
+}
+
+[data-theme="cosmos"] .nav-item.active .nav-label {
+    color: #eee8ff;
+    text-shadow: 0 0 10px rgba(123, 104, 238, 0.5);
+}
+
+/* Chat area — transparent */
+[data-theme="cosmos"] .chat-messages,
+[data-theme="cosmos"] .chat-container {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Chat view-content — transparent */
+[data-theme="cosmos"] #view-chat .view-content {
+    background: transparent;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* Other view-content */
+[data-theme="cosmos"] .view-content {
+    background: rgba(2, 1, 8, 0.6);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+/* === MESSAGE PANES === */
+
+/* Message row — transparent */
+[data-theme="cosmos"] .message {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin-bottom: 26px;
+    filter: none;
+    --msg-max-width: 70%;
+}
+
+/* === TRANSPARENT MODE (default) === */
+[data-theme="cosmos"] .message-content {
+    background: rgba(8, 4, 20, 0.3) !important;
+    border: 1px solid rgba(123, 104, 238, 0.1) !important;
+    border-radius: 8px !important;
+    position: relative;
+    max-width: 600px;
+}
+
+/* === FROSTED GLASS MODE === */
+[data-cosmos-chat="glass"] .message-content {
+    background: rgba(8, 4, 20, 0.35) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(123, 104, 238, 0.12) !important;
+    border-top: 1px solid rgba(123, 104, 238, 0.28) !important;
+    box-shadow: 0 0 20px rgba(123, 104, 238, 0.05);
+    isolation: isolate;
+}
+
+/* Glass mode — shimmer on top edge */
+[data-cosmos-chat="glass"] .message-content::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(123, 104, 238, 0.45), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Glass mode — input area */
+[data-cosmos-chat="glass"] .prompt-container,
+[data-cosmos-chat="glass"] .chat-input-container {
+    background: rgba(8, 4, 20, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Chat container width */
+[data-theme="cosmos"] #chat-container {
+    max-width: 900px;
+}
+
+/* Avatar — purple glowing ring */
+[data-theme="cosmos"] .msg-avatar {
+    box-shadow: 0 0 8px rgba(123, 104, 238, 0.2), 0 0 2px rgba(140, 120, 255, 0.35);
+    border: 1px solid rgba(123, 104, 238, 0.2);
+}
+
+/* Chat sidebar */
+[data-theme="cosmos"] .chat-sidebar {
+    background: rgba(2, 1, 8, 0.92) !important;
+    border-right: 1px solid rgba(123, 104, 238, 0.1);
+    position: relative;
+    z-index: var(--z-sidebars);
+}
+
+/* Input area */
+[data-theme="cosmos"] .prompt-container,
+[data-theme="cosmos"] .chat-input-container {
+    background: rgba(2, 1, 8, 0.35);
+    border-top: 1px solid rgba(123, 104, 238, 0.1);
+    position: relative;
+    z-index: var(--z-content);
+}
+
+[data-theme="cosmos"] #prompt-input {
+    background: rgba(8, 4, 20, 0.6) !important;
+    border: 1px solid rgba(123, 104, 238, 0.15) !important;
+    color: #d4d0e8 !important;
+    caret-color: #7b68ee;
+}
+
+[data-theme="cosmos"] #prompt-input:focus {
+    border-color: rgba(123, 104, 238, 0.45) !important;
+    box-shadow: 0 0 12px rgba(123, 104, 238, 0.12) !important;
+}
+
+[data-theme="cosmos"] #prompt-input::placeholder {
+    color: #201830;
+}
+
+/* Modals */
+[data-theme="cosmos"] .modal-content {
+    background: rgba(2, 1, 8, 0.96) !important;
+    border: 1px solid rgba(123, 104, 238, 0.18);
+    box-shadow: 0 0 30px rgba(123, 104, 238, 0.08), 0 0 60px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: var(--z-modal);
+}
+
+[data-theme="cosmos"] .modal-overlay,
+[data-theme="cosmos"] .modal-backdrop {
+    z-index: var(--z-modal);
+}
+
+/* Buttons */
+[data-theme="cosmos"] .btn {
+    border: 1px solid rgba(123, 104, 238, 0.25);
+    color: #b0a8d0;
+    background: rgba(123, 104, 238, 0.06);
+}
+
+[data-theme="cosmos"] .btn:hover {
+    background: rgba(123, 104, 238, 0.14);
+    border-color: rgba(123, 104, 238, 0.4);
+    box-shadow: 0 0 8px rgba(123, 104, 238, 0.15);
+    color: #d8d0f0;
+}
+
+/* Generic button reset */
+[data-theme="cosmos"] button:not(.btn):not(.sb-icon-btn):not(.kebab-btn):not(.sb-mode-tab):not(.sb-chat-picker-btn):not(.sb-collapse-btn):not(#send-btn) {
+    color: inherit;
+}
+
+/* Flyout menus */
+[data-theme="cosmos"] .nav-flyout,
+[data-theme="cosmos"] .kebab-dropdown,
+[data-theme="cosmos"] .nav-overflow-menu {
+    background: rgba(2, 1, 8, 0.95) !important;
+    border: 1px solid rgba(123, 104, 238, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(123, 104, 238, 0.04);
+}
+
+[data-theme="cosmos"] .nav-flyout,
+[data-theme="cosmos"] .nav-overflow-menu {
+    position: relative;
+    z-index: var(--z-nav);
+}
+
+/* Settings panels — floating module */
+[data-theme="cosmos"] .view.floating-module {
+    background: rgba(2, 1, 8, 0.95) !important;
+    border: 1px solid rgba(123, 104, 238, 0.1);
+    position: relative;
+    z-index: var(--z-panels);
+}
+
+/* Select dropdowns */
+[data-theme="cosmos"] select,
+[data-theme="cosmos"] .setting-select {
+    background: rgba(8, 4, 20, 0.7);
+    border: 1px solid rgba(123, 104, 238, 0.15);
+    color: #d4d0e8;
+}
+
+[data-theme="cosmos"] select:focus,
+[data-theme="cosmos"] .setting-select:focus {
+    border-color: rgba(123, 104, 238, 0.45);
+    box-shadow: 0 0 8px rgba(123, 104, 238, 0.12);
+}
+
+/* Ensure settings/views content visible */
+[data-theme="cosmos"] .setting-row,
+[data-theme="cosmos"] .setting-group,
+[data-theme="cosmos"] .settings-panel,
+[data-theme="cosmos"] .settings-content,
+[data-theme="cosmos"] .tab-content,
+[data-theme="cosmos"] .tab-pane,
+[data-theme="cosmos"] .persona-list,
+[data-theme="cosmos"] .persona-card,
+[data-theme="cosmos"] .prompt-list,
+[data-theme="cosmos"] .toolset-list,
+[data-theme="cosmos"] .spice-list,
+[data-theme="cosmos"] .schedule-list,
+[data-theme="cosmos"] .memory-list,
+[data-theme="cosmos"] .knowledge-list,
+[data-theme="cosmos"] .help-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Scrollbar */
+[data-theme="cosmos"] ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+[data-theme="cosmos"] ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[data-theme="cosmos"] ::-webkit-scrollbar-thumb {
+    background: rgba(123, 104, 238, 0.2);
+}
+
+[data-theme="cosmos"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(123, 104, 238, 0.4);
+}
+
+/* Links */
+[data-theme="cosmos"] a {
+    color: #7b68ee;
+}
+
+[data-theme="cosmos"] a:hover {
+    color: #a090ff;
+    text-shadow: 0 0 6px rgba(123, 104, 238, 0.3);
+}
+
+/* Code blocks */
+[data-theme="cosmos"] pre {
+    background: rgba(8, 4, 20, 0.5) !important;
+    border: 1px solid rgba(123, 104, 238, 0.08);
+}
+
+[data-theme="cosmos"] code {
+    color: #b0a8d0;
+}
+
+/* Selection highlight */
+[data-theme="cosmos"] ::selection {
+    background: rgba(123, 104, 238, 0.35);
+    color: #fff;
+}
+
+/* Toast */
+[data-theme="cosmos"] .toast {
+    background: rgba(2, 1, 8, 0.95) !important;
+    border: 1px solid rgba(123, 104, 238, 0.15);
+    box-shadow: 0 0 15px rgba(123, 104, 238, 0.08);
+    z-index: var(--z-toast);
+}
+
+/* Headings */
+[data-theme="cosmos"] h1,
+[data-theme="cosmos"] h2,
+[data-theme="cosmos"] h3 {
+    color: #d8d0f0;
+    text-shadow: 0 0 8px rgba(123, 104, 238, 0.15);
+}
+
+/* Thinking/typing */
+[data-theme="cosmos"] .typing-indicator,
+[data-theme="cosmos"] .thinking-indicator {
+    color: #7b68ee;
+    text-shadow: 0 0 10px rgba(123, 104, 238, 0.4);
+}
+
+/* Toggle switches — Cosmic purple */
+[data-theme="cosmos"] .toggle-switch input:checked + .toggle-slider,
+[data-theme="cosmos"] .switch input:checked + .slider,
+[data-theme="cosmos"] input[type="checkbox"]:checked + label::before,
+[data-theme="cosmos"] .toggle.active {
+    background-color: #7b68ee !important;
+    border-color: #7b68ee !important;
+    box-shadow: 0 0 8px rgba(123, 104, 238, 0.3);
+}
+
+/* Labels */
+[data-theme="cosmos"] .setting-label label {
+    color: #d4d0e8;
+}
+
+[data-theme="cosmos"] .setting-help,
+[data-theme="cosmos"] .text-muted {
+    color: #8070b0;
+}
+
+/* Tabs */
+[data-theme="cosmos"] .nav-tabs .nav-link,
+[data-theme="cosmos"] .tab-bar .tab {
+    color: #8070b0;
+}
+
+[data-theme="cosmos"] .nav-tabs .nav-link.active,
+[data-theme="cosmos"] .tab-bar .tab.active {
+    color: #7b68ee;
+    border-bottom-color: #7b68ee;
+}
+
+[data-theme="cosmos"] .nav-tabs .nav-link:hover,
+[data-theme="cosmos"] .tab-bar .tab:hover {
+    color: #a898e0;
+}
+
+/* Cards */
+[data-theme="cosmos"] .card,
+[data-theme="cosmos"] .list-item,
+[data-theme="cosmos"] .persona-card,
+[data-theme="cosmos"] .item-card {
+    background: rgba(8, 4, 20, 0.5);
+    border: 1px solid rgba(123, 104, 238, 0.08);
+    color: #d4d0e8;
+}
+
+[data-theme="cosmos"] .card:hover,
+[data-theme="cosmos"] .list-item:hover,
+[data-theme="cosmos"] .persona-card:hover,
+[data-theme="cosmos"] .item-card:hover {
+    background: rgba(16, 10, 35, 0.6);
+    border-color: rgba(123, 104, 238, 0.2);
+    box-shadow: 0 0 10px rgba(123, 104, 238, 0.06);
+}
+
+/* Version/about */
+[data-theme="cosmos"] .version-info,
+[data-theme="cosmos"] .about-panel {
+    position: relative;
+    z-index: 2;
+}
+
+/* Chat sidebar buttons */
+[data-theme="cosmos"] .sb-chat-actions {
+    border-bottom-color: rgba(123, 104, 238, 0.08);
+}
+
+[data-theme="cosmos"] .sb-icon-btn {
+    color: #8070b0;
+}
+
+[data-theme="cosmos"] .sb-icon-btn:hover {
+    background: rgba(123, 104, 238, 0.1);
+    color: #a898e0;
+}
+
+[data-theme="cosmos"] .sb-icon-danger:hover {
+    color: var(--error) !important;
+}
+
+[data-theme="cosmos"] .sb-kebab .kebab-dropdown {
+    background: rgba(2, 1, 8, 0.95);
+    border: 1px solid rgba(123, 104, 238, 0.12);
+}
+
+[data-theme="cosmos"] .sb-kebab .kebab-dropdown button {
+    color: #8070b0;
+    background: transparent;
+    border: none;
+}
+
+[data-theme="cosmos"] .sb-kebab .kebab-dropdown button:hover {
+    background: rgba(123, 104, 238, 0.1);
+    color: #a898e0;
+}
+
+[data-theme="cosmos"] .sb-chat-picker-btn {
+    color: #d4d0e8;
+}
+
+[data-theme="cosmos"] .sb-mode-tab {
+    color: #8070b0;
+    border-bottom-color: transparent;
+}
+
+[data-theme="cosmos"] .sb-mode-tab.active {
+    color: #7b68ee;
+    border-bottom-color: #7b68ee;
+}
+
+[data-theme="cosmos"] .sb-mode-tab:hover {
+    color: #a898e0;
+}
+
+/* Inherit text color */
+[data-theme="cosmos"] p,
+[data-theme="cosmos"] span,
+[data-theme="cosmos"] div,
+[data-theme="cosmos"] label,
+[data-theme="cosmos"] li {
+    color: inherit;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    [data-theme="cosmos"] .view {
+        transition: none;
+    }
+}
