@@ -533,6 +533,7 @@ const THEME_SETTINGS = {
     marauder: (panel) => {
         const currentPerf = localStorage.getItem('marauder-perf-tier') || 'auto';
         const currentChatStyle = localStorage.getItem('marauder-chat-style') || 'transparent';
+        const currentShowNames = localStorage.getItem('marauder-show-names') !== 'false';
 
         panel.innerHTML = `
             <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:8px;">
@@ -555,6 +556,19 @@ const THEME_SETTINGS = {
 
                 <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
                     <div class="setting-label">
+                        <label for="mm-names">Show Names</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Display character names next to footprints</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="mm-names" class="setting-select" style="min-width:100px;">
+                            <option value="true" ${currentShowNames ? 'selected' : ''}>Show</option>
+                            <option value="false" ${!currentShowNames ? 'selected' : ''}>Hide</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
                         <label for="mm-perf">Performance Tier</label>
                         <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Lower tiers reduce GPU usage</div>
                     </div>
@@ -569,6 +583,11 @@ const THEME_SETTINGS = {
                 </div>
             </div>
         `;
+
+        panel.querySelector('#mm-names')?.addEventListener('change', (e) => {
+            localStorage.setItem('marauder-show-names', e.target.value);
+            window.dispatchEvent(new CustomEvent('marauder-names-change', { detail: e.target.value }));
+        });
 
         panel.querySelector('#mm-chat-style')?.addEventListener('change', (e) => {
             localStorage.setItem('marauder-chat-style', e.target.value);

@@ -67,6 +67,7 @@
     let mouseX = -1000, mouseY = -1000;
     let lastSplotchTime = 0;
     let thinkingTextState = null;
+    let showNames = localStorage.getItem('marauder-show-names') !== 'false';
 
     // ── Canvas Setup ──────────────────────────────────────
     function ensureCanvas() {
@@ -318,24 +319,32 @@
     }
 
     function drawWalkerNames() {
-        ctx.font = `italic 11px ${SERIF_FONT}`;
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-
         walkers.forEach(walker => {
             // Mouse proximity boost
             const md = dist(mouseX, mouseY, walker.x, walker.y);
-            const boost = md < 100 ? 0.15 * (1 - md / 100) : 0;
-            const alpha = 0.8 + boost;
+            const boost = md < 150 ? 0.2 * (1 - md / 150) : 0;
 
-            // Tiny dot at exact position
-            ctx.fillStyle = `rgba(90, 50, 20, ${alpha})`;
+            // Tiny dot at exact position (always visible)
+            const dotAlpha = 0.9 + boost * 0.1;
+            ctx.fillStyle = `rgba(120, 70, 20, ${dotAlpha})`;
             ctx.beginPath();
-            ctx.arc(walker.x, walker.y, 1.5, 0, Math.PI * 2);
+            ctx.arc(walker.x, walker.y, 2, 0, Math.PI * 2);
             ctx.fill();
 
-            // Name label
-            ctx.fillStyle = `rgba(90, 50, 20, ${alpha})`;
+            if (!showNames) return;
+
+            // Name label — bright and bold
+            const nameAlpha = Math.min(1, 0.95 + boost);
+            ctx.font = `italic bold 12px ${SERIF_FONT}`;
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+
+            // Dark shadow for contrast against parchment
+            ctx.fillStyle = `rgba(30, 15, 5, ${nameAlpha * 0.4})`;
+            ctx.fillText(walker.name, walker.x + 9, walker.y - 9);
+
+            // Main text — warm dark brown, much more visible
+            ctx.fillStyle = `rgba(60, 25, 5, ${nameAlpha})`;
             ctx.fillText(walker.name, walker.x + 8, walker.y - 10);
         });
     }
@@ -790,6 +799,11 @@
     window.addEventListener('thinking-end', () => { isThinking = false; });
     window.addEventListener('speaking-start', () => { isSpeaking = true; speakingTick = 0; });
     window.addEventListener('speaking-end', () => { isSpeaking = false; });
+
+    // Names toggle
+    window.addEventListener('marauder-names-change', (e) => {
+        showNames = e.detail !== 'false' && e.detail !== false;
+    });
 
     // Performance setting
     window.addEventListener('marauder-perf-change', (e) => {
