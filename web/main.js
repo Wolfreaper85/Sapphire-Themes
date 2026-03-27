@@ -291,9 +291,11 @@
     };
 
     // ── 6. Intercept theme CSS loading for bundled themes ─────
+    let linkPatched = false;
     function patchThemeLink() {
         const link = document.getElementById('theme-stylesheet');
-        if (!link) return;
+        if (!link || linkPatched) return;
+        linkPatched = true;
 
         // Helper: check if a URL points to a bundled theme in the wrong path
         function getBundledRedirect(val) {
@@ -428,10 +430,24 @@
         return false;
     }
 
+    // ── Patch link element IMMEDIATELY (before async init) ─────
+    // This must run as early as possible to intercept the app's
+    // initial theme CSS load and prevent the 404
+    patchThemeLink();
+
+    // Also try again after DOM is ready in case the link element
+    // didn't exist yet when the script first ran
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { patchThemeLink(); });
+    }
+
     // ── Init ──────────────────────────────────────────────────
     async function init() {
         await detectExternalThemes();
         buildRegistry();
+
+        // Ensure link is patched (covers edge case where element was created late)
+        patchThemeLink();
 
         // Apply random theme on startup if enabled
         if (!applyRandomThemeIfEnabled()) {
@@ -441,8 +457,6 @@
                 loadBundledThemeCSS(current);
             }
         }
-
-        patchThemeLink();
 
         console.log(`[${PLUGIN}] Theme manager ready — ${Object.keys(allThemes).length} themes available (${Object.keys(externalThemes).length} external)`);
     }
