@@ -243,18 +243,32 @@
         Object.assign(allThemes, externalThemes);
     }
 
-    // ── 5. Patch theme list in themes.json ────────────────────
+    // ── 5. Single fetch interceptor for themes.json + CSS redirects ─
     const _origFetch = window.fetch;
     window.fetch = async function(...args) {
-        const response = await _origFetch.apply(this, args);
         try {
             const url = typeof args[0] === 'string' ? args[0] : args[0]?.url || '';
+
+            // Redirect /static/themes/{bundled}.css to our plugin CSS path
+            for (const id of Object.keys(BUNDLED_THEMES)) {
+                if (url.includes('/static/themes/' + id + '.css')) {
+                    const newUrl = BUNDLED_THEMES[id].css;
+                    args[0] = typeof args[0] === 'string' ? newUrl : new Request(newUrl, args[0]);
+                    break;
+                }
+            }
+        } catch (_) { /* pass through */ }
+
+        const response = await _origFetch.apply(this, args);
+
+        try {
+            const url = typeof args[0] === 'string' ? args[0] : args[0]?.url || '';
+            // Inject bundled theme IDs into themes.json response
             if (url.includes('themes/themes.json')) {
                 const clone = response.clone();
                 const data = await clone.json();
                 if (Array.isArray(data.themes)) {
                     let modified = false;
-                    // Add all bundled theme IDs
                     Object.keys(BUNDLED_THEMES).forEach(function(id) {
                         if (!data.themes.includes(id)) {
                             data.themes.push(id);
@@ -284,7 +298,6 @@
         function redirectIfBundled() {
             if (!link.href) return;
             Object.keys(BUNDLED_THEMES).forEach(function(id) {
-                // Match /static/themes/{id}.css or /themes/{id}.css (with optional query string)
                 if (link.href.match(new RegExp('/static/themes/' + id + '\\.css')) ||
                     (link.href.includes('/themes/' + id + '.css') && !link.href.includes('/plugin-web/'))) {
                     link.href = BUNDLED_THEMES[id].css;
@@ -298,26 +311,6 @@
         // Also patch on initial load
         redirectIfBundled();
     }
-
-    // Also intercept fetch requests for bundled theme CSS to prevent 404s
-    const _origFetchCSS = window.fetch;
-    window.fetch = (function(originalFetch) {
-        return function(...args) {
-            try {
-                const url = typeof args[0] === 'string' ? args[0] : args[0]?.url || '';
-                // Intercept requests for /static/themes/{bundled}.css
-                for (const id of Object.keys(BUNDLED_THEMES)) {
-                    if (url.includes('/static/themes/' + id + '.css')) {
-                        // Redirect to our plugin CSS path
-                        const newUrl = BUNDLED_THEMES[id].css;
-                        args[0] = typeof args[0] === 'string' ? newUrl : new Request(newUrl, args[0]);
-                        break;
-                    }
-                }
-            } catch (_) { /* pass through */ }
-            return originalFetch.apply(this, args);
-        };
-    })(window.fetch);
 
     // ── 7. Handle theme activation ────────────────────────────
     function activateTheme(themeId) {
@@ -352,14 +345,14 @@
             unloadBundledThemeCSS();
         }
 
-        // Save to server (POST — the Sapphire API uses POST for settings)
-        fetch('/api/settings', {
-            method: 'POST',
+        // Save to server — PUT /api/settings/THEME with { value: themeId }
+        _origFetch('/api/settings/THEME', {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.content || ''
             },
-            body: JSON.stringify({ THEME: themeId })
+            body: JSON.stringify({ value: themeId })
         }).catch(function() {});
     }
 
