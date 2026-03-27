@@ -30,6 +30,12 @@ registerPluginSettings({
             randomPool = [];
         }
 
+        // If random is enabled but pool is empty, populate with all theme IDs
+        if (randomEnabled && randomPool.length === 0) {
+            randomPool = Object.keys(themes);
+            localStorage.setItem('sapphire-random-pool', JSON.stringify(randomPool));
+        }
+
         // Group themes
         const builtinThemes = [];
         const bundledThemes = [];
@@ -749,7 +755,7 @@ function _applyMarauderChatStyle(style) {
 function _renderCard(theme, current, randomEnabled, randomPool) {
     const isActive = theme.id === current;
     const p = theme.preview || { bg: '#1a1a2e', accent: '#4a9eff', text: '#ccc' };
-    const inPool = randomPool && randomPool.length > 0 ? randomPool.includes(theme.id) : true;
+    const inPool = !randomPool || randomPool.length === 0 || randomPool.includes(theme.id);
     const showShuffle = randomEnabled;
 
     return `
