@@ -281,22 +281,43 @@
         const link = document.getElementById('theme-stylesheet');
         if (!link) return;
 
-        const observer = new MutationObserver(function() {
+        function redirectIfBundled() {
+            if (!link.href) return;
             Object.keys(BUNDLED_THEMES).forEach(function(id) {
-                if (link.href && link.href.includes(`/themes/${id}.css`)) {
+                // Match /static/themes/{id}.css or /themes/{id}.css (with optional query string)
+                if (link.href.match(new RegExp('/static/themes/' + id + '\\.css')) ||
+                    (link.href.includes('/themes/' + id + '.css') && !link.href.includes('/plugin-web/'))) {
                     link.href = BUNDLED_THEMES[id].css;
                 }
             });
-        });
+        }
+
+        const observer = new MutationObserver(redirectIfBundled);
         observer.observe(link, { attributes: true, attributeFilter: ['href'] });
 
         // Also patch on initial load
-        Object.keys(BUNDLED_THEMES).forEach(function(id) {
-            if (link.href && link.href.includes(`/themes/${id}.css`)) {
-                link.href = BUNDLED_THEMES[id].css;
-            }
-        });
+        redirectIfBundled();
     }
+
+    // Also intercept fetch requests for bundled theme CSS to prevent 404s
+    const _origFetchCSS = window.fetch;
+    window.fetch = (function(originalFetch) {
+        return function(...args) {
+            try {
+                const url = typeof args[0] === 'string' ? args[0] : args[0]?.url || '';
+                // Intercept requests for /static/themes/{bundled}.css
+                for (const id of Object.keys(BUNDLED_THEMES)) {
+                    if (url.includes('/static/themes/' + id + '.css')) {
+                        // Redirect to our plugin CSS path
+                        const newUrl = BUNDLED_THEMES[id].css;
+                        args[0] = typeof args[0] === 'string' ? newUrl : new Request(newUrl, args[0]);
+                        break;
+                    }
+                }
+            } catch (_) { /* pass through */ }
+            return originalFetch.apply(this, args);
+        };
+    })(window.fetch);
 
     // ── 7. Handle theme activation ────────────────────────────
     function activateTheme(themeId) {
@@ -331,9 +352,9 @@
             unloadBundledThemeCSS();
         }
 
-        // Save to server
+        // Save to server (POST — the Sapphire API uses POST for settings)
         fetch('/api/settings', {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.content || ''
