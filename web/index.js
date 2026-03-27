@@ -21,6 +21,15 @@ registerPluginSettings({
         const themes = api.getAll();
         const current = api.getCurrent();
 
+        // Random theme settings
+        const randomEnabled = localStorage.getItem('sapphire-random-enabled') === 'true';
+        let randomPool;
+        try {
+            randomPool = JSON.parse(localStorage.getItem('sapphire-random-pool') || '[]');
+        } catch (_) {
+            randomPool = [];
+        }
+
         // Group themes
         const builtinThemes = [];
         const bundledThemes = [];
@@ -36,7 +45,7 @@ registerPluginSettings({
             <div style="margin-bottom: 16px">
                 <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px">
                     <span style="font-size:1.5em">🎨</span>
-                    <div>
+                    <div style="flex:1">
                         <strong>Theme Manager</strong>
                         <div class="text-muted" style="font-size:0.85em">
                             ${Object.keys(themes).length} themes available
@@ -44,15 +53,66 @@ registerPluginSettings({
                         </div>
                     </div>
                 </div>
+
+                <!-- Random Theme on Startup -->
+                <div style="display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--bg-secondary); border:1px solid var(--border); border-radius:8px;">
+                    <span style="font-size:1.2em">🎲</span>
+                    <div style="flex:1">
+                        <div style="font-size:0.85em; font-weight:600; color:var(--text);">Random Theme on Startup</div>
+                        <div style="font-size:0.7em; color:var(--text-muted);">Load a random theme each time${randomEnabled ? ' — click 🔀 on theme cards to include/exclude' : ''}</div>
+                    </div>
+                    <label style="position:relative; display:inline-block; width:40px; height:22px; cursor:pointer;">
+                        <input type="checkbox" id="random-toggle" ${randomEnabled ? 'checked' : ''} style="opacity:0; width:0; height:0;">
+                        <span style="
+                            position:absolute; top:0; left:0; right:0; bottom:0;
+                            background:${randomEnabled ? 'var(--trim, #4a9eff)' : 'var(--border)'};
+                            border-radius:11px; transition:background 0.2s;
+                        "></span>
+                        <span style="
+                            position:absolute; top:2px; left:${randomEnabled ? '20px' : '2px'};
+                            width:18px; height:18px; background:#fff; border-radius:50%;
+                            transition:left 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.3);
+                        "></span>
+                    </label>
+                </div>
             </div>
 
-            ${_renderSection('Default', builtinThemes, current)}
-            ${_renderSection('Bundled', bundledThemes, current)}
-            ${externalThemes.length ? _renderSection('External Plugins', externalThemes, current) : ''}
+            ${_renderSection('Default', builtinThemes, current, randomEnabled, randomPool)}
+            ${_renderSection('Bundled', bundledThemes, current, randomEnabled, randomPool)}
+            ${externalThemes.length ? _renderSection('External Plugins', externalThemes, current, randomEnabled, randomPool) : ''}
 
             <!-- Per-theme settings (only for active bundled themes) -->
             <div id="theme-settings-panel"></div>
         `;
+
+        // Bind random toggle
+        container.querySelector('#random-toggle')?.addEventListener('change', (e) => {
+            localStorage.setItem('sapphire-random-enabled', e.target.checked ? 'true' : 'false');
+            // Re-render to show/hide shuffle icons
+            setTimeout(() => this.render(container), 100);
+        });
+
+        // Bind shuffle toggle clicks on each card
+        container.querySelectorAll('.random-pool-toggle').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Don't trigger theme activation
+                const id = btn.dataset.themeId;
+                let pool;
+                try {
+                    pool = JSON.parse(localStorage.getItem('sapphire-random-pool') || '[]');
+                } catch (_) {
+                    pool = [];
+                }
+                const idx = pool.indexOf(id);
+                if (idx >= 0) {
+                    pool.splice(idx, 1);
+                } else {
+                    pool.push(id);
+                }
+                localStorage.setItem('sapphire-random-pool', JSON.stringify(pool));
+                setTimeout(() => this.render(container), 100);
+            });
+        });
 
         // Bind click events on theme cards
         container.querySelectorAll('.theme-card').forEach(card => {
@@ -87,7 +147,7 @@ registerPluginSettings({
 });
 
 
-function _renderSection(title, themes, current) {
+function _renderSection(title, themes, current, randomEnabled, randomPool) {
     if (!themes.length) return '';
     return `
         <div style="margin-bottom: 20px">
@@ -95,7 +155,7 @@ function _renderSection(title, themes, current) {
                 ${title}
             </div>
             <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap:10px;">
-                ${themes.map(t => _renderCard(t, current)).join('')}
+                ${themes.map(t => _renderCard(t, current, randomEnabled, randomPool)).join('')}
             </div>
         </div>
     `;
@@ -686,9 +746,11 @@ function _applyMarauderChatStyle(style) {
 })();
 
 
-function _renderCard(theme, current) {
+function _renderCard(theme, current, randomEnabled, randomPool) {
     const isActive = theme.id === current;
     const p = theme.preview || { bg: '#1a1a2e', accent: '#4a9eff', text: '#ccc' };
+    const inPool = randomPool && randomPool.length > 0 ? randomPool.includes(theme.id) : true;
+    const showShuffle = randomEnabled;
 
     return `
         <div class="theme-card" data-theme-id="${theme.id}"
@@ -722,6 +784,23 @@ function _renderCard(theme, current) {
                     <div style="height:4px; width:60%; background:${p.text}25; border-radius:2px;"></div>
                     <div style="height:4px; width:70%; background:${p.text}20; border-radius:2px;"></div>
                 </div>
+                ${showShuffle ? `
+                    <span class="random-pool-toggle" data-theme-id="${theme.id}"
+                          title="${inPool ? 'Included in random rotation — click to exclude' : 'Excluded from random rotation — click to include'}"
+                          style="
+                              position:absolute; top:4px; right:4px;
+                              width:22px; height:22px;
+                              display:flex; align-items:center; justify-content:center;
+                              font-size:0.75em;
+                              background:${inPool ? p.accent + '30' : 'rgba(0,0,0,0.4)'};
+                              border:1px solid ${inPool ? p.accent : 'rgba(255,255,255,0.2)'};
+                              border-radius:4px;
+                              cursor:pointer;
+                              opacity:${inPool ? '1' : '0.5'};
+                              transition: opacity 0.2s, background 0.2s;
+                          "
+                    >${inPool ? '🔀' : '⏸️'}</span>
+                ` : ''}
             </div>
 
             <!-- Label -->

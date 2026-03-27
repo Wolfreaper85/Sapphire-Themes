@@ -353,15 +353,49 @@
         },
     };
 
+    // ── Random Theme on Startup ───────────────────────────────
+    function applyRandomThemeIfEnabled() {
+        const enabled = localStorage.getItem('sapphire-random-enabled') === 'true';
+        if (!enabled) return false;
+
+        const poolRaw = localStorage.getItem('sapphire-random-pool');
+        let pool;
+        try {
+            pool = poolRaw ? JSON.parse(poolRaw) : [];
+        } catch (_) {
+            pool = [];
+        }
+
+        // Filter pool to only themes that actually exist
+        pool = pool.filter(function(id) { return allThemes[id]; });
+
+        // If pool is empty, use all available themes
+        if (pool.length === 0) {
+            pool = Object.keys(allThemes);
+        }
+
+        // Pick a random theme
+        const pick = pool[Math.floor(Math.random() * pool.length)];
+        if (pick) {
+            console.log(`[${PLUGIN}] Random startup theme: ${pick}`);
+            activateTheme(pick);
+            return true;
+        }
+        return false;
+    }
+
     // ── Init ──────────────────────────────────────────────────
     async function init() {
         await detectExternalThemes();
         buildRegistry();
 
-        // If current theme is one of ours, load its assets
-        const current = document.documentElement.getAttribute('data-theme');
-        if (BUNDLED_THEMES[current]) {
-            loadBundledThemeCSS(current);
+        // Apply random theme on startup if enabled
+        if (!applyRandomThemeIfEnabled()) {
+            // Otherwise load current theme's assets
+            const current = document.documentElement.getAttribute('data-theme');
+            if (BUNDLED_THEMES[current]) {
+                loadBundledThemeCSS(current);
+            }
         }
 
         patchThemeLink();
