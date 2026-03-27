@@ -295,7 +295,19 @@
         const link = document.getElementById('theme-stylesheet');
         if (!link) return;
 
-        // Override the href setter to intercept BEFORE the browser fetches
+        // Helper: check if a URL points to a bundled theme in the wrong path
+        function getBundledRedirect(val) {
+            if (!val) return null;
+            for (const id of Object.keys(BUNDLED_THEMES)) {
+                if (val.includes('/static/themes/' + id + '.css') ||
+                    (val.includes('/themes/' + id + '.css') && !val.includes('/plugin-web/'))) {
+                    return BUNDLED_THEMES[id].css;
+                }
+            }
+            return null;
+        }
+
+        // Override the href PROPERTY setter (catches link.href = ...)
         const descriptor = Object.getOwnPropertyDescriptor(HTMLLinkElement.prototype, 'href');
         if (descriptor && descriptor.set) {
             const originalSet = descriptor.set;
@@ -304,31 +316,29 @@
                     return descriptor.get.call(this);
                 },
                 set: function(val) {
-                    // Check if this URL points to a bundled theme in the wrong path
-                    for (const id of Object.keys(BUNDLED_THEMES)) {
-                        if (val.includes('/static/themes/' + id + '.css') ||
-                            (val.includes('/themes/' + id + '.css') && !val.includes('/plugin-web/'))) {
-                            // Redirect to our plugin CSS — prevents the 404 entirely
-                            originalSet.call(this, BUNDLED_THEMES[id].css);
-                            return;
-                        }
-                    }
-                    originalSet.call(this, val);
+                    const redirect = getBundledRedirect(val);
+                    originalSet.call(this, redirect || val);
                 },
                 configurable: true,
             });
         }
 
-        // Also check current value on initial load
-        if (link.getAttribute('href')) {
-            for (const id of Object.keys(BUNDLED_THEMES)) {
-                const href = link.getAttribute('href');
-                if (href.includes('/static/themes/' + id + '.css') ||
-                    (href.includes('/themes/' + id + '.css') && !href.includes('/plugin-web/'))) {
-                    link.setAttribute('href', BUNDLED_THEMES[id].css);
-                    break;
-                }
+        // Override setAttribute (catches link.setAttribute('href', ...))
+        const origSetAttribute = link.setAttribute.bind(link);
+        link.setAttribute = function(attr, val) {
+            if (attr === 'href') {
+                const redirect = getBundledRedirect(val);
+                origSetAttribute(attr, redirect || val);
+            } else {
+                origSetAttribute(attr, val);
             }
+        };
+
+        // Also check current value on initial load
+        const currentHref = link.getAttribute('href');
+        const initRedirect = getBundledRedirect(currentHref);
+        if (initRedirect) {
+            origSetAttribute('href', initRedirect);
         }
     }
 
