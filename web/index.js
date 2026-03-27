@@ -789,17 +789,18 @@ function _renderCard(theme, current, randomEnabled, randomPool) {
                           title="${inPool ? 'Included in random rotation — click to exclude' : 'Excluded from random rotation — click to include'}"
                           style="
                               position:absolute; top:4px; right:4px;
-                              width:22px; height:22px;
+                              width:20px; height:20px;
                               display:flex; align-items:center; justify-content:center;
-                              font-size:0.75em;
-                              background:${inPool ? p.accent + '30' : 'rgba(0,0,0,0.4)'};
-                              border:1px solid ${inPool ? p.accent : 'rgba(255,255,255,0.2)'};
-                              border-radius:4px;
+                              font-size:0.7em; line-height:1;
+                              background:${inPool ? p.accent + '25' : 'rgba(0,0,0,0.5)'};
+                              border:2px solid ${inPool ? p.accent : 'rgba(255,255,255,0.25)'};
+                              border-radius:3px;
                               cursor:pointer;
-                              opacity:${inPool ? '1' : '0.5'};
-                              transition: opacity 0.2s, background 0.2s;
+                              color:${inPool ? p.accent : 'transparent'};
+                              font-weight:bold;
+                              transition: all 0.2s;
                           "
-                    >${inPool ? '🔀' : '⏸️'}</span>
+                    >${inPool ? '✓' : ''}</span>
                 ` : ''}
             </div>
 
