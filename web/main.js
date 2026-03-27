@@ -295,21 +295,41 @@
         const link = document.getElementById('theme-stylesheet');
         if (!link) return;
 
-        function redirectIfBundled() {
-            if (!link.href) return;
-            Object.keys(BUNDLED_THEMES).forEach(function(id) {
-                if (link.href.match(new RegExp('/static/themes/' + id + '\\.css')) ||
-                    (link.href.includes('/themes/' + id + '.css') && !link.href.includes('/plugin-web/'))) {
-                    link.href = BUNDLED_THEMES[id].css;
-                }
+        // Override the href setter to intercept BEFORE the browser fetches
+        const descriptor = Object.getOwnPropertyDescriptor(HTMLLinkElement.prototype, 'href');
+        if (descriptor && descriptor.set) {
+            const originalSet = descriptor.set;
+            Object.defineProperty(link, 'href', {
+                get: function() {
+                    return descriptor.get.call(this);
+                },
+                set: function(val) {
+                    // Check if this URL points to a bundled theme in the wrong path
+                    for (const id of Object.keys(BUNDLED_THEMES)) {
+                        if (val.includes('/static/themes/' + id + '.css') ||
+                            (val.includes('/themes/' + id + '.css') && !val.includes('/plugin-web/'))) {
+                            // Redirect to our plugin CSS — prevents the 404 entirely
+                            originalSet.call(this, BUNDLED_THEMES[id].css);
+                            return;
+                        }
+                    }
+                    originalSet.call(this, val);
+                },
+                configurable: true,
             });
         }
 
-        const observer = new MutationObserver(redirectIfBundled);
-        observer.observe(link, { attributes: true, attributeFilter: ['href'] });
-
-        // Also patch on initial load
-        redirectIfBundled();
+        // Also check current value on initial load
+        if (link.getAttribute('href')) {
+            for (const id of Object.keys(BUNDLED_THEMES)) {
+                const href = link.getAttribute('href');
+                if (href.includes('/static/themes/' + id + '.css') ||
+                    (href.includes('/themes/' + id + '.css') && !href.includes('/plugin-web/'))) {
+                    link.setAttribute('href', BUNDLED_THEMES[id].css);
+                    break;
+                }
+            }
+        }
     }
 
     // ── 7. Handle theme activation ────────────────────────────
