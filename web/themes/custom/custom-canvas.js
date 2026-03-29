@@ -33,7 +33,7 @@
 
     canvas = document.createElement('canvas');
     canvas.id = CANVAS_ID;
-    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;';
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;';
     document.body.prepend(canvas);
 
     const ctx = canvas.getContext('2d');
