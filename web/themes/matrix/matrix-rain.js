@@ -169,12 +169,8 @@
             if (!col.active) {
                 col.respawnDelay--;
                 if (col.respawnDelay <= 0) {
+                    // createColumn handles density — it sets active + respawnDelay
                     columns[i] = createColumn(i, false);
-                    // Density controls whether column respawns active
-                    if (Math.random() >= density) {
-                        columns[i].active = false;
-                        columns[i].respawnDelay = Math.floor(30 + Math.random() * 120);
-                    }
                 }
                 continue;
             }
@@ -228,11 +224,10 @@
             ctx.shadowColor = 'transparent';
             ctx.shadowBlur = 0;
 
-            // Check if column has scrolled off screen
+            // Check if column has scrolled off screen — respawn via createColumn
             const tailY = col.y - col.streamLen * fontSize;
             if (tailY > H) {
-                col.active = false;
-                col.respawnDelay = (10 + Math.random() * 60) | 0;
+                columns[i] = createColumn(i, false);
             }
         }
     }
