@@ -85,7 +85,7 @@
     let PERF = PERF_CONFIG[perfTier];
 
     // ── Rain Density & Speed ──────────────────────────────────
-    const DENSITY_MAP = { sparse: 0.4, medium: 0.7, dense: 1.0 };
+    const DENSITY_MAP = { sparse: 0.3, medium: 0.5, dense: 0.85 };
     const SPEED_MAP   = { slow: 0.5, normal: 1.0, fast: 1.8 };
 
     // Use custom overlay settings if running as custom overlay, else matrix-specific

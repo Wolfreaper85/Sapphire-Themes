@@ -229,12 +229,39 @@
 
         currentOverlay = overlayId;
 
-        // Load the overlay script
+        // Load the overlay script with retry on failure
         const scriptId = `custom-overlay-script`;
         const s = document.createElement('script');
         s.id = scriptId;
         s.src = scriptUrl + '?custom=1&v=' + Date.now();
+
+        let retries = 0;
+        s.onerror = () => {
+            if (retries < 3) {
+                retries++;
+                console.warn(`[custom-theme] Overlay script failed to load, retry ${retries}/3...`);
+                setTimeout(() => {
+                    s.src = scriptUrl + '?custom=1&v=' + Date.now();
+                }, 500 * retries);
+            }
+        };
+
         document.body.appendChild(s);
+
+        // Verify overlay actually started — if its canvas doesn't appear, retry load
+        setTimeout(() => {
+            if (!isActive() || currentOverlay !== overlayId) return;
+            const overlayCanvas = OVERLAY_CANVAS_IDS.some(id => document.getElementById(id));
+            if (!overlayCanvas) {
+                console.warn(`[custom-theme] Overlay canvas not found after load, retrying...`);
+                const old = document.getElementById(scriptId);
+                if (old) old.remove();
+                const s2 = document.createElement('script');
+                s2.id = scriptId;
+                s2.src = scriptUrl + '?custom=1&v=' + Date.now();
+                document.body.appendChild(s2);
+            }
+        }, 1500);
     }
 
     function unloadOverlay() {
@@ -350,9 +377,9 @@
     }
 
     if (document.readyState === 'complete') {
-        setTimeout(autoLoadOverlay, 200);
+        setTimeout(autoLoadOverlay, 400);
     } else {
-        window.addEventListener('load', () => setTimeout(autoLoadOverlay, 300));
+        window.addEventListener('load', () => setTimeout(autoLoadOverlay, 500));
     }
 
     // ── Event listeners for settings changes ────────────────
