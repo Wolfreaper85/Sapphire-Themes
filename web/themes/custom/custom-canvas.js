@@ -207,6 +207,7 @@
         'cosmos': `${BASE}/themes/cosmos/cosmos-solar.js`,
         'prism': `${BASE}/themes/prism/prism-rain.js`,
         'marauder': `${BASE}/themes/marauder/marauder-map.js`,
+        'lattice': `/plugin-web/sapphire-lattice-theme/lattice-grid.js`,
     };
 
     function loadOverlay(overlayId) {
@@ -250,11 +251,16 @@
             'cosmos-solar-canvas',
             'prism-rain-canvas',
             'marauder-map-canvas',
+            'lattice-grid-canvas',
         ];
         canvasIds.forEach(id => {
             const el = document.getElementById(id);
             if (el) el.remove();
         });
+
+        // Remove Lattice data overlay (HUD text element)
+        const latticeOverlay = document.getElementById('lattice-data-overlay');
+        if (latticeOverlay) latticeOverlay.remove();
 
         document.documentElement.removeAttribute('data-custom-overlay');
         currentOverlay = null;
@@ -270,7 +276,7 @@
     const OVERLAY_CANVAS_IDS = [
         'matrix-rain-canvas', 'jarvis-hud-canvas', 'ironman-hud-canvas',
         'nexus-network-canvas', 'cosmos-solar-canvas', 'prism-rain-canvas',
-        'marauder-map-canvas',
+        'marauder-map-canvas', 'lattice-grid-canvas',
     ];
 
     function applyOverlayOpacity() {

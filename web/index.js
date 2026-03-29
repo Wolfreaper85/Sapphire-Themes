@@ -725,6 +725,7 @@ const THEME_SETTINGS = {
             { value: 'jarvis', label: 'JARVIS HUD' },
             { value: 'ironman', label: 'Iron Man HUD' },
             { value: 'marauder', label: "Marauder's Map" },
+            { value: 'lattice', label: 'Lattice Grid' },
         ];
 
         panel.innerHTML = `
