@@ -195,6 +195,10 @@
 
     // ── 1. Background Image ───────────────────────────────
     function drawBackground() {
+        if (document.documentElement.getAttribute('data-custom-overlay') === 'marauder') {
+            ctx.clearRect(0, 0, W, H);
+            return;
+        }
         if (bgImageLoaded && bgImage) {
             // Cover-style scaling: maintain aspect ratio, fill canvas, center
             const imgW = bgImage.naturalWidth;
@@ -655,7 +659,9 @@
 
     let lastFrameTime = 0;
     function render(timestamp) {
-        if (!canvas || !canvas.parentNode || document.documentElement.getAttribute('data-theme') !== 'marauder') {
+        const isMarauderTheme = document.documentElement.getAttribute('data-theme') === 'marauder';
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'marauder';
+        if (!canvas || !canvas.parentNode || (!isMarauderTheme && !isCustomOverlay)) {
             cleanup();
             return;
         }
@@ -742,8 +748,9 @@
     }
 
     function onThemeChange() {
-        const theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'marauder') {
+        const isMarauderTheme = document.documentElement.getAttribute('data-theme') === 'marauder';
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'marauder';
+        if (isMarauderTheme || isCustomOverlay) {
             start();
         } else {
             cleanup();
@@ -753,7 +760,7 @@
     // ── Observer & Event Listeners ────────────────────────
 
     new MutationObserver(onThemeChange)
-        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-custom-overlay'] });
 
     window.addEventListener('resize', () => {
         resize();
@@ -815,7 +822,9 @@
     });
 
     // Initial launch
-    if (document.documentElement.getAttribute('data-theme') === 'marauder') {
+    const isMarauderTheme = document.documentElement.getAttribute('data-theme') === 'marauder';
+    const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'marauder';
+    if (isMarauderTheme || isCustomOverlay) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', start);
         } else {

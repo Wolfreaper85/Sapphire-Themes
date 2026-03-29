@@ -107,6 +107,19 @@
                 text: '#d4c4a0',
             },
         },
+        custom: {
+            name: 'Custom',
+            id: 'custom',
+            icon: '🎨',
+            description: 'Your theme, your rules',
+            css: `${BASE}/themes/custom/custom.css`,
+            scripts: [`${BASE}/themes/custom/custom-canvas.js`],
+            preview: {
+                bg: '#0a0a14',
+                accent: '#4a9eff',
+                text: '#e0e0e8',
+            },
+        },
         // Add more bundled themes here:
     };
 

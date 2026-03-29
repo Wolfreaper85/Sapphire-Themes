@@ -217,6 +217,11 @@
     // ── Drawing ─────────────────────────────────────────────
 
     function drawBackground() {
+        // When running as custom overlay, clear instead of filling so user's bg image shows
+        if (document.documentElement.getAttribute('data-custom-overlay') === 'nexus') {
+            ctx.clearRect(0, 0, W, H);
+            return;
+        }
         // Deep space black fill
         ctx.fillStyle = '#050510';
         ctx.fillRect(0, 0, W, H);
@@ -357,7 +362,8 @@
     var lastFrameTime = 0;
 
     function render(timestamp) {
-        if (!canvas || !canvas.parentNode || document.documentElement.getAttribute('data-theme') !== 'nexus') {
+        var isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'nexus';
+        if (!canvas || !canvas.parentNode || (document.documentElement.getAttribute('data-theme') !== 'nexus' && !isCustomOverlay)) {
             cleanup();
             return;
         }
@@ -462,7 +468,8 @@
 
     function onThemeChange() {
         var theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'nexus') {
+        var isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'nexus';
+        if (theme === 'nexus' || isCustomOverlay) {
             start();
         } else {
             cleanup();
@@ -472,7 +479,7 @@
     // ── Event Listeners ─────────────────────────────────────
 
     new MutationObserver(onThemeChange)
-        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-custom-overlay'] });
 
     window.addEventListener('resize', function() {
         resize();
@@ -519,7 +526,8 @@
     });
 
     // Initial launch
-    if (document.documentElement.getAttribute('data-theme') === 'nexus') {
+    var isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'nexus';
+    if (document.documentElement.getAttribute('data-theme') === 'nexus' || isCustomOverlay) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', start);
         } else {

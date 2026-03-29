@@ -135,6 +135,11 @@
     // ── Drawing ───────────────────────────────────────────────
 
     function drawBackground() {
+        // When running as custom overlay, clear instead of filling so user's bg image shows
+        if (document.documentElement.getAttribute('data-custom-overlay') === 'matrix') {
+            ctx.clearRect(0, 0, W, H);
+            return;
+        }
         // Solid black with a subtle green radial vignette
         ctx.fillStyle = '#000000';
         ctx.fillRect(0, 0, W, H);
@@ -335,7 +340,8 @@
         lastFrame = now;
 
         const theme = document.documentElement.getAttribute('data-theme');
-        if (theme !== 'matrix' || currentMode === 'off') {
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'matrix';
+        if ((theme !== 'matrix' && !isCustomOverlay) || currentMode === 'off') {
             if (canvas) canvas.style.display = 'none';
             return;
         }
@@ -371,10 +377,11 @@
 
     function init() {
         const theme = document.documentElement.getAttribute('data-theme');
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'matrix';
         createCanvas();
         resize();
 
-        if (theme !== 'matrix') {
+        if (theme !== 'matrix' && !isCustomOverlay) {
             canvas.style.display = 'none';
         }
 
@@ -387,10 +394,11 @@
     // Theme change — show/hide canvas
     new MutationObserver(() => {
         const theme = document.documentElement.getAttribute('data-theme');
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'matrix';
         if (canvas) {
-            canvas.style.display = theme === 'matrix' ? 'block' : 'none';
+            canvas.style.display = (theme === 'matrix' || isCustomOverlay) ? 'block' : 'none';
         }
-    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-custom-overlay'] });
 
     // Sapphire state events
     window.addEventListener('sapphire-thinking', (e) => {

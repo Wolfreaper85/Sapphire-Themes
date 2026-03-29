@@ -176,11 +176,23 @@
 
     // ── 1. Background ───────────────────────────────────────
     function drawBackground() {
+        if (document.documentElement.getAttribute('data-custom-overlay') === 'prism') {
+            // Semi-transparent clear to preserve trail effect over custom bg
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillRect(0, 0, W, H);
+            ctx.globalCompositeOperation = 'source-over';
+            return;
+        }
         ctx.fillStyle = 'rgba(8, 8, 16, 0.04)';
         ctx.fillRect(0, 0, W, H);
     }
 
     function drawFullBackground() {
+        if (document.documentElement.getAttribute('data-custom-overlay') === 'prism') {
+            ctx.clearRect(0, 0, W, H);
+            return;
+        }
         ctx.fillStyle = '#080810';
         ctx.fillRect(0, 0, W, H);
     }
@@ -560,7 +572,8 @@
     let firstFrame = true;
 
     function render(timestamp) {
-        if (!canvas || !canvas.parentNode || document.documentElement.getAttribute('data-theme') !== 'prism') {
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'prism';
+        if (!canvas || !canvas.parentNode || (document.documentElement.getAttribute('data-theme') !== 'prism' && !isCustomOverlay)) {
             cleanup();
             return;
         }
@@ -637,7 +650,8 @@
 
     function onThemeChange() {
         const theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'prism') {
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'prism';
+        if (theme === 'prism' || isCustomOverlay) {
             start();
         } else {
             cleanup();
@@ -645,7 +659,7 @@
     }
 
     new MutationObserver(onThemeChange)
-        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-custom-overlay'] });
 
     window.addEventListener('resize', () => {
         resize();
@@ -688,7 +702,8 @@
     });
 
     // Initial launch
-    if (document.documentElement.getAttribute('data-theme') === 'prism') {
+    const isCustomOverlayInit = document.documentElement.getAttribute('data-custom-overlay') === 'prism';
+    if (document.documentElement.getAttribute('data-theme') === 'prism' || isCustomOverlayInit) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', start);
         } else {

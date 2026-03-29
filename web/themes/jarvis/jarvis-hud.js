@@ -175,6 +175,10 @@
 
     // ── 1. Background ─────────────────────────────────────
     function drawBackground() {
+        if (document.documentElement.getAttribute('data-custom-overlay') === 'jarvis') {
+            ctx.clearRect(0, 0, W, H);
+            return;
+        }
         ctx.fillStyle = '#04080e';
         ctx.fillRect(0, 0, W, H);
 
@@ -945,7 +949,8 @@
 
     let lastFrameTime = 0;
     function render(timestamp) {
-        if (!canvas || !canvas.parentNode || document.documentElement.getAttribute('data-theme') !== 'jarvis') {
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'jarvis';
+        if (!canvas || !canvas.parentNode || (document.documentElement.getAttribute('data-theme') !== 'jarvis' && !isCustomOverlay)) {
             cleanup();
             return;
         }
@@ -1011,7 +1016,8 @@
 
     function onThemeChange() {
         const theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'jarvis') {
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'jarvis';
+        if (theme === 'jarvis' || isCustomOverlay) {
             start();
         } else {
             cleanup();
@@ -1019,7 +1025,7 @@
     }
 
     new MutationObserver(onThemeChange)
-        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-custom-overlay'] });
 
     window.addEventListener('resize', () => {
         resize();
@@ -1042,7 +1048,8 @@
     });
 
     // Initial launch
-    if (document.documentElement.getAttribute('data-theme') === 'jarvis') {
+    const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'jarvis';
+    if (document.documentElement.getAttribute('data-theme') === 'jarvis' || isCustomOverlay) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', start);
         } else {

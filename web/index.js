@@ -673,6 +673,310 @@ const THEME_SETTINGS = {
         _applyMarauderChatStyle(currentChatStyle);
     },
 
+    custom: (panel) => {
+        const currentAccent = localStorage.getItem('custom-accent-color') || '#4a9eff';
+        const currentFont = localStorage.getItem('custom-font') || 'system';
+        const currentOverlay = localStorage.getItem('custom-overlay') || 'none';
+        const currentChatStyle = localStorage.getItem('custom-chat-style') || 'transparent';
+        const currentDim = localStorage.getItem('custom-image-dim') || '40';
+        const currentOpacity = localStorage.getItem('custom-overlay-opacity') || '70';
+        const currentBlur = localStorage.getItem('custom-blur-amount') || '12';
+        const hasImage = !!localStorage.getItem('custom-bg-image');
+
+        const fontOptions = [
+            { group: 'Sans-Serif', fonts: [
+                { value: 'system', label: 'System Default' },
+                { value: 'inter', label: 'Inter' },
+                { value: 'roboto', label: 'Roboto' },
+                { value: 'poppins', label: 'Poppins' },
+                { value: 'open-sans', label: 'Open Sans' },
+                { value: 'lato', label: 'Lato' },
+                { value: 'nunito', label: 'Nunito' },
+                { value: 'montserrat', label: 'Montserrat' },
+                { value: 'raleway', label: 'Raleway' },
+            ]},
+            { group: 'Serif', fonts: [
+                { value: 'playfair', label: 'Playfair Display' },
+                { value: 'merriweather', label: 'Merriweather' },
+                { value: 'georgia', label: 'Georgia' },
+                { value: 'lora', label: 'Lora' },
+            ]},
+            { group: 'Monospace', fonts: [
+                { value: 'monospace', label: 'Consolas' },
+                { value: 'fira-code', label: 'Fira Code' },
+                { value: 'source-code', label: 'Source Code Pro' },
+                { value: 'jetbrains', label: 'JetBrains Mono' },
+                { value: 'ubuntu-mono', label: 'Ubuntu Mono' },
+                { value: 'cascadia', label: 'Cascadia Code' },
+            ]},
+            { group: 'Fun', fonts: [
+                { value: 'comic-neue', label: 'Comic Neue' },
+                { value: 'caveat', label: 'Caveat' },
+                { value: 'pacifico', label: 'Pacifico' },
+            ]},
+        ];
+
+        const overlayOptions = [
+            { value: 'none', label: 'None' },
+            { value: 'matrix', label: 'Matrix Rain' },
+            { value: 'nexus', label: 'Nexus Network' },
+            { value: 'cosmos', label: 'Cosmos Solar' },
+            { value: 'prism', label: 'Prism Rain' },
+            { value: 'jarvis', label: 'JARVIS HUD' },
+            { value: 'ironman', label: 'Iron Man HUD' },
+            { value: 'marauder', label: "Marauder's Map" },
+        ];
+
+        panel.innerHTML = `
+            <div style="padding-top:12px; border-top:1px solid var(--border); margin-top:8px;">
+                <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">
+                    Custom Theme Settings
+                </div>
+
+                <!-- Background Image -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center;">
+                    <div class="setting-label">
+                        <label>Background Image</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">${hasImage ? 'Image loaded — click to change' : 'Select an image from your computer'}</div>
+                    </div>
+                    <div class="setting-input" style="display:flex; gap:6px; align-items:center;">
+                        <input type="file" id="ct-bg-file" accept="image/*" style="display:none;">
+                        <button id="ct-bg-btn" class="btn" style="font-size:0.8em; padding:4px 12px; cursor:pointer;">
+                            ${hasImage ? 'Change' : 'Choose'}
+                        </button>
+                        ${hasImage ? '<button id="ct-bg-clear" class="btn" style="font-size:0.8em; padding:4px 8px; cursor:pointer; color:var(--error);" title="Remove image">✕</button>' : ''}
+                    </div>
+                </div>
+
+                <!-- Image Dimming -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="ct-dim">Image Dimming</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Darken the background image</div>
+                    </div>
+                    <div class="setting-input" style="display:flex; align-items:center; gap:8px;">
+                        <input type="range" id="ct-dim" min="0" max="90" value="${currentDim}" style="width:80px; accent-color:var(--custom-accent, #4a9eff);">
+                        <span id="ct-dim-val" style="font-size:0.75em; min-width:28px; text-align:right;">${currentDim}%</span>
+                    </div>
+                </div>
+
+                <!-- Accent Color -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="ct-accent">Accent Color</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">UI color scheme and glow effects</div>
+                    </div>
+                    <div class="setting-input">
+                        <input type="color" id="ct-accent" value="${currentAccent}" style="
+                            width:36px; height:28px; border:2px solid var(--border);
+                            border-radius:4px; cursor:pointer; background:transparent;
+                            padding:0;
+                        ">
+                    </div>
+                </div>
+
+                <!-- Font -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="ct-font">Font</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">UI typeface (code blocks stay monospace)</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="ct-font" class="setting-select" style="min-width:130px;">
+                            ${fontOptions.map(group => `
+                                <optgroup label="${group.group}">
+                                    ${group.fonts.map(f => `<option value="${f.value}" ${currentFont === f.value ? 'selected' : ''}>${f.label}</option>`).join('')}
+                                </optgroup>
+                            `).join('')}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Overlay Effect -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="ct-overlay">Overlay Effect</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Animated effect over the background</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="ct-overlay" class="setting-select" style="min-width:130px;">
+                            ${overlayOptions.map(o => `<option value="${o.value}" ${currentOverlay === o.value ? 'selected' : ''}>${o.label}</option>`).join('')}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Overlay Opacity -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="ct-opacity">Overlay Opacity</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">How visible the overlay effect is</div>
+                    </div>
+                    <div class="setting-input" style="display:flex; align-items:center; gap:8px;">
+                        <input type="range" id="ct-opacity" min="10" max="100" value="${currentOpacity}" style="width:80px; accent-color:var(--custom-accent, #4a9eff);">
+                        <span id="ct-opacity-val" style="font-size:0.75em; min-width:28px; text-align:right;">${currentOpacity}%</span>
+                    </div>
+                </div>
+
+                <!-- Chat Style -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="ct-chat-style">Chat Style</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">How messages appear over the background</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="ct-chat-style" class="setting-select" style="min-width:130px;">
+                            <option value="transparent" ${currentChatStyle === 'transparent' ? 'selected' : ''}>Transparent</option>
+                            <option value="glass" ${currentChatStyle === 'glass' ? 'selected' : ''}>Frosted Glass</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Glass Blur Amount -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="ct-blur">Glass Blur</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Blur amount for frosted glass mode</div>
+                    </div>
+                    <div class="setting-input" style="display:flex; align-items:center; gap:8px;">
+                        <input type="range" id="ct-blur" min="0" max="30" value="${currentBlur}" style="width:80px; accent-color:var(--custom-accent, #4a9eff);">
+                        <span id="ct-blur-val" style="font-size:0.75em; min-width:28px; text-align:right;">${currentBlur}px</span>
+                    </div>
+                </div>
+
+                <!-- Reset to Defaults -->
+                <div style="padding:12px 0; border-top:1px solid var(--border); margin-top:4px; text-align:center;">
+                    <button id="ct-reset" class="btn" style="font-size:0.8em; padding:6px 20px; cursor:pointer; color:var(--error); border-color:var(--error-border);">
+                        Reset to Defaults
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // ── Bind events ─────────────────────────────────────
+
+        // Background image file picker
+        const fileInput = panel.querySelector('#ct-bg-file');
+        panel.querySelector('#ct-bg-btn')?.addEventListener('click', () => fileInput.click());
+
+        fileInput?.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Resize large images to avoid localStorage limits
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const img = new Image();
+                img.onload = () => {
+                    const maxDim = 1920;
+                    let w = img.width, h = img.height;
+                    if (w > maxDim || h > maxDim) {
+                        const scale = maxDim / Math.max(w, h);
+                        w = Math.round(w * scale);
+                        h = Math.round(h * scale);
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    const c = canvas.getContext('2d');
+                    c.drawImage(img, 0, 0, w, h);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                    try {
+                        localStorage.setItem('custom-bg-image', dataUrl);
+                        window.dispatchEvent(new CustomEvent('custom-image-change'));
+                        // Update help text
+                        const help = panel.querySelector('.setting-label .setting-help');
+                        if (help) help.textContent = 'Image loaded — click to change';
+                    } catch (err) {
+                        alert('Image too large for storage. Try a smaller image.');
+                    }
+                };
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Clear image
+        panel.querySelector('#ct-bg-clear')?.addEventListener('click', () => {
+            localStorage.removeItem('custom-bg-image');
+            window.dispatchEvent(new CustomEvent('custom-image-change'));
+            // Re-render settings panel
+            const settingsPanel = panel.closest('#theme-settings-panel') || panel;
+            THEME_SETTINGS.custom(settingsPanel);
+        });
+
+        // Dimming slider
+        panel.querySelector('#ct-dim')?.addEventListener('input', (e) => {
+            localStorage.setItem('custom-image-dim', e.target.value);
+            panel.querySelector('#ct-dim-val').textContent = e.target.value + '%';
+        });
+
+        // Accent color
+        panel.querySelector('#ct-accent')?.addEventListener('input', (e) => {
+            localStorage.setItem('custom-accent-color', e.target.value);
+            window.dispatchEvent(new CustomEvent('custom-accent-change', { detail: e.target.value }));
+        });
+
+        // Font
+        panel.querySelector('#ct-font')?.addEventListener('change', (e) => {
+            localStorage.setItem('custom-font', e.target.value);
+            window.dispatchEvent(new CustomEvent('custom-font-change', { detail: e.target.value }));
+        });
+
+        // Overlay
+        panel.querySelector('#ct-overlay')?.addEventListener('change', (e) => {
+            localStorage.setItem('custom-overlay', e.target.value);
+            window.dispatchEvent(new CustomEvent('custom-overlay-change', { detail: e.target.value }));
+        });
+
+        // Overlay opacity
+        panel.querySelector('#ct-opacity')?.addEventListener('input', (e) => {
+            localStorage.setItem('custom-overlay-opacity', e.target.value);
+            panel.querySelector('#ct-opacity-val').textContent = e.target.value + '%';
+            window.dispatchEvent(new CustomEvent('custom-opacity-change', { detail: e.target.value }));
+        });
+
+        // Chat style
+        panel.querySelector('#ct-chat-style')?.addEventListener('change', (e) => {
+            localStorage.setItem('custom-chat-style', e.target.value);
+            _applyCustomChatStyle(e.target.value);
+        });
+
+        // Blur slider
+        panel.querySelector('#ct-blur')?.addEventListener('input', (e) => {
+            localStorage.setItem('custom-blur-amount', e.target.value);
+            panel.querySelector('#ct-blur-val').textContent = e.target.value + 'px';
+            window.dispatchEvent(new CustomEvent('custom-blur-change', { detail: e.target.value }));
+        });
+
+        // Reset to defaults
+        panel.querySelector('#ct-reset')?.addEventListener('click', () => {
+            if (!confirm('Reset all Custom theme settings to defaults?')) return;
+
+            // Clear all custom settings from localStorage
+            const keys = [
+                'custom-bg-image', 'custom-accent-color', 'custom-font',
+                'custom-overlay', 'custom-image-dim', 'custom-overlay-opacity',
+                'custom-chat-style', 'custom-blur-amount',
+            ];
+            keys.forEach(k => localStorage.removeItem(k));
+
+            // Dispatch reset events so canvas picks up changes
+            window.dispatchEvent(new CustomEvent('custom-accent-change', { detail: '#4a9eff' }));
+            window.dispatchEvent(new CustomEvent('custom-font-change', { detail: 'system' }));
+            window.dispatchEvent(new CustomEvent('custom-image-change'));
+            window.dispatchEvent(new CustomEvent('custom-overlay-change', { detail: 'none' }));
+            window.dispatchEvent(new CustomEvent('custom-blur-change', { detail: '12' }));
+            _applyCustomChatStyle('transparent');
+
+            // Re-render settings panel
+            const settingsPanel = panel.closest('#theme-settings-panel') || panel;
+            THEME_SETTINGS.custom(settingsPanel);
+        });
+
+        // Apply current chat style
+        _applyCustomChatStyle(currentChatStyle);
+    },
+
     // Add settings for future themes here:
 };
 
@@ -705,6 +1009,10 @@ function _applyMarauderChatStyle(style) {
     document.documentElement.setAttribute('data-marauder-chat', style);
 }
 
+function _applyCustomChatStyle(style) {
+    document.documentElement.setAttribute('data-custom-chat', style);
+}
+
 // Apply saved chat styles on load and theme change
 (function() {
     function applyForTheme(theme) {
@@ -717,6 +1025,8 @@ function _applyMarauderChatStyle(style) {
         document.documentElement.removeAttribute('data-prism-chat');
         document.documentElement.removeAttribute('data-prism-accent');
         document.documentElement.removeAttribute('data-marauder-chat');
+        document.documentElement.removeAttribute('data-custom-chat');
+        document.documentElement.removeAttribute('data-custom-overlay');
 
         if (theme === 'matrix') {
             const style = localStorage.getItem('matrix-chat-style') || 'transparent';
@@ -741,6 +1051,9 @@ function _applyMarauderChatStyle(style) {
         } else if (theme === 'marauder') {
             const style = localStorage.getItem('marauder-chat-style') || 'transparent';
             document.documentElement.setAttribute('data-marauder-chat', style);
+        } else if (theme === 'custom') {
+            const style = localStorage.getItem('custom-chat-style') || 'transparent';
+            document.documentElement.setAttribute('data-custom-chat', style);
         }
     }
 

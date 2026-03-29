@@ -122,6 +122,10 @@
 
     // ── 1. Background ─────────────────────────────────────
     function drawBackground() {
+        if (document.documentElement.getAttribute('data-custom-overlay') === 'ironman') {
+            ctx.clearRect(0, 0, W, H);
+            return;
+        }
         ctx.fillStyle = '#0a0404';
         ctx.fillRect(0, 0, W, H);
 
@@ -986,7 +990,8 @@
 
     let lastFrameTime = 0;
     function render(timestamp) {
-        if (!canvas || !canvas.parentNode || document.documentElement.getAttribute('data-theme') !== 'ironman') {
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'ironman';
+        if (!canvas || !canvas.parentNode || (document.documentElement.getAttribute('data-theme') !== 'ironman' && !isCustomOverlay)) {
             cleanup();
             return;
         }
@@ -1050,7 +1055,8 @@
 
     function onThemeChange() {
         const theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'ironman') {
+        const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'ironman';
+        if (theme === 'ironman' || isCustomOverlay) {
             start();
         } else {
             cleanup();
@@ -1058,7 +1064,7 @@
     }
 
     new MutationObserver(onThemeChange)
-        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-custom-overlay'] });
 
     window.addEventListener('resize', () => {
         resize();
@@ -1079,7 +1085,8 @@
     });
 
     // Initial launch
-    if (document.documentElement.getAttribute('data-theme') === 'ironman') {
+    const isCustomOverlay = document.documentElement.getAttribute('data-custom-overlay') === 'ironman';
+    if (document.documentElement.getAttribute('data-theme') === 'ironman' || isCustomOverlay) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', start);
         } else {
