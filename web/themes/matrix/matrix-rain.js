@@ -122,6 +122,7 @@
             });
         }
 
+        const isActive = Math.random() < density;
         return {
             x: index * fontSize,
             y: scatter ? -(Math.random() * H * 2) : -(streamLen * fontSize),
@@ -129,8 +130,8 @@
             streamLen,
             chars,
             brightness: 0.5 + Math.random() * 0.5,
-            active: Math.random() < density,
-            respawnDelay: 0,
+            active: isActive,
+            respawnDelay: isActive ? 0 : Math.floor(60 + Math.random() * 180),
         };
     }
 
@@ -169,7 +170,11 @@
                 col.respawnDelay--;
                 if (col.respawnDelay <= 0) {
                     columns[i] = createColumn(i, false);
-                    columns[i].active = true;
+                    // Density controls whether column respawns active
+                    if (Math.random() >= density) {
+                        columns[i].active = false;
+                        columns[i].respawnDelay = Math.floor(30 + Math.random() * 120);
+                    }
                 }
                 continue;
             }
