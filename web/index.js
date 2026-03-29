@@ -681,6 +681,8 @@ const THEME_SETTINGS = {
         const currentDim = localStorage.getItem('custom-image-dim') || '40';
         const currentOpacity = localStorage.getItem('custom-overlay-opacity') || '70';
         const currentBlur = localStorage.getItem('custom-blur-amount') || '12';
+        const currentDensity = localStorage.getItem('custom-overlay-density') || 'medium';
+        const currentSpeed = localStorage.getItem('custom-overlay-speed') || 'normal';
         const hasImage = !!localStorage.getItem('custom-bg-image');
 
         const fontOptions = [
@@ -818,6 +820,36 @@ const THEME_SETTINGS = {
                     </div>
                 </div>
 
+                <!-- Overlay Density -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="ct-density">Overlay Density</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Amount of particles, rain, or elements</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="ct-density" class="setting-select" style="min-width:100px;">
+                            <option value="sparse" ${currentDensity === 'sparse' ? 'selected' : ''}>Sparse</option>
+                            <option value="medium" ${currentDensity === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="dense" ${currentDensity === 'dense' ? 'selected' : ''}>Dense</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Overlay Speed -->
+                <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
+                    <div class="setting-label">
+                        <label for="ct-speed">Overlay Speed</label>
+                        <div class="setting-help" style="font-size:0.75em; color:var(--text-muted);">Animation speed of the overlay effect</div>
+                    </div>
+                    <div class="setting-input">
+                        <select id="ct-speed" class="setting-select" style="min-width:100px;">
+                            <option value="slow" ${currentSpeed === 'slow' ? 'selected' : ''}>Slow</option>
+                            <option value="normal" ${currentSpeed === 'normal' ? 'selected' : ''}>Normal</option>
+                            <option value="fast" ${currentSpeed === 'fast' ? 'selected' : ''}>Fast</option>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Chat Style -->
                 <div class="setting-row" style="padding:8px 0; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);">
                     <div class="setting-label">
@@ -936,6 +968,18 @@ const THEME_SETTINGS = {
             window.dispatchEvent(new CustomEvent('custom-opacity-change', { detail: e.target.value }));
         });
 
+        // Overlay density
+        panel.querySelector('#ct-density')?.addEventListener('change', (e) => {
+            localStorage.setItem('custom-overlay-density', e.target.value);
+            window.dispatchEvent(new CustomEvent('custom-density-change', { detail: e.target.value }));
+        });
+
+        // Overlay speed
+        panel.querySelector('#ct-speed')?.addEventListener('change', (e) => {
+            localStorage.setItem('custom-overlay-speed', e.target.value);
+            window.dispatchEvent(new CustomEvent('custom-speed-change', { detail: e.target.value }));
+        });
+
         // Chat style
         panel.querySelector('#ct-chat-style')?.addEventListener('change', (e) => {
             localStorage.setItem('custom-chat-style', e.target.value);
@@ -958,6 +1002,7 @@ const THEME_SETTINGS = {
                 'custom-bg-image', 'custom-accent-color', 'custom-font',
                 'custom-overlay', 'custom-image-dim', 'custom-overlay-opacity',
                 'custom-chat-style', 'custom-blur-amount',
+                'custom-overlay-density', 'custom-overlay-speed',
             ];
             keys.forEach(k => localStorage.removeItem(k));
 
@@ -967,6 +1012,8 @@ const THEME_SETTINGS = {
             window.dispatchEvent(new CustomEvent('custom-image-change'));
             window.dispatchEvent(new CustomEvent('custom-overlay-change', { detail: 'none' }));
             window.dispatchEvent(new CustomEvent('custom-blur-change', { detail: '12' }));
+            window.dispatchEvent(new CustomEvent('custom-density-change', { detail: 'medium' }));
+            window.dispatchEvent(new CustomEvent('custom-speed-change', { detail: 'normal' }));
             _applyCustomChatStyle('transparent');
 
             // Re-render settings panel

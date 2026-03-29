@@ -29,6 +29,10 @@
     let W = 0, H = 0;
     let tick = 0;
 
+    // Custom overlay speed multiplier
+    const CUSTOM_SPEED_MAP = { slow: 0.5, normal: 1.0, fast: 1.8 };
+    let customSpeedMult = CUSTOM_SPEED_MAP[localStorage.getItem('custom-overlay-speed') || 'normal'];
+
     const COLORS = {
         blue:     { r: 0,   g: 168, b: 255 },
         cyan:     { r: 0,   g: 224, b: 255 },
@@ -962,7 +966,7 @@
         }
         lastFrameTime = timestamp;
 
-        tick++;
+        tick += (document.documentElement.getAttribute('data-custom-overlay') ? customSpeedMult : 1);
 
         ctx.clearRect(0, 0, W, H);
 
@@ -1045,6 +1049,11 @@
         initDataNodes();
         initCircuits();
         initParticles();
+    });
+
+    // Custom overlay speed change
+    window.addEventListener('custom-speed-change', (e) => {
+        customSpeedMult = CUSTOM_SPEED_MAP[e.detail] || 1.0;
     });
 
     // Initial launch

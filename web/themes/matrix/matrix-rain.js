@@ -88,8 +88,10 @@
     const DENSITY_MAP = { sparse: 0.4, medium: 0.7, dense: 1.0 };
     const SPEED_MAP   = { slow: 0.5, normal: 1.0, fast: 1.8 };
 
-    let density = DENSITY_MAP[localStorage.getItem('matrix-rain-density') || 'medium'];
-    let speed   = SPEED_MAP[localStorage.getItem('matrix-rain-speed') || 'normal'];
+    // Use custom overlay settings if running as custom overlay, else matrix-specific
+    const _isCustom = document.documentElement.getAttribute('data-custom-overlay') === 'matrix';
+    let density = DENSITY_MAP[localStorage.getItem(_isCustom ? 'custom-overlay-density' : 'matrix-rain-density') || 'medium'];
+    let speed   = SPEED_MAP[localStorage.getItem(_isCustom ? 'custom-overlay-speed' : 'matrix-rain-speed') || 'normal'];
 
     // ── Column State ──────────────────────────────────────────
     let columns = [];
@@ -442,6 +444,19 @@
     });
 
     window.addEventListener('lattice-mode-change', () => {}); // ignore lattice events
+
+    // Custom overlay density/speed — map generic events to matrix-specific system
+    window.addEventListener('custom-density-change', (e) => {
+        if (document.documentElement.getAttribute('data-custom-overlay') === 'matrix') {
+            density = DENSITY_MAP[e.detail] || DENSITY_MAP.medium;
+            initColumns();
+        }
+    });
+    window.addEventListener('custom-speed-change', (e) => {
+        if (document.documentElement.getAttribute('data-custom-overlay') === 'matrix') {
+            speed = SPEED_MAP[e.detail] || SPEED_MAP.normal;
+        }
+    });
 
     // ── Init ──────────────────────────────────────────────────
     if (document.readyState === 'loading') {

@@ -25,6 +25,12 @@
     let tick = 0;
     let scale = 1;
 
+    // Custom overlay speed/density multipliers
+    const CUSTOM_SPEED_MAP = { slow: 0.5, normal: 1.0, fast: 1.8 };
+    let customSpeedMult = CUSTOM_SPEED_MAP[localStorage.getItem('custom-overlay-speed') || 'normal'];
+    const CUSTOM_DENSITY_MAP = { sparse: 0.5, medium: 1.0, dense: 1.5 };
+    let customDensityMult = CUSTOM_DENSITY_MAP[localStorage.getItem('custom-overlay-density') || 'medium'];
+
     // Mouse tracking (document-level since canvas is pointer-events:none)
     let mouseX = -9999, mouseY = -9999;
 
@@ -90,7 +96,8 @@
     // ── Initialize dynamic elements ───────────────────────
     function initStars() {
         stars = [];
-        const count = effectiveTier === 'low' ? 150 : effectiveTier === 'medium' ? 300 : 400;
+        const baseCount = effectiveTier === 'low' ? 150 : effectiveTier === 'medium' ? 300 : 400;
+        const count = Math.round(baseCount * (document.documentElement.getAttribute('data-custom-overlay') ? customDensityMult : 1));
         for (let i = 0; i < count; i++) {
             stars.push({
                 x: Math.random() * W,
@@ -621,7 +628,7 @@
         }
         lastFrameTime = timestamp;
 
-        tick++;
+        tick += (document.documentElement.getAttribute('data-custom-overlay') ? customSpeedMult : 1);
 
         ctx.clearRect(0, 0, W, H);
 
@@ -705,6 +712,17 @@
     window.addEventListener('cosmos-perf-change', (e) => {
         perfTier = e.detail;
         detectPerformance();
+        initStars();
+        initNebulae();
+        initAsteroids();
+    });
+
+    // Custom overlay speed/density change
+    window.addEventListener('custom-speed-change', (e) => {
+        customSpeedMult = CUSTOM_SPEED_MAP[e.detail] || 1.0;
+    });
+    window.addEventListener('custom-density-change', (e) => {
+        customDensityMult = CUSTOM_DENSITY_MAP[e.detail] || 1.0;
         initStars();
         initNebulae();
         initAsteroids();

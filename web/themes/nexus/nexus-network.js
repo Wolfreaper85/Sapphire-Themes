@@ -13,6 +13,12 @@
     let W = 0, H = 0;
     let tick = 0;
 
+    // Custom overlay speed/density multipliers
+    const CUSTOM_SPEED_MAP = { slow: 0.5, normal: 1.0, fast: 1.8 };
+    let customSpeedMult = CUSTOM_SPEED_MAP[localStorage.getItem('custom-overlay-speed') || 'normal'];
+    const CUSTOM_DENSITY_MAP = { sparse: 0.5, medium: 1.0, dense: 1.5 };
+    let customDensityMult = CUSTOM_DENSITY_MAP[localStorage.getItem('custom-overlay-density') || 'medium'];
+
     // Network state
     let points = [];
     let stars = [];
@@ -85,7 +91,11 @@
 
     // ── Grid Divisor per Tier ───────────────────────────────
     function getGridDivisor() {
-        return effectiveTier === 'low' ? 15 : 20;
+        var base = effectiveTier === 'low' ? 15 : 20;
+        if (document.documentElement.getAttribute('data-custom-overlay') && customDensityMult > 0) {
+            return Math.max(8, Math.round(base / customDensityMult));
+        }
+        return base;
     }
 
     // ── Assign New Tween Target ─────────────────────────────
@@ -170,7 +180,8 @@
     // ── Initialize Stars ────────────────────────────────────
     function initStars() {
         stars = [];
-        var count = effectiveTier === 'low' ? 40 : effectiveTier === 'medium' ? 60 : 80;
+        var baseCount = effectiveTier === 'low' ? 40 : effectiveTier === 'medium' ? 60 : 80;
+        var count = Math.round(baseCount * (document.documentElement.getAttribute('data-custom-overlay') ? customDensityMult : 1));
         for (var i = 0; i < count; i++) {
             stars.push({
                 x: Math.random() * W,
@@ -375,7 +386,7 @@
         }
         lastFrameTime = timestamp;
 
-        tick++;
+        tick += (document.documentElement.getAttribute('data-custom-overlay') ? customSpeedMult : 1);
         if (isThinking) thinkingTick++;
         if (isSpeaking) speakingTick++;
 
@@ -522,6 +533,18 @@
             initPoints();
             initStars();
             initPulses();
+        }
+    });
+
+    // Custom overlay speed/density change
+    window.addEventListener('custom-speed-change', function(e) {
+        customSpeedMult = CUSTOM_SPEED_MAP[e.detail] || 1.0;
+    });
+    window.addEventListener('custom-density-change', function(e) {
+        customDensityMult = CUSTOM_DENSITY_MAP[e.detail] || 1.0;
+        if (canvas) {
+            initPoints();
+            initStars();
         }
     });
 

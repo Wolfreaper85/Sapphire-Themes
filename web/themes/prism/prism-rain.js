@@ -21,6 +21,10 @@
     let W = 0, H = 0;
     let tick = 0;
 
+    // Custom overlay speed multiplier
+    const CUSTOM_SPEED_MAP = { slow: 0.5, normal: 1.0, fast: 1.8 };
+    let customSpeedMult = CUSTOM_SPEED_MAP[localStorage.getItem('custom-overlay-speed') || 'normal'];
+
     // State
     let isThinking = false;
     let thinkingTick = 0;
@@ -585,7 +589,7 @@
         }
         lastFrameTime = timestamp;
 
-        tick++;
+        tick += (document.documentElement.getAttribute('data-custom-overlay') ? customSpeedMult : 1);
 
         // First frame: full opaque background to avoid flash
         if (firstFrame) {
@@ -699,6 +703,11 @@
             if (val !== 'rainbow') accentHue = HUE_MAP[val];
             updateColumnHues();
         }
+    });
+
+    // Custom overlay speed change
+    window.addEventListener('custom-speed-change', (e) => {
+        customSpeedMult = CUSTOM_SPEED_MAP[e.detail] || 1.0;
     });
 
     // Initial launch

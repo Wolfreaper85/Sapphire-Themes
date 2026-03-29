@@ -20,6 +20,12 @@
     let W = 0, H = 0;
     let tick = 0;
 
+    // Custom overlay speed/density multipliers
+    const CUSTOM_SPEED_MAP = { slow: 0.5, normal: 1.0, fast: 1.8 };
+    let customSpeedMult = CUSTOM_SPEED_MAP[localStorage.getItem('custom-overlay-speed') || 'normal'];
+    const CUSTOM_DENSITY_MAP = { sparse: 0.5, medium: 1.0, dense: 1.5 };
+    let customDensityMult = CUSTOM_DENSITY_MAP[localStorage.getItem('custom-overlay-density') || 'medium'];
+
     // ── Constants ─────────────────────────────────────────
     const PARCHMENT_FALLBACK = '#2a1f14';
     const SERIF_FONT = 'Georgia, "Palatino Linotype", serif';
@@ -130,7 +136,8 @@
             { name: 'Fred & George', speed: 0.7 },
         ];
 
-        const count = effectiveTier === 'low' ? 3 : effectiveTier === 'medium' ? 5 : 6;
+        const baseCount = effectiveTier === 'low' ? 3 : effectiveTier === 'medium' ? 5 : 6;
+        const count = Math.min(walkerDefs.length, Math.round(baseCount * (document.documentElement.getAttribute('data-custom-overlay') ? customDensityMult : 1)));
 
         for (let i = 0; i < count; i++) {
             const def = walkerDefs[i];
@@ -674,7 +681,7 @@
         const dt = Math.min(3, (timestamp - lastFrameTime) / frameInterval);
         lastFrameTime = timestamp;
 
-        tick++;
+        tick += (document.documentElement.getAttribute('data-custom-overlay') ? customSpeedMult : 1);
 
         // Update dynamic elements
         updateWalkers(dt);
@@ -819,6 +826,18 @@
         initWalkers();
         initFlourishes();
         initInkDrips();
+    });
+
+    // Custom overlay speed/density change
+    window.addEventListener('custom-speed-change', (e) => {
+        customSpeedMult = CUSTOM_SPEED_MAP[e.detail] || 1.0;
+    });
+    window.addEventListener('custom-density-change', (e) => {
+        customDensityMult = CUSTOM_DENSITY_MAP[e.detail] || 1.0;
+        if (canvas) {
+            initWalkers();
+            initInkDrips();
+        }
     });
 
     // Initial launch
