@@ -341,10 +341,18 @@
 
     animId = requestAnimationFrame(drawFrame);
 
-    // Load saved overlay
-    const savedOverlay = localStorage.getItem('custom-overlay') || 'none';
-    if (savedOverlay !== 'none') {
-        setTimeout(() => loadOverlay(savedOverlay), 100);
+    // Load saved overlay — wait for DOM to be fully ready
+    function autoLoadOverlay() {
+        const savedOverlay = localStorage.getItem('custom-overlay') || 'none';
+        if (savedOverlay !== 'none') {
+            loadOverlay(savedOverlay);
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        setTimeout(autoLoadOverlay, 200);
+    } else {
+        window.addEventListener('load', () => setTimeout(autoLoadOverlay, 300));
     }
 
     // ── Event listeners for settings changes ────────────────
