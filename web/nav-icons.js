@@ -34,6 +34,7 @@
         'mind': 'mind',
         'settings': 'settings',
         'help': 'help',
+        'apps': 'apps',
         'mc-apps': 'apps',
         'mission-control': 'mission'
     };
