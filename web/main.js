@@ -550,6 +550,120 @@
         },
     };
 
+    // ── Extended Fonts — inject into Visual settings page ──────
+    // Sapphire uses [data-font] → --font-body CSS vars. We inject
+    // additional font options + matching CSS rules from our plugin.
+
+    const EXTENDED_FONTS = [
+        { group: 'Sans-Serif', fonts: [
+            { value: 'inter', label: 'Inter', family: "'Inter', system-ui, sans-serif", google: 'Inter' },
+            { value: 'roboto', label: 'Roboto', family: "'Roboto', system-ui, sans-serif", google: 'Roboto' },
+            { value: 'poppins', label: 'Poppins', family: "'Poppins', system-ui, sans-serif", google: 'Poppins' },
+            { value: 'open-sans', label: 'Open Sans', family: "'Open Sans', system-ui, sans-serif", google: 'Open+Sans' },
+            { value: 'lato', label: 'Lato', family: "'Lato', system-ui, sans-serif", google: 'Lato' },
+            { value: 'nunito', label: 'Nunito', family: "'Nunito', system-ui, sans-serif", google: 'Nunito' },
+            { value: 'montserrat', label: 'Montserrat', family: "'Montserrat', system-ui, sans-serif", google: 'Montserrat' },
+            { value: 'raleway', label: 'Raleway', family: "'Raleway', system-ui, sans-serif", google: 'Raleway' },
+        ]},
+        { group: 'Serif', fonts: [
+            { value: 'playfair', label: 'Playfair Display', family: "'Playfair Display', Georgia, serif", google: 'Playfair+Display' },
+            { value: 'merriweather', label: 'Merriweather', family: "'Merriweather', Georgia, serif", google: 'Merriweather' },
+            { value: 'lora', label: 'Lora', family: "'Lora', Georgia, serif", google: 'Lora' },
+        ]},
+        { group: 'Monospace', fonts: [
+            { value: 'fira-code', label: 'Fira Code', family: "'Fira Code', 'Consolas', monospace", google: 'Fira+Code' },
+            { value: 'source-code', label: 'Source Code Pro', family: "'Source Code Pro', 'Consolas', monospace", google: 'Source+Code+Pro' },
+            { value: 'jetbrains', label: 'JetBrains Mono', family: "'JetBrains Mono', 'Consolas', monospace", google: 'JetBrains+Mono' },
+            { value: 'ubuntu-mono', label: 'Ubuntu Mono', family: "'Ubuntu Mono', 'Consolas', monospace", google: 'Ubuntu+Mono' },
+            { value: 'cascadia', label: 'Cascadia Code', family: "'Cascadia Code', 'Consolas', monospace", google: 'Cascadia+Code' },
+        ]},
+        { group: 'Fun', fonts: [
+            { value: 'comic-neue', label: 'Comic Neue', family: "'Comic Neue', 'Comic Sans MS', cursive", google: 'Comic+Neue' },
+            { value: 'caveat', label: 'Caveat', family: "'Caveat', cursive", google: 'Caveat' },
+            { value: 'pacifico', label: 'Pacifico', family: "'Pacifico', cursive", google: 'Pacifico' },
+        ]},
+    ];
+
+    // 1. Inject CSS rules: [data-font="inter"] { --font-body: ... }
+    (function injectFontCSS() {
+        if (document.getElementById('themes-extended-fonts-css')) return;
+        var css = '';
+        EXTENDED_FONTS.forEach(function(group) {
+            group.fonts.forEach(function(f) {
+                css += '[data-font="' + f.value + '"] { --font-body: ' + f.family + '; --font-heading: var(--font-body); }\n';
+            });
+        });
+        var style = document.createElement('style');
+        style.id = 'themes-extended-fonts-css';
+        style.textContent = css;
+        document.head.appendChild(style);
+    })();
+
+    // 2. Load Google Font on demand
+    var loadedGoogleFonts = {};
+    function loadGoogleFont(fontValue) {
+        if (loadedGoogleFonts[fontValue]) return;
+        var googleName = null;
+        EXTENDED_FONTS.forEach(function(group) {
+            group.fonts.forEach(function(f) {
+                if (f.value === fontValue) googleName = f.google;
+            });
+        });
+        if (!googleName) return;
+        var linkId = 'google-font-' + fontValue;
+        if (document.getElementById(linkId)) { loadedGoogleFonts[fontValue] = true; return; }
+        var link = document.createElement('link');
+        link.id = linkId;
+        link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css2?family=' + googleName + ':wght@300;400;500;600;700&display=swap';
+        document.head.appendChild(link);
+        loadedGoogleFonts[fontValue] = true;
+    }
+
+    // 3. Apply saved font on startup (if it's one of ours)
+    (function applyStartupFont() {
+        var saved = localStorage.getItem('sapphire-font');
+        if (!saved) return;
+        var isOurs = false;
+        EXTENDED_FONTS.forEach(function(group) {
+            group.fonts.forEach(function(f) {
+                if (f.value === saved) isOurs = true;
+            });
+        });
+        if (isOurs) loadGoogleFont(saved);
+    })();
+
+    // 4. Inject our font options into #app-font select when settings page renders
+    function injectFontOptions() {
+        var select = document.getElementById('app-font');
+        if (!select || select.dataset.themesExtended) return;
+        select.dataset.themesExtended = 'true';
+
+        // Add a separator and our grouped options
+        EXTENDED_FONTS.forEach(function(group) {
+            var optgroup = document.createElement('optgroup');
+            optgroup.label = group.group;
+            group.fonts.forEach(function(f) {
+                var opt = document.createElement('option');
+                opt.value = f.value;
+                opt.textContent = f.label;
+                if (localStorage.getItem('sapphire-font') === f.value) opt.selected = true;
+                optgroup.appendChild(opt);
+            });
+            select.appendChild(optgroup);
+        });
+
+        // Hook change to load Google Font when our font is selected
+        select.addEventListener('change', function() {
+            loadGoogleFont(select.value);
+        });
+    }
+
+    // Watch for settings page rendering (the select is created dynamically)
+    new MutationObserver(function() {
+        injectFontOptions();
+    }).observe(document.body, { childList: true, subtree: true });
+
     // ── Random Theme on Startup ───────────────────────────────
     function applyRandomThemeIfEnabled() {
         const enabled = localStorage.getItem('sapphire-random-enabled') === 'true';
