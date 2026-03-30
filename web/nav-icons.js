@@ -67,7 +67,7 @@
             return;
         }
 
-        var navItems = document.querySelectorAll('#nav-rail .nav-item, #nav-rail .nav-group-parent');
+        var navItems = document.querySelectorAll('#nav-rail .nav-item');
         for (var i = 0; i < navItems.length; i++) {
             var item = navItems[i];
             var view = item.getAttribute('data-view');
@@ -114,7 +114,7 @@
     // Count nav items that should have icons vs how many we've applied
     function hasUnappliedIcons() {
         if (!isOurTheme()) return false;
-        var navItems = document.querySelectorAll('#nav-rail .nav-item, #nav-rail .nav-group-parent');
+        var navItems = document.querySelectorAll('#nav-rail .nav-item');
         for (var i = 0; i < navItems.length; i++) {
             var view = navItems[i].getAttribute('data-view');
             if (!VIEW_MAP[view]) continue;

@@ -401,6 +401,141 @@
         }).catch(function() {});
     }
 
+    // ── Declarative settings for the Visual settings page ────
+    // The appearance tab reads these via getSettings(id) and renders
+    // native controls. Values are stored in localStorage and dispatched
+    // via 'sapphire-theme-setting' events which we bridge below.
+
+    const chatStyleSetting = function(prefix, helpText) {
+        return { key: prefix + '-chat-style', label: 'Chat Style', help: helpText || 'How messages appear over the background', type: 'select', default: 'transparent', options: [
+            { value: 'transparent', label: 'Transparent' },
+            { value: 'glass', label: 'Frosted Glass' },
+        ]};
+    };
+
+    const perfSetting = function(prefix) {
+        return { key: prefix + '-perf-tier', label: 'Performance Tier', help: 'Lower tiers reduce GPU usage', type: 'select', default: 'auto', options: [
+            { value: 'auto', label: 'Auto-detect' },
+            { value: 'low', label: 'Low' },
+            { value: 'medium', label: 'Medium' },
+            { value: 'high', label: 'High' },
+        ]};
+    };
+
+    const THEME_SETTINGS_SCHEMA = {
+        matrix: [
+            chatStyleSetting('matrix', 'How messages appear over the rain'),
+            { key: 'matrix-rain-density', label: 'Rain Density', help: 'Number of falling columns', type: 'select', default: 'medium', options: [
+                { value: 'sparse', label: 'Sparse' }, { value: 'medium', label: 'Medium' }, { value: 'dense', label: 'Dense' },
+            ]},
+            { key: 'matrix-rain-speed', label: 'Rain Speed', help: 'How fast characters fall', type: 'select', default: 'normal', options: [
+                { value: 'slow', label: 'Slow' }, { value: 'normal', label: 'Normal' }, { value: 'fast', label: 'Fast' },
+            ]},
+            perfSetting('matrix'),
+        ],
+        jarvis: [
+            chatStyleSetting('jarvis', 'How messages appear over the HUD'),
+            perfSetting('jarvis'),
+        ],
+        ironman: [
+            chatStyleSetting('ironman', 'How messages appear over the HUD'),
+            perfSetting('ironman'),
+        ],
+        nexus: [
+            chatStyleSetting('nexus', 'How messages appear over the network'),
+            perfSetting('nexus'),
+        ],
+        cosmos: [
+            chatStyleSetting('cosmos', 'How messages appear over the solar system'),
+            perfSetting('cosmos'),
+        ],
+        prism: [
+            { key: 'prism-accent', label: 'Accent Color', help: 'UI and rain color scheme', type: 'select', default: 'rainbow', options: [
+                { value: 'rainbow', label: 'Rainbow' }, { value: 'red', label: 'Red' },
+                { value: 'orange', label: 'Orange' }, { value: 'gold', label: 'Gold' },
+                { value: 'green', label: 'Green' }, { value: 'blue', label: 'Blue' },
+                { value: 'purple', label: 'Purple' }, { value: 'pink', label: 'Pink' },
+                { value: 'cyan', label: 'Cyan' },
+            ]},
+            chatStyleSetting('prism', 'How messages appear over the rain'),
+            perfSetting('prism'),
+        ],
+        marauder: [
+            chatStyleSetting('marauder', 'How messages appear over the map'),
+            { key: 'marauder-show-names', label: 'Show Names', help: 'Display character names next to footprints', type: 'select', default: 'true', options: [
+                { value: 'true', label: 'Show' }, { value: 'false', label: 'Hide' },
+            ]},
+            perfSetting('marauder'),
+        ],
+        custom: [
+            { key: 'custom-overlay', label: 'Overlay Effect', help: 'Animated overlay from any theme', type: 'select', default: 'none', options: [
+                { value: 'none', label: 'None' }, { value: 'matrix', label: 'Matrix Rain' },
+                { value: 'nexus', label: 'Nexus Network' }, { value: 'cosmos', label: 'Cosmos' },
+                { value: 'prism', label: 'Prism Rain' }, { value: 'jarvis', label: 'JARVIS HUD' },
+                { value: 'ironman', label: 'Iron Man HUD' }, { value: 'marauder', label: "Marauder's Map" },
+                { value: 'lattice', label: 'Lattice Grid' },
+            ]},
+            chatStyleSetting('custom', 'How messages appear over your background'),
+            { key: 'custom-image-dim', label: 'Image Dimming', help: 'Darken background image', type: 'range', default: '40', min: 0, max: 100, step: 5 },
+            { key: 'custom-overlay-opacity', label: 'Overlay Opacity', help: 'Transparency of overlay effect', type: 'range', default: '70', min: 0, max: 100, step: 5 },
+            { key: 'custom-overlay-density', label: 'Overlay Density', help: 'Amount of overlay particles/columns', type: 'select', default: 'medium', options: [
+                { value: 'sparse', label: 'Sparse' }, { value: 'medium', label: 'Medium' }, { value: 'dense', label: 'Dense' },
+            ]},
+            { key: 'custom-overlay-speed', label: 'Overlay Speed', help: 'Animation speed of overlay effect', type: 'select', default: 'normal', options: [
+                { value: 'slow', label: 'Slow' }, { value: 'normal', label: 'Normal' }, { value: 'fast', label: 'Fast' },
+            ]},
+            { key: 'custom-blur-amount', label: 'Glass Blur', help: 'Blur intensity for frosted glass chat', type: 'range', default: '12', min: 2, max: 30, step: 1 },
+        ],
+    };
+
+    // ── Event bridge: Visual page → theme-specific events ────
+    // The Visual settings page dispatches 'sapphire-theme-setting'
+    // with { key, value }. We translate that into the specific events
+    // each theme script expects for live updates.
+    const SETTING_EVENT_MAP = {
+        'matrix-rain-density':   'matrix-density-change',
+        'matrix-rain-speed':     'matrix-speed-change',
+        'matrix-perf-tier':      'matrix-perf-change',
+        'jarvis-perf-tier':      'jarvis-perf-change',
+        'ironman-perf-tier':     'ironman-perf-change',
+        'nexus-perf-tier':       'nexus-perf-change',
+        'cosmos-perf-tier':      'cosmos-perf-change',
+        'prism-accent':          'prism-accent-change',
+        'prism-perf-tier':       'prism-perf-change',
+        'marauder-show-names':   'marauder-names-change',
+        'marauder-perf-tier':    'marauder-perf-change',
+        'custom-overlay':        'custom-overlay-change',
+        'custom-overlay-opacity':'custom-opacity-change',
+        'custom-overlay-density':'custom-density-change',
+        'custom-overlay-speed':  'custom-speed-change',
+        'custom-blur-amount':    'custom-blur-change',
+        'custom-image-dim':      'custom-dim-change',
+    };
+
+    // Chat style keys need a data-attribute set on <html>
+    const CHAT_STYLE_KEYS = [
+        'matrix-chat-style', 'jarvis-chat-style', 'ironman-chat-style',
+        'nexus-chat-style', 'cosmos-chat-style', 'prism-chat-style',
+        'marauder-chat-style', 'custom-chat-style',
+    ];
+
+    window.addEventListener('sapphire-theme-setting', function(e) {
+        var key = e.detail && e.detail.key;
+        var value = e.detail && e.detail.value;
+        if (!key) return;
+
+        // Bridge to theme-specific event
+        var eventName = SETTING_EVENT_MAP[key];
+        if (eventName) {
+            window.dispatchEvent(new CustomEvent(eventName, { detail: value }));
+        }
+
+        // Prism accent also sets data attribute
+        if (key === 'prism-accent') {
+            document.documentElement.setAttribute('data-prism-accent', value);
+        }
+    });
+
     // Expose for settings UI
     window.sapphireThemes = {
         getAll: function() { return allThemes; },
@@ -409,6 +544,9 @@
         activate: activateTheme,
         getCurrent: function() {
             return document.documentElement.getAttribute('data-theme') || 'dark';
+        },
+        getSettings: function(themeId) {
+            return THEME_SETTINGS_SCHEMA[themeId] || [];
         },
     };
 
