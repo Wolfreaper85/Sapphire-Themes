@@ -535,7 +535,6 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 255, 70, 0.05);
 }
 
-[data-theme="matrix"] .nav-flyout,
 [data-theme="matrix"] .nav-overflow-menu {
     position: relative;
     z-index: var(--z-nav);

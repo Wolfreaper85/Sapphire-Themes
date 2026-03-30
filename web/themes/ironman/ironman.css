@@ -502,7 +502,6 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(204, 0, 0, 0.04);
 }
 
-[data-theme="ironman"] .nav-flyout,
 [data-theme="ironman"] .nav-overflow-menu {
     position: relative;
     z-index: var(--z-nav);

@@ -502,7 +502,6 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(156, 217, 249, 0.04);
 }
 
-[data-theme="nexus"] .nav-flyout,
 [data-theme="nexus"] .nav-overflow-menu {
     position: relative;
     z-index: var(--z-nav);

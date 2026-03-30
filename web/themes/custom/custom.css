@@ -487,7 +487,6 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 15px var(--custom-accent-light, rgba(74, 158, 255, 0.05));
 }
 
-[data-theme="custom"] .nav-flyout,
 [data-theme="custom"] .nav-overflow-menu {
     position: relative;
     z-index: var(--z-nav);
