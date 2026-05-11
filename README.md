@@ -1,6 +1,6 @@
 # Sapphire Themes
 
-Visual theme manager for [Sapphire AI](https://github.com/Wolfreaper85) with bundled animated themes, a one-click visual picker, per-theme settings, and auto-detection of external theme plugins.
+Visual theme manager for [Sapphire AI](https://gitlab.com/Wolfreaper85) with bundled animated themes, a one-click visual picker, per-theme settings, and auto-detection of external theme plugins.
 
 ## Bundled themes
 
@@ -34,7 +34,7 @@ Drop the `sapphire-themes` folder into your Sapphire `plugins/` directory and re
 
 ## Requirements
 
-- [Sapphire AI](https://github.com/Wolfreaper85)
+- [Sapphire AI](https://gitlab.com/Wolfreaper85)
 - A modern browser running Sapphire's web UI (Canvas 2D + ES6 modules)
 
 ## How it works
@@ -72,7 +72,7 @@ my-theme-plugin/
 
 When loaded, your theme appears alongside the bundled ones in the picker. No fork of `sapphire-themes` needed.
 
-The reference implementation for an external theme is [Sapphire-Lattice](https://github.com/Wolfreaper85) — it bundles a single theme using the same architecture and ships separately so users only install what they want.
+The reference implementation for an external theme is [Sapphire-Lattice](https://gitlab.com/Wolfreaper85) — it bundles a single theme using the same architecture and ships separately so users only install what they want.
 
 ## Theme structure (bundled)
 
@@ -99,4 +99,4 @@ AGPL-3.0 (matches Sapphire core; bundled themes inherit)
 
 ## Author
 
-Built by [Sapphire Community](https://github.com/Wolfreaper85) with contributions from Wolfreaper85 and Claude.
+Built by [Sapphire Community](https://gitlab.com/Wolfreaper85) with contributions from Wolfreaper85 and Claude.
